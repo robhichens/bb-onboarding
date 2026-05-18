@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — Bright Beginnings Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+<style>
+:root {
+  --navy:   #1a1a2e;
+  --orange: #FF6B35;
+  --teal:   #4ECDC4;
+  --cream:  #F5F0E8;
+  --purple: #9B59B6;
+  --white:  #ffffff;
+  --text:   #333333;
+  --muted:  #777777;
+  --green:  #2ecc71;
+  --red:    #e74c3c;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+button { font-family: inherit; cursor: pointer; border: none; outline: none; }
+a { text-decoration: none; }
+
+/* NAV */
+.topnav {
+  background: var(--navy);
+  padding: 14px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.topnav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--white);
+}
+.topnav-logo {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--orange), var(--teal));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  color: var(--white);
+  font-size: 18px;
+}
+.topnav-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--white);
+}
+.topnav-sub {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-top: 1px;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.nav-email {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+}
+.nav-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.1);
+  transition: all 0.2s;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.18); color: var(--white); }
+
+/* LOADING / GATE */
+.gate {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--muted);
+}
+.gate-icon {
+  font-size: 48px;
+}
+.gate h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: var(--navy);
+}
+.gate p { font-size: 15px; color: var(--muted); }
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid rgba(26,26,46,0.15);
+  border-top-color: var(--orange);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* PAGE */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+}
+.page-header {
+  margin-bottom: 32px;
+}
+.page-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 6px;
+}
+.page-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 36px;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.page-sub { font-size: 15px; color: var(--muted); }
+
+/* SUMMARY CARDS */
+.summary-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.stat-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 24px 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* TABLE */
+.table-wrap {
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  overflow-x: auto;
+}
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #f0ebe0;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.table-toolbar-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--navy);
+}
+.export-btn {
+  padding: 8px 18px;
+  background: var(--navy);
+  color: var(--white);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.export-btn:hover { background: #2a2a4e; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+thead th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: #faf8f4;
+  border-bottom: 1px solid #f0ebe0;
+  white-space: nowrap;
+}
+tbody tr {
+  border-bottom: 1px solid #f7f4ef;
+  transition: background 0.15s;
+}
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #faf8f4; }
+td {
+  padding: 14px 16px;
+  vertical-align: middle;
+}
+.td-email {
+  font-weight: 600;
+  color: var(--navy);
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.td-date {
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* MODULE CELLS */
+.mod-cell {
+  text-align: center;
+}
+.mod-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+}
+.mod-badge.complete  { background: #d1fae5; color: #065f46; }
+.mod-badge.partial   { background: #fef9c3; color: #713f12; }
+.mod-badge.none      { background: #f3f4f6; color: #9ca3af; }
+
+/* OVERALL PILL */
+.overall-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.overall-pill.high   { background: #d1fae5; color: #065f46; }
+.overall-pill.mid    { background: #fef9c3; color: #713f12; }
+.overall-pill.low    { background: #fee2e2; color: #991b1b; }
+.overall-pill.zero   { background: #f3f4f6; color: #6b7280; }
+
+/* ROLE BADGE */
+.role-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.role-badge.admin { background: #ede9fe; color: #6d28d9; }
+.role-badge.staff { background: #e0f2fe; color: #0369a1; }
+
+@media (max-width: 768px) {
+  .topnav { padding: 12px 20px; }
+  .page { padding: 24px 16px 60px; }
+  .page-title { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-brand">
+    <div class="topnav-logo">B</div>
+    <div>
+      <div class="topnav-name">Bright Beginnings</div>
+      <div class="topnav-sub">Admin Panel</div>
+    </div>
+  </div>
+  <div class="nav-actions">
+    <span class="nav-email" id="nav-email"></span>
+    <a href="index.html" class="nav-btn">← Back to App</a>
+    <button class="nav-btn" onclick="doSignOut()">Sign Out</button>
+  </div>
+</nav>
+
+<div id="gate" class="gate">
+  <div class="spinner"></div>
+  <p>Checking access…</p>
+</div>
+
+<div id="admin-panel" style="display:none">
+  <div class="page">
+    <div class="page-header">
+      <div class="page-eyebrow">Dashboard</div>
+      <h1 class="page-title">Onboarding Overview</h1>
+      <p class="page-sub">Track every staff member's progress through the five onboarding modules.</p>
+    </div>
+
+    <div class="summary-row" id="summary-row">
+      <!-- filled by JS -->
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-toolbar">
+        <span class="table-toolbar-title" id="table-title">Staff Progress</span>
+        <button class="export-btn" onclick="exportCSV()">Export CSV</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Staff Email</th>
+            <th>Role</th>
+            <th style="text-align:center">Culture</th>
+            <th style="text-align:center">Connection</th>
+            <th style="text-align:center">Compensation</th>
+            <th style="text-align:center">Compliance</th>
+            <th style="text-align:center">Curriculum</th>
+            <th style="text-align:center">Overall</th>
+            <th>Last Active</th>
+          </tr>
+        </thead>
+        <tbody id="staff-tbody">
+          <!-- filled by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+firebase.initializeApp({
+  apiKey: "AIzaSyBRcre3oThEMJMzJZ4Pl3Rm5js1owoWhn8",
+  authDomain: "bb-onboarding-e5d3f.firebaseapp.com",
+  projectId: "bb-onboarding-e5d3f",
+  storageBucket: "bb-onboarding-e5d3f.firebasestorage.app",
+  messagingSenderId: "437558384228",
+  appId: "1:437558384228:web:bf759a662d492a3281f171"
+});
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+const MODULE_DEFS = [
+  { id: 'culture',      title: 'Culture',      sections: 8  },
+  { id: 'connection',   title: 'Connection',   sections: 6  },
+  { id: 'compensation', title: 'Compensation', sections: 6  },
+  { id: 'compliance',   title: 'Compliance',   sections: 13 },
+  { id: 'curriculum',   title: 'Curriculum',   sections: 6  },
+];
+
+let allStaff = [];
+
+auth.onAuthStateChanged(async (user) => {
+  if (!user) {
+    window.location.href = 'index.html';
+    return;
+  }
+  document.getElementById('nav-email').textContent = user.email;
+
+  // Check admin role
+  let isAdmin = false;
+  try {
+    const snap = await db.collection('progress').doc(user.uid).get();
+    isAdmin = snap.exists && snap.data().role === 'admin';
+  } catch (e) { /* fall through */ }
+
+  if (!isAdmin) {
+    document.getElementById('gate').innerHTML = `
+      <div class="gate-icon">🔒</div>
+      <h2>Access Denied</h2>
+      <p>Your account doesn't have admin access. Contact your director to request it.</p>`;
+    return;
+  }
+
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('admin-panel').style.display = 'block';
+  await loadStaff();
+});
+
+async function loadStaff() {
+  const snapshot = await db.collection('progress').get();
+  allStaff = [];
+  snapshot.forEach(doc => {
+    allStaff.push({ uid: doc.id, ...doc.data() });
+  });
+  renderSummary(allStaff);
+  renderTable(allStaff);
+}
+
+function getModuleStats(data, def) {
+  const sections = data.sections || {};
+  const quizzes  = data.quizzes  || {};
+  const done = Object.keys(sections).filter(k => k.startsWith(def.id + '::') && sections[k]).length;
+  const passed = !!(quizzes[def.id] && quizzes[def.id].passed);
+  const total = def.sections + 1;
+  const pct = Math.round(((done + (passed ? 1 : 0)) / total) * 100);
+  return { done, total: def.sections, passed, pct };
+}
+
+function getOverallPct(data) {
+  let totalDone = 0, totalAll = 0;
+  MODULE_DEFS.forEach(def => {
+    const s = getModuleStats(data, def);
+    totalDone += s.done + (s.passed ? 1 : 0);
+    totalAll  += def.sections + 1;
+  });
+  return Math.round((totalDone / totalAll) * 100);
+}
+
+function renderSummary(staff) {
+  const total = staff.length;
+  const complete = staff.filter(s => getOverallPct(s) === 100).length;
+  const inProgress = staff.filter(s => { const p = getOverallPct(s); return p > 0 && p < 100; }).length;
+  const notStarted = staff.filter(s => getOverallPct(s) === 0).length;
+
+  document.getElementById('summary-row').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-num">${total}</div>
+      <div class="stat-label">Total Staff</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--green)">${complete}</div>
+      <div class="stat-label">Fully Complete</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--orange)">${inProgress}</div>
+      <div class="stat-label">In Progress</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:var(--muted)">${notStarted}</div>
+      <div class="stat-label">Not Started</div>
+    </div>`;
+
+  document.getElementById('table-title').textContent = `Staff Progress (${total})`;
+}
+
+function renderTable(staff) {
+  const sorted = [...staff].sort((a, b) => getOverallPct(b) - getOverallPct(a));
+  const tbody = document.getElementById('staff-tbody');
+
+  if (!sorted.length) {
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--muted)">No staff records yet.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = sorted.map(s => {
+    const modCells = MODULE_DEFS.map(def => {
+      const st = getModuleStats(s, def);
+      let cls, label;
+      if (st.passed) {
+        cls = 'complete'; label = '✓';
+      } else if (st.done > 0) {
+        cls = 'partial'; label = st.done;
+      } else {
+        cls = 'none'; label = '–';
+      }
+      return `<td class="mod-cell"><span class="mod-badge ${cls}" title="${st.done}/${st.total} sections${st.passed ? ', quiz passed' : ''}">${label}</span></td>`;
+    }).join('');
+
+    const pct = getOverallPct(s);
+    let pillCls = pct === 100 ? 'high' : pct >= 50 ? 'mid' : pct > 0 ? 'low' : 'zero';
+
+    const role = s.role || 'staff';
+    const roleCls = role === 'admin' ? 'admin' : 'staff';
+
+    let lastActive = '—';
+    if (s.lastUpdated) {
+      const d = s.lastUpdated.toDate ? s.lastUpdated.toDate() : new Date(s.lastUpdated);
+      lastActive = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    return `
+      <tr>
+        <td class="td-email">${s.email || s.uid}</td>
+        <td><span class="role-badge ${roleCls}">${role}</span></td>
+        ${modCells}
+        <td class="mod-cell"><span class="overall-pill ${pillCls}">${pct}%</span></td>
+        <td class="td-date">${lastActive}</td>
+      </tr>`;
+  }).join('');
+}
+
+function exportCSV() {
+  const headers = ['Email', 'Role', ...MODULE_DEFS.map(d => d.title), 'Overall %', 'Last Active'];
+  const rows = allStaff.map(s => {
+    const modCols = MODULE_DEFS.map(def => {
+      const st = getModuleStats(s, def);
+      return st.passed ? '100%' : `${Math.round(((st.done) / (st.total + 1)) * 100)}%`;
+    });
+    let lastActive = '';
+    if (s.lastUpdated) {
+      const d = s.lastUpdated.toDate ? s.lastUpdated.toDate() : new Date(s.lastUpdated);
+      lastActive = d.toLocaleDateString();
+    }
+    return [s.email || s.uid, s.role || 'staff', ...modCols, getOverallPct(s) + '%', lastActive];
+  });
+
+  const csv = [headers, ...rows].map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `bb-onboarding-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function doSignOut() {
+  auth.signOut().then(() => window.location.href = 'index.html');
+}
+</script>
+</body>
+</html>
