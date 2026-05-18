@@ -10,6 +10,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 :root {
   --navy:   #1a1a2e;
@@ -298,6 +299,73 @@ td {
 .role-badge.admin { background: #ede9fe; color: #6d28d9; }
 .role-badge.staff { background: #e0f2fe; color: #0369a1; }
 
+/* INVITE CARD */
+.invite-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.invite-card-text { flex: 1; min-width: 200px; }
+.invite-card-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.invite-card-sub { font-size: 13px; color: var(--muted); }
+.invite-fields {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex: 2;
+  min-width: 280px;
+  flex-wrap: wrap;
+}
+.invite-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 16px;
+  border: 2px solid #e8e4da;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--cream);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.invite-input:focus { border-color: var(--orange); background: var(--white); }
+.invite-btn {
+  padding: 10px 22px;
+  background: var(--orange);
+  color: var(--white);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.invite-btn:hover:not(:disabled) {
+  background: #e55a2a;
+  transform: translateY(-1px);
+}
+.invite-btn:disabled { opacity: 0.6; cursor: default; }
+.invite-feedback {
+  width: 100%;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  display: none;
+}
+.invite-feedback.success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #15803d; }
+.invite-feedback.error   { background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; }
+
 @media (max-width: 768px) {
   .topnav { padding: 12px 20px; }
   .page { padding: 24px 16px 60px; }
@@ -333,6 +401,18 @@ td {
       <div class="page-eyebrow">Dashboard</div>
       <h1 class="page-title">Onboarding Overview</h1>
       <p class="page-sub">Track every staff member's progress through the five onboarding modules.</p>
+    </div>
+
+    <div class="invite-card">
+      <div class="invite-card-text">
+        <div class="invite-card-title">Invite a Staff Member</div>
+        <div class="invite-card-sub">Sends them the onboarding link with instructions to create an account.</div>
+      </div>
+      <div class="invite-fields">
+        <input type="email" class="invite-input" id="invite-email" placeholder="staff@email.com">
+        <button class="invite-btn" id="invite-btn" onclick="sendInvite()">Send Invite</button>
+        <div class="invite-feedback" id="invite-feedback"></div>
+      </div>
     </div>
 
     <div class="summary-row" id="summary-row">
@@ -377,6 +457,52 @@ firebase.initializeApp({
 });
 const auth = firebase.auth();
 const db = firebase.firestore();
+
+// ── EmailJS config ─────────────────────────────────────────
+// Fill these in after completing EmailJS setup (see README)
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+// ───────────────────────────────────────────────────────────
+
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
+async function sendInvite() {
+  const emailInput = document.getElementById('invite-email');
+  const btn        = document.getElementById('invite-btn');
+  const feedback   = document.getElementById('invite-feedback');
+  const email      = emailInput.value.trim();
+
+  if (!email) { showInviteFeedback('Please enter an email address.', 'error'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  feedback.style.display = 'none';
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      to_email:    email,
+      invite_link: 'https://bbonboard.netlify.app',
+      from_name:   'Bright Beginnings Preschool',
+    });
+    showInviteFeedback(`Invite sent to ${email} ✓`, 'success');
+    emailInput.value = '';
+  } catch (err) {
+    console.error('EmailJS error', err);
+    showInviteFeedback('Failed to send. Check your EmailJS config.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Send Invite';
+  }
+}
+
+function showInviteFeedback(msg, type) {
+  const el = document.getElementById('invite-feedback');
+  el.textContent = msg;
+  el.className = 'invite-feedback ' + type;
+  el.style.display = 'block';
+  if (type === 'success') setTimeout(() => { el.style.display = 'none'; }, 4000);
+}
 
 const MODULE_DEFS = [
   { id: 'culture',      title: 'Culture',      sections: 8  },
