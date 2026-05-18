@@ -1,0 +1,3317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Teacher Onboarding — Bright Beginnings Preschool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   ROB'S DESIGN STYLE — BRIGHT BEGINNINGS
+   ============================================ */
+:root {
+  --navy:   #1a1a2e;
+  --orange: #FF6B35;
+  --teal:   #4ECDC4;
+  --cream:  #F5F0E8;
+  --purple: #9B59B6;
+  --white:  #ffffff;
+  --text:   #333333;
+  --muted:  #777777;
+  --green:  #2ecc71;
+  --red:    #e74c3c;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+button { font-family: inherit; cursor: pointer; border: none; outline: none; }
+
+/* ============================================
+   TOP NAVIGATION
+   ============================================ */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--navy);
+  padding: 14px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+}
+.topnav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--white);
+}
+.topnav-logo {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--orange), var(--teal));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  color: var(--white);
+  font-size: 18px;
+}
+.topnav-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--white);
+}
+.topnav-progress-wrap {
+  flex: 1;
+  max-width: 380px;
+  margin: 0 32px;
+}
+.topnav-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 6px;
+}
+.topnav-progress-bar {
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 100px;
+  overflow: hidden;
+  position: relative;
+}
+.topnav-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), var(--teal));
+  border-radius: 100px;
+  width: 0%;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.topnav-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.topnav-btn {
+  background: rgba(255,255,255,0.08);
+  color: var(--white);
+  padding: 9px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: all 0.2s ease;
+}
+.topnav-btn:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-1px);
+}
+.topnav-btn.primary {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+.topnav-btn.primary:hover {
+  background: #ff7d4d;
+  box-shadow: 0 6px 18px rgba(255,107,53,0.4);
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  background: var(--navy);
+  padding: 76px 56px;
+  position: relative;
+  overflow: hidden;
+  color: var(--white);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -90px; right: -90px;
+  width: 400px; height: 400px;
+  background: var(--orange);
+  border-radius: 50%;
+  opacity: 0.10;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -110px; right: 16%;
+  width: 260px; height: 260px;
+  background: var(--teal);
+  border-radius: 50%;
+  opacity: 0.09;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: rgba(78,205,196,0.12);
+  padding: 8px 16px;
+  border-radius: 100px;
+  margin-bottom: 22px;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 66px;
+  font-weight: 800;
+  line-height: 1.08;
+  color: var(--white);
+  margin-bottom: 22px;
+  max-width: 820px;
+}
+.hero-subtitle {
+  font-size: 18px;
+  color: rgba(255,255,255,0.72);
+  max-width: 640px;
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+.hero-cta-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: var(--orange);
+  color: var(--white);
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  box-shadow: 0 8px 28px rgba(255,107,53,0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+}
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(255,107,53,0.55);
+}
+.hero-cta.secondary {
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  box-shadow: none;
+  color: var(--white);
+}
+.hero-cta.secondary:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.5);
+  box-shadow: none;
+}
+
+.welcome-card {
+  margin-top: 48px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  padding: 32px 36px;
+  max-width: 820px;
+  position: relative;
+}
+.welcome-card-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 10px;
+}
+.welcome-card p {
+  color: rgba(255,255,255,0.85);
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.welcome-card p:last-child { margin-bottom: 0; }
+.welcome-signoff {
+  margin-top: 20px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--white);
+}
+
+/* ============================================
+   MODULE TIMELINE
+   ============================================ */
+.timeline-section {
+  background: var(--white);
+  padding: 76px 56px;
+  position: relative;
+}
+.section-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange);
+  background: rgba(255,107,53,0.1);
+  padding: 7px 14px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.1;
+  max-width: 760px;
+  margin-bottom: 14px;
+  color: var(--navy);
+}
+.section-lead {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 640px;
+  margin-bottom: 48px;
+  line-height: 1.7;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  max-width: 1100px;
+  position: relative;
+  margin-top: 32px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 22px; left: 10%; right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--orange), var(--teal));
+  z-index: 0;
+}
+.timeline-step {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.timeline-circle {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--white);
+  font-weight: 800;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  border: 3px solid var(--white);
+  transition: all 0.25s ease;
+}
+.timeline-step:nth-child(2) .timeline-circle { background: var(--orange); }
+.timeline-step:nth-child(3) .timeline-circle { background: var(--teal); color: var(--navy); }
+.timeline-step:nth-child(4) .timeline-circle { background: var(--purple); }
+.timeline-step:nth-child(5) .timeline-circle { background: var(--navy); }
+.timeline-step.complete .timeline-circle {
+  background: var(--green) !important;
+  color: var(--white) !important;
+}
+.timeline-step:hover .timeline-circle {
+  transform: scale(1.08);
+}
+.timeline-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.timeline-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ============================================
+   MODULES OVERVIEW (CARDS)
+   ============================================ */
+.modules-section {
+  background: var(--cream);
+  padding: 76px 56px;
+}
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+}
+.module-card {
+  background: var(--white);
+  border-radius: 22px;
+  padding: 32px 30px 28px;
+  border-left: 5px solid var(--orange);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.module-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 44px rgba(0,0,0,0.12);
+}
+.module-card:nth-child(2) { border-left-color: var(--teal); }
+.module-card:nth-child(3) { border-left-color: var(--navy); }
+.module-card:nth-child(4) { border-left-color: var(--purple); }
+.module-card:nth-child(5) { border-left-color: var(--orange); }
+
+.module-card-watermark {
+  position: absolute;
+  bottom: -18px;
+  right: 8px;
+  font-family: 'Playfair Display', serif;
+  font-size: 120px;
+  font-weight: 800;
+  color: var(--navy);
+  opacity: 0.04;
+  line-height: 1;
+  pointer-events: none;
+}
+.module-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.module-card:nth-child(2) .module-icon { background: var(--teal); }
+.module-card:nth-child(3) .module-icon { background: var(--navy); }
+.module-card:nth-child(4) .module-icon { background: var(--purple); }
+.module-card:nth-child(5) .module-icon { background: var(--orange); }
+.module-icon svg { width: 26px; height: 26px; stroke: var(--white); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.module-card-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.module-card-title {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+  line-height: 1.2;
+  position: relative;
+  z-index: 1;
+}
+.module-card-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 1;
+}
+.module-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+  position: relative;
+  z-index: 1;
+}
+.module-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 100px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.module-card-status.locked   { background: #f0f0f0; color: var(--muted); }
+.module-card-status.available { background: rgba(255,107,53,0.12); color: var(--orange); }
+.module-card-status.complete { background: rgba(46,204,113,0.12); color: var(--green); }
+
+/* ============================================
+   MODULE VIEW
+   ============================================ */
+.module-view {
+  display: none;
+  background: var(--cream);
+  min-height: 100vh;
+}
+.module-view.active { display: block; }
+
+.module-hero {
+  background: var(--navy);
+  padding: 60px 56px;
+  position: relative;
+  overflow: hidden;
+  color: var(--white);
+}
+.module-hero::before {
+  content: '';
+  position: absolute;
+  top: -90px; right: -90px;
+  width: 400px; height: 400px;
+  background: var(--orange);
+  border-radius: 50%;
+  opacity: 0.10;
+}
+.module-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255,255,255,0.7);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: color 0.2s;
+  background: none;
+  padding: 0;
+}
+.back-link:hover { color: var(--white); }
+.back-link svg { width: 14px; height: 14px; }
+.module-hero-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: rgba(78,205,196,0.12);
+  padding: 7px 14px;
+  border-radius: 100px;
+  margin-bottom: 18px;
+  display: inline-block;
+}
+.module-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 54px;
+  font-weight: 800;
+  line-height: 1.08;
+  margin-bottom: 14px;
+}
+.module-hero-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.72);
+  max-width: 640px;
+}
+.module-hero-progress {
+  margin-top: 30px;
+  max-width: 460px;
+}
+.module-hero-progress-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+.module-hero-progress-bar {
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.module-hero-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), var(--teal));
+  border-radius: 100px;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+.module-content {
+  padding: 64px 56px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   ACCORDION SECTIONS
+   ============================================ */
+.accordion {
+  background: var(--white);
+  border-radius: 22px;
+  border-left: 5px solid var(--orange);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: box-shadow 0.25s ease;
+}
+.accordion:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.10); }
+.accordion[data-accent="teal"] { border-left-color: var(--teal); }
+.accordion[data-accent="navy"] { border-left-color: var(--navy); }
+.accordion[data-accent="purple"] { border-left-color: var(--purple); }
+
+.accordion-trigger {
+  width: 100%;
+  background: transparent;
+  padding: 22px 28px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--navy);
+}
+.accordion-trigger-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+.accordion-icon {
+  width: 42px; height: 42px;
+  min-width: 42px;
+  border-radius: 12px;
+  background: rgba(255,107,53,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.accordion[data-accent="teal"] .accordion-icon { background: rgba(78,205,196,0.15); }
+.accordion[data-accent="navy"] .accordion-icon { background: rgba(26,26,46,0.08); }
+.accordion[data-accent="purple"] .accordion-icon { background: rgba(155,89,182,0.12); }
+.accordion-icon svg {
+  width: 20px; height: 20px;
+  stroke: var(--orange);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.accordion[data-accent="teal"] .accordion-icon svg { stroke: var(--teal); }
+.accordion[data-accent="navy"] .accordion-icon svg { stroke: var(--navy); }
+.accordion[data-accent="purple"] .accordion-icon svg { stroke: var(--purple); }
+
+.accordion-title-wrap { min-width: 0; }
+.accordion-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 2px;
+}
+.accordion-sub {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.accordion-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.checkbox-marker {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.checkbox-marker.checked {
+  background: var(--green);
+  border-color: var(--green);
+}
+.checkbox-marker svg {
+  width: 12px; height: 12px;
+  stroke: var(--white);
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.checkbox-marker.checked svg { opacity: 1; }
+
+.accordion-chevron {
+  width: 20px; height: 20px;
+  color: var(--muted);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+.accordion.open .accordion-chevron { transform: rotate(180deg); }
+
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.accordion.open .accordion-body { max-height: 6000px; }
+
+.accordion-inner {
+  padding: 6px 28px 28px;
+  border-top: 1px solid #f0ece4;
+  margin-top: 0;
+}
+.accordion-inner > *:first-child { margin-top: 18px; }
+
+.accordion-inner p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+.accordion-inner strong { color: var(--navy); font-weight: 600; }
+.accordion-inner h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 20px 0 12px;
+}
+
+.check-list {
+  list-style: none;
+  margin: 14px 0;
+}
+.check-list li {
+  position: relative;
+  padding: 12px 0 12px 30px;
+  border-bottom: 1px solid #f3efe7;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+.check-list li:last-child { border-bottom: none; }
+.check-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 4px;
+  top: 12px;
+  color: var(--orange);
+  font-weight: 800;
+  font-size: 14px;
+}
+.check-list li strong { color: var(--navy); }
+
+.x-list { list-style: none; margin: 14px 0; }
+.x-list li {
+  position: relative;
+  padding: 12px 0 12px 30px;
+  border-bottom: 1px solid #f3efe7;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+.x-list li:last-child { border-bottom: none; }
+.x-list li::before {
+  content: '✕';
+  position: absolute;
+  left: 4px;
+  top: 12px;
+  color: var(--red);
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.callout {
+  background: rgba(255,107,53,0.07);
+  border-left: 4px solid var(--orange);
+  padding: 16px 18px;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+.callout strong { color: var(--orange); }
+.callout.teal { background: rgba(78,205,196,0.08); border-left-color: var(--teal); }
+.callout.teal strong { color: #1ba9a0; }
+.callout.purple { background: rgba(155,89,182,0.06); border-left-color: var(--purple); }
+.callout.purple strong { color: var(--purple); }
+.callout.warn { background: rgba(231,76,60,0.06); border-left-color: var(--red); }
+.callout.warn strong { color: var(--red); }
+
+/* Two-column inside accordion */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 16px 0;
+}
+.two-col-block {
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 20px;
+}
+.two-col-block h5 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  color: var(--navy);
+}
+
+/* Video placeholder */
+.video-placeholder {
+  background: linear-gradient(135deg, var(--navy), #2a2a4e);
+  border-radius: 14px;
+  padding: 24px 26px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 16px 0;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: var(--white);
+}
+.video-placeholder:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+}
+.video-play-btn {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(255,107,53,0.4);
+}
+.video-play-btn svg { width: 18px; height: 18px; fill: var(--white); margin-left: 2px; }
+.video-info { flex: 1; min-width: 0; }
+.video-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 4px;
+}
+.video-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.3;
+  margin-bottom: 3px;
+}
+.video-duration {
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+}
+
+/* Stat boxes */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+.stat-box {
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+}
+.stat-num {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--orange);
+  line-height: 1;
+  margin-bottom: 6px;
+  font-family: 'Inter', sans-serif;
+}
+.stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--navy);
+  text-transform: uppercase;
+}
+
+/* Confirm complete button (inside accordion) */
+.confirm-row {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px dashed #e8e3d8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.confirm-row-text {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.confirm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--navy);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+}
+.confirm-btn:hover { background: #2a2a4e; transform: translateY(-1px); }
+.confirm-btn.done {
+  background: var(--green);
+  pointer-events: none;
+}
+.confirm-btn svg { width: 14px; height: 14px; stroke: var(--white); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* People grid (leadership) */
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+.person-card {
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 20px 16px;
+  text-align: center;
+}
+.person-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange), var(--teal));
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 18px;
+}
+.person-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 2px;
+}
+.person-role {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+/* Locations grid */
+.locations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+.location-card {
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 18px 20px;
+  border-left: 4px solid var(--orange);
+}
+.location-card:nth-child(2) { border-left-color: var(--teal); }
+.location-card:nth-child(3) { border-left-color: var(--purple); }
+.location-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.location-detail {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ============================================
+   QUIZ
+   ============================================ */
+.quiz-section {
+  background: var(--navy);
+  padding: 56px;
+  border-radius: 28px;
+  margin-top: 40px;
+  position: relative;
+  overflow: hidden;
+  color: var(--white);
+}
+.quiz-section::before {
+  content: '';
+  position: absolute;
+  top: -90px; right: -90px;
+  width: 320px; height: 320px;
+  background: var(--orange);
+  border-radius: 50%;
+  opacity: 0.10;
+  pointer-events: none;
+}
+.quiz-section::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: 10%;
+  width: 220px; height: 220px;
+  background: var(--teal);
+  border-radius: 50%;
+  opacity: 0.08;
+  pointer-events: none;
+}
+.quiz-inner { position: relative; z-index: 1; }
+
+.quiz-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: rgba(78,205,196,0.12);
+  padding: 7px 14px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
+.quiz-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+.quiz-lead {
+  color: rgba(255,255,255,0.7);
+  font-size: 15px;
+  margin-bottom: 32px;
+  max-width: 540px;
+}
+
+.quiz-question {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  padding: 26px 28px;
+  margin-bottom: 16px;
+}
+.quiz-qnum {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+.quiz-qtext {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: rgba(255,255,255,0.85);
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+  width: 100%;
+}
+.quiz-option:hover:not(.disabled) {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.2);
+}
+.quiz-option-radio {
+  width: 18px; height: 18px;
+  min-width: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.35);
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quiz-option.selected .quiz-option-radio::after {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+.quiz-option.selected {
+  background: rgba(255,107,53,0.08);
+  border-color: rgba(255,107,53,0.4);
+}
+.quiz-option.correct {
+  background: rgba(46,204,113,0.10);
+  border-color: var(--green);
+}
+.quiz-option.correct .quiz-option-radio { border-color: var(--green); }
+.quiz-option.correct .quiz-option-radio::after {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+}
+.quiz-option.incorrect {
+  background: rgba(231,76,60,0.10);
+  border-color: var(--red);
+}
+.quiz-option.incorrect .quiz-option-radio { border-color: var(--red); }
+.quiz-option.disabled { cursor: default; }
+
+.quiz-feedback {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  display: none;
+}
+.quiz-feedback.show { display: block; }
+.quiz-feedback.correct {
+  background: rgba(46,204,113,0.10);
+  color: #6be09b;
+  border-left: 3px solid var(--green);
+}
+.quiz-feedback.incorrect {
+  background: rgba(231,76,60,0.10);
+  color: #ff8e7e;
+  border-left: 3px solid var(--red);
+}
+
+.quiz-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.quiz-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--orange);
+  color: var(--white);
+  padding: 14px 32px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 8px 28px rgba(255,107,53,0.45);
+  transition: all 0.2s;
+}
+.quiz-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(255,107,53,0.55);
+}
+.quiz-submit-btn:disabled {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.4);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+.quiz-score {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+}
+.quiz-score strong { color: var(--white); font-weight: 700; }
+
+.quiz-results {
+  display: none;
+  margin-top: 24px;
+  padding: 24px 28px;
+  background: rgba(78,205,196,0.08);
+  border: 1px solid rgba(78,205,196,0.2);
+  border-radius: 16px;
+}
+.quiz-results.show { display: block; }
+.quiz-results h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.quiz-results p { color: rgba(255,255,255,0.75); font-size: 14px; }
+.quiz-results-score {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--teal);
+  font-family: 'Inter', sans-serif;
+  line-height: 1;
+  margin: 12px 0;
+}
+.quiz-results-actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.quiz-results-actions button {
+  padding: 11px 22px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.quiz-retry-btn {
+  background: rgba(255,255,255,0.1);
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.quiz-retry-btn:hover { background: rgba(255,255,255,0.15); }
+.quiz-next-btn {
+  background: var(--orange);
+  color: var(--white);
+  box-shadow: 0 6px 20px rgba(255,107,53,0.4);
+}
+.quiz-next-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(255,107,53,0.5);
+}
+
+/* Module complete celebration */
+.celebrate-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(26,26,46,0.85);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+}
+.celebrate-modal.show { display: flex; }
+.celebrate-card {
+  background: var(--white);
+  border-radius: 28px;
+  padding: 56px 44px;
+  max-width: 480px;
+  text-align: center;
+  position: relative;
+  animation: pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes pop {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.celebrate-icon {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange), var(--teal));
+  margin: 0 auto 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.celebrate-icon svg { width: 36px; height: 36px; stroke: var(--white); fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.celebrate-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+.celebrate-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+.celebrate-text {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 26px;
+}
+.celebrate-btn {
+  background: var(--orange);
+  color: var(--white);
+  padding: 14px 32px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 8px 28px rgba(255,107,53,0.45);
+  transition: all 0.2s;
+}
+.celebrate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(255,107,53,0.55);
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--navy);
+  color: var(--white);
+  padding: 12px 22px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 300;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast svg { width: 16px; height: 16px; }
+
+/* Final completion section */
+.final-section {
+  background: var(--navy);
+  color: var(--white);
+  padding: 76px 56px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.final-section::before {
+  content: '';
+  position: absolute;
+  top: -90px; right: -90px;
+  width: 400px; height: 400px;
+  background: var(--orange);
+  border-radius: 50%;
+  opacity: 0.10;
+}
+.final-section::after {
+  content: '';
+  position: absolute;
+  bottom: -110px; left: 16%;
+  width: 260px; height: 260px;
+  background: var(--teal);
+  border-radius: 50%;
+  opacity: 0.09;
+}
+.final-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.final-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+.final-sub {
+  color: rgba(255,255,255,0.72);
+  font-size: 17px;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .topnav { padding: 12px 20px; flex-wrap: wrap; gap: 12px; }
+  .topnav-progress-wrap { order: 3; flex-basis: 100%; max-width: none; margin: 4px 0 0; }
+  .hero { padding: 56px 24px; }
+  .hero-title { font-size: 38px; }
+  .hero-subtitle { font-size: 16px; }
+  .timeline-section, .modules-section, .module-content, .final-section { padding: 56px 24px; }
+  .section-title { font-size: 32px; }
+  .module-hero { padding: 48px 24px; }
+  .module-hero-title { font-size: 36px; }
+  .timeline { grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .timeline-label { font-size: 11px; }
+  .timeline-sub { font-size: 10px; }
+  .timeline-circle { width: 36px; height: 36px; font-size: 14px; }
+  .two-col { grid-template-columns: 1fr; }
+  .quiz-section { padding: 36px 24px; }
+  .quiz-title { font-size: 28px; }
+  .final-title { font-size: 36px; }
+  .accordion-trigger { padding: 18px 18px; }
+  .accordion-inner { padding: 4px 18px 22px; }
+  .accordion-title { font-size: 15px; }
+}
+@media (max-width: 560px) {
+  .hero-title { font-size: 30px; }
+  .section-title { font-size: 26px; }
+  .module-hero-title { font-size: 28px; }
+  .topnav-actions .topnav-btn span { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     TOP NAVIGATION
+     ============================================ -->
+<nav class="topnav">
+  <div class="topnav-brand">
+    <div class="topnav-logo">B</div>
+    <div class="topnav-name">Bright Beginnings</div>
+  </div>
+  <div class="topnav-progress-wrap">
+    <div class="topnav-progress-label">
+      <span>Onboarding Progress</span>
+      <span id="topProgressText">0%</span>
+    </div>
+    <div class="topnav-progress-bar">
+      <div class="topnav-progress-fill" id="topProgressFill"></div>
+    </div>
+  </div>
+  <div class="topnav-actions">
+    <button class="topnav-btn" onclick="resetProgress()" title="Reset progress">
+      <span>Reset</span>
+    </button>
+    <button class="topnav-btn primary" onclick="goHome()">
+      <span>Home</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============================================
+     HOME VIEW
+     ============================================ -->
+<div id="home-view">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">New Teacher Orientation</span>
+    <h1 class="hero-title">Welcome to the Bright Beginnings family.</h1>
+    <p class="hero-subtitle">A guided onboarding experience built around our five C's — Culture, Connection, Compensation, Compliance, and Curriculum. Work through it at your own pace.</p>
+
+    <div class="hero-cta-row">
+      <button class="hero-cta" onclick="startOrContinue()">
+        <span id="startBtnText">Start onboarding</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+      <button class="hero-cta secondary" onclick="document.getElementById('modules-overview').scrollIntoView({behavior:'smooth'})">View all modules</button>
+    </div>
+
+    <div class="welcome-card">
+      <div class="welcome-card-eyebrow">A note from our founders</div>
+      <p>We are so excited to have you join our wonderful team. Your unique talents and skills are truly valued, and we believe they will help us continue to create a loving, nurturing environment for all the children and families we serve.</p>
+      <p>At Bright Beginnings, we know that supporting our staff is key to our shared success — please feel free to ask questions at any time. Our goal is to nurture you, just as you nurture the children.</p>
+      <div class="welcome-signoff">— Kathe Petchel & Molly Hichens, and the entire Bright Beginnings family</div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <span class="section-eyebrow">Your path</span>
+  <h2 class="section-title">Five modules. One steady, supported journey.</h2>
+  <p class="section-lead">Each module builds on the last. Complete sections as you go, take a short quiz at the end, and unlock the next module. Your progress is saved automatically.</p>
+
+  <div class="timeline" id="timeline">
+    <div class="timeline-step" onclick="openModule(0)">
+      <div class="timeline-circle">1</div>
+      <div class="timeline-label">Culture</div>
+      <div class="timeline-sub">Who we are</div>
+    </div>
+    <div class="timeline-step" onclick="openModule(1)">
+      <div class="timeline-circle">2</div>
+      <div class="timeline-label">Connection</div>
+      <div class="timeline-sub">Setting up</div>
+    </div>
+    <div class="timeline-step" onclick="openModule(2)">
+      <div class="timeline-circle">3</div>
+      <div class="timeline-label">Compensation</div>
+      <div class="timeline-sub">Pay & benefits</div>
+    </div>
+    <div class="timeline-step" onclick="openModule(3)">
+      <div class="timeline-circle">4</div>
+      <div class="timeline-label">Compliance</div>
+      <div class="timeline-sub">Safety & policy</div>
+    </div>
+    <div class="timeline-step" onclick="openModule(4)">
+      <div class="timeline-circle">5</div>
+      <div class="timeline-label">Curriculum</div>
+      <div class="timeline-sub">The classroom</div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES OVERVIEW -->
+<section class="modules-section" id="modules-overview">
+  <span class="section-eyebrow">All modules</span>
+  <h2 class="section-title">Explore each module.</h2>
+  <p class="section-lead">Modules unlock as you complete the one before. Click any unlocked card to jump in.</p>
+
+  <div class="modules-grid" id="modulesGrid">
+    <!-- Module cards rendered by JS -->
+  </div>
+</section>
+
+<!-- FINAL / FOOTER CTA -->
+<section class="final-section">
+  <div class="final-inner">
+    <h2 class="final-title">Ready when you are.</h2>
+    <p class="final-sub">If you have questions at any point, reach out to your site director or your assigned mentor teacher. Communication is one of our core values — we mean it.</p>
+    <button class="hero-cta" onclick="startOrContinue()">
+      <span id="footerCtaText">Begin Module 1</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </button>
+  </div>
+</section>
+
+</div><!-- /home-view -->
+
+<!-- ============================================
+     MODULE VIEW (rendered dynamically)
+     ============================================ -->
+<div id="module-view" class="module-view">
+  <!-- Filled by renderModule() -->
+</div>
+
+<!-- ============================================
+     MODAL — Module Complete
+     ============================================ -->
+<div class="celebrate-modal" id="celebrateModal">
+  <div class="celebrate-card">
+    <div class="celebrate-icon">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <div class="celebrate-eyebrow">Module complete</div>
+    <h3 class="celebrate-title" id="celebrateTitle">Nicely done.</h3>
+    <p class="celebrate-text" id="celebrateText"></p>
+    <button class="celebrate-btn" onclick="closeCelebrate()">Continue</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+  <span id="toastText">Section complete</span>
+</div>
+
+<script>
+/* ============================================
+   STORAGE ADAPTER
+   Designed so swapping localStorage for Firebase
+   later is a single-class change. Same interface.
+   ============================================ */
+const StorageAdapter = {
+  KEY: 'bb_onboarding_state_v1',
+
+  async load() {
+    try {
+      const raw = localStorage.getItem(this.KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      console.error('Load failed', e);
+      return null;
+    }
+  },
+
+  async save(state) {
+    try {
+      localStorage.setItem(this.KEY, JSON.stringify(state));
+      return true;
+    } catch (e) {
+      console.error('Save failed', e);
+      return false;
+    }
+  },
+
+  async clear() {
+    try {
+      localStorage.removeItem(this.KEY);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+  /*
+    FUTURE — Firebase swap example:
+    async load() {
+      const snap = await db.collection('users').doc(uid).get();
+      return snap.exists ? snap.data() : null;
+    }
+    async save(state) {
+      await db.collection('users').doc(uid).set(state, { merge: true });
+      return true;
+    }
+  */
+};
+
+/* ============================================
+   MODULE DATA
+   Single source of truth for content + quizzes.
+   ============================================ */
+const MODULES = [
+  /* ============== MODULE 1: CULTURE ============== */
+  {
+    id: 'culture',
+    number: 1,
+    title: 'Culture',
+    tagline: 'Who we are.',
+    subtitle: 'Our mission, philosophy, core values, leadership team, and what it means to be part of the Bright Beginnings family.',
+    accent: 'orange',
+    icon: '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>',
+    sections: [
+      {
+        id: 'mission',
+        title: 'Our Mission',
+        sub: 'Why we exist',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>',
+        body: `
+          <p>Our mission is to provide a high quality, safe, and nurturing early childhood program for preschool children while supporting each unique family unit.</p>
+          <p>We strive to allow each child to develop at his or her own rate with the goal of a successful transition into kindergarten and beyond.</p>
+          <div class="callout"><strong>Read it like a promise.</strong> Every decision, every classroom moment, every parent conversation should connect back to this.</div>
+        `
+      },
+      {
+        id: 'philosophy',
+        title: 'Our Philosophy',
+        sub: 'Play-based, Reggio-inspired',
+        accent: 'teal',
+        icon: '<svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>',
+        body: `
+          <p>We believe every child is unique and foster growth through a <strong>play-based, Reggio-Inspired curriculum</strong> that balances teacher guidance and child-led exploration. Our approach nurtures confidence, independence, and social, emotional, cognitive, and physical development.</p>
+          <p>By embracing creativity and interests, we provide diverse learning experiences in literature, math, science, art, and outdoor education — using the entire school as a classroom to inspire discovery and critical thinking.</p>
+        `
+      },
+      {
+        id: 'core-values',
+        title: 'Our Core Values',
+        sub: 'Nurture · Communicate · Play · Learn · Trust · Family',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>',
+        body: `
+          <div class="two-col">
+            <div class="two-col-block"><h5>Nurture</h5><p style="font-size:13px;margin:0">Nurturing children comes naturally — but we also nurture each other and our families.</p></div>
+            <div class="two-col-block"><h5>Communicate</h5><p style="font-size:13px;margin:0">Open, transparent communication solves almost every issue. Please ask questions.</p></div>
+            <div class="two-col-block"><h5>Play</h5><p style="font-size:13px;margin:0">When children explore their world with trusted caregivers, learning is natural.</p></div>
+            <div class="two-col-block"><h5>Learn</h5><p style="font-size:13px;margin:0">We believe in lifelong learning — for children, teachers, and families.</p></div>
+            <div class="two-col-block"><h5>Trust</h5><p style="font-size:13px;margin:0">Young children begin to trust the world when they develop relationships with safe, nurturing adults.</p></div>
+            <div class="two-col-block"><h5>Family</h5><p style="font-size:13px;margin:0">When you join Bright Beginnings, you become part of a strong early childhood community.</p></div>
+          </div>
+          <div class="callout teal"><strong>The thread:</strong> We are a family. We NURTURE one another and LEARN through PLAY, creating TRUST and COMMUNICATING with kindness.</div>
+        `
+      },
+      {
+        id: 'staff-culture',
+        title: 'Staff Culture Statement',
+        sub: 'What we commit to as a team',
+        accent: 'navy',
+        icon: '<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
+        body: `
+          <p>All staff sign the Staff Culture statement before starting work. Our staff agrees that maintaining a professional and friendly work environment helps us serve our families and children best.</p>
+          <ul class="check-list">
+            <li>We love children and respect the uniqueness of each family.</li>
+            <li>We love to learn and are lifelong learners.</li>
+            <li>We understand that all enrolled children are <strong>ALL our responsibility</strong>.</li>
+            <li>We have a high level of positive energy and solve problems honestly, confidentially, and collaboratively.</li>
+            <li>We focus on organization, attention to detail, and strong systems; take direction well; understand the organization's structure.</li>
+            <li>We understand that high flexibility and teamwork are necessary to provide optimal care.</li>
+            <li>We model a healthy lifestyle and conduct ourselves professionally — at work and at home.</li>
+            <li>We are proud to serve as a Community Ambassador for Bright Beginnings.</li>
+          </ul>
+        `
+      },
+      {
+        id: 'locations',
+        title: 'Our Three Locations',
+        sub: '25 classrooms · 9 playgrounds',
+        accent: 'purple',
+        icon: '<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>',
+        body: `
+          <p>Each site shares the same standards, the same culture, and the same commitment — but every campus has its own personality.</p>
+          <div class="locations-grid">
+            <div class="location-card">
+              <div class="location-name">Crozet</div>
+              <div class="location-detail">1645 Park Ridge Drive<br>Licensed capacity: 135</div>
+            </div>
+            <div class="location-card">
+              <div class="location-name">Forest Lakes</div>
+              <div class="location-detail">1610 Regent Street<br>Licensed capacity: 120</div>
+            </div>
+            <div class="location-card">
+              <div class="location-name">Mill Creek</div>
+              <div class="location-detail">1221 Stoney Ridge Road<br>Licensed capacity: 139</div>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Locations</div></div>
+            <div class="stat-box"><div class="stat-num">25</div><div class="stat-label">Classrooms</div></div>
+            <div class="stat-box"><div class="stat-num">9</div><div class="stat-label">Playgrounds</div></div>
+          </div>
+          <div class="callout purple"><strong>Did you know?</strong> Bright Beginnings is Virginia's only Level II Certified Outdoor Classroom Project location.</div>
+        `
+      },
+      {
+        id: 'leadership',
+        title: 'Leadership & Chain of Communication',
+        sub: 'Who to go to, in what order',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7"></polyline><polyline points="14 7 21 7 21 14"></polyline></svg>',
+        body: `
+          <p>Knowing who to talk to — and in what order — saves time and stress for everyone.</p>
+          <h4>Chain of Communication</h4>
+          <ul class="check-list">
+            <li><strong>Owner</strong> — Kathe Petchel</li>
+            <li><strong>Co-CEOs</strong> — Kathe Petchel & Molly Hichens</li>
+            <li><strong>Director of Operations</strong> — Rob Hichens</li>
+            <li><strong>Site Director</strong></li>
+            <li><strong>Assistant Director</strong></li>
+            <li><strong>Opening / Closing Supervisor</strong></li>
+            <li><strong>Mentor Teachers</strong></li>
+            <li><strong>Lead Teachers</strong></li>
+            <li><strong>Teacher Assistant</strong></li>
+          </ul>
+          <h4>Leadership Team</h4>
+          <div class="people-grid">
+            <div class="person-card"><div class="person-avatar">KP</div><div class="person-name">Kathe Petchel</div><div class="person-role">Founder, President & Co-CEO</div></div>
+            <div class="person-card"><div class="person-avatar">MH</div><div class="person-name">Molly Hichens</div><div class="person-role">Co-CEO</div></div>
+            <div class="person-card"><div class="person-avatar">RH</div><div class="person-name">Rob Hichens</div><div class="person-role">Director of Operations</div></div>
+            <div class="person-card"><div class="person-avatar">LB</div><div class="person-name">Laura Baker</div><div class="person-role">Mill Creek Site Director</div></div>
+            <div class="person-card"><div class="person-avatar">JR</div><div class="person-name">Jess Rybak</div><div class="person-role">Forest Lakes Site Director</div></div>
+          </div>
+          <div class="callout"><strong>Mentor program.</strong> Every new staff member is assigned a mentor teacher during onboarding. Your mentor is an experienced staff member who will provide guidance, training, and support — ask them anything.</div>
+        `
+      },
+      {
+        id: 'team-stages',
+        title: '4 Stages of a Team',
+        sub: 'How healthy teams evolve',
+        accent: 'teal',
+        icon: '<svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"></circle><circle cx="17" cy="7" r="3"></circle><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path><path d="M16 13a4 4 0 0 1 4 4v2"></path></svg>',
+        body: `
+          <p>Understanding where your team is helps you adapt and contribute. Most teams cycle through these phases more than once.</p>
+          <div class="two-col">
+            <div class="two-col-block"><h5>1. Forming</h5><p style="font-size:13px;margin:0">Polite, getting to know each other, leaning on leadership for clarity.</p></div>
+            <div class="two-col-block"><h5>2. Storming</h5><p style="font-size:13px;margin:0">Differences surface. Hard but necessary — open communication is essential here.</p></div>
+            <div class="two-col-block"><h5>3. Norming</h5><p style="font-size:13px;margin:0">Trust builds, roles clarify, norms form. Collaboration gets easier.</p></div>
+            <div class="two-col-block"><h5>4. Performing</h5><p style="font-size:13px;margin:0">Self-motivated, resilient, decisions made fluidly without heavy reliance on a leader.</p></div>
+          </div>
+        `
+      },
+      {
+        id: 'tips',
+        title: '8 Tips for Success',
+        sub: 'What thriving here looks like',
+        accent: 'navy',
+        icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
+        body: `
+          <ul class="check-list">
+            <li><strong>Listen</strong> — to parents, children, and co-workers.</li>
+            <li><strong>Teaming & positive problem-solving</strong> — show up, on time, every day.</li>
+            <li><strong>Ask questions</strong> — your mentor teacher and site director are there for this.</li>
+            <li><strong>Plan</strong> — proper planning prevents poor performance.</li>
+            <li><strong>First impressions</strong> — sight, smell, sound of school matter.</li>
+            <li><strong>Personal service</strong> — know all the children's names, parents' names, co-workers' names.</li>
+            <li><strong>Communication</strong> — daily notes, greeting parents at drop-off and pick-up.</li>
+            <li><strong>Understanding & following all Bright Beginnings policies.</strong></li>
+          </ul>
+        `
+      },
+      {
+        id: 'customer-service',
+        title: 'Customer Service Policy',
+        sub: 'The Disney approach',
+        accent: 'purple',
+        icon: '<svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>',
+        body: `
+          <p>Treat every family as a VIP. Know answers to questions. Give the personal touch. Smile. Use friendly phrases. Treat other staff with courtesy. Be assertively friendly.</p>
+          <div class="callout"><strong>1-hour turnaround:</strong> If asked a question, you have one hour to solve it or pass it to the right person — and tell the parent who you passed it to (e.g. "billing questions to the director").</div>
+          <h4>7 Steps to Better Customer Listening</h4>
+          <ul class="check-list">
+            <li>Focus your attention on what the customer has to say.</li>
+            <li>Let them know that you're interested.</li>
+            <li>Anticipate the direction of the conversation and keep it on topic.</li>
+            <li>Take notes of important points.</li>
+            <li>Ask clarifying questions.</li>
+            <li>Summarize key points back.</li>
+            <li>Confirm your understanding of what they're trying to tell you.</li>
+          </ul>
+        `
+      }
+    ],
+    quiz: [
+      {
+        q: 'Which of the following is NOT one of our six Core Values?',
+        options: ['Nurture', 'Compete', 'Trust', 'Family'],
+        correct: 1,
+        feedback: 'Our six core values are Nurture, Communicate, Play, Learn, Trust, and Family.'
+      },
+      {
+        q: 'According to our Staff Culture Statement, whose responsibility are the enrolled children?',
+        options: ['Only their assigned classroom teacher', 'The site director', 'ALL of us — every staff member', 'The mentor teacher'],
+        correct: 2,
+        feedback: 'We understand that all enrolled children are ALL our responsibility, regardless of classroom assignment.'
+      },
+      {
+        q: 'What is the correct order in the Chain of Communication, starting from a Teacher Assistant going up?',
+        options: [
+          'Teacher Assistant → Lead Teacher → Mentor Teacher → Site Director',
+          'Teacher Assistant → Site Director → Mentor Teacher → Lead Teacher',
+          'Teacher Assistant → Mentor Teacher → Director of Operations → CEO',
+          'Teacher Assistant → Owner → Director'
+        ],
+        correct: 0,
+        feedback: 'The flow is: Teacher Assistant → Lead Teacher → Mentor Teacher → Opening/Closing Supervisor → Assistant Director → Site Director, and up from there.'
+      },
+      {
+        q: 'In which stage of team development does open communication become MOST essential to navigate?',
+        options: ['Forming', 'Storming', 'Norming', 'Performing'],
+        correct: 1,
+        feedback: 'Storming is when differences surface and conflicts arise. Open communication is what gets a team through it.'
+      },
+      {
+        q: 'A parent asks you a billing question you can\'t answer. According to our customer service policy, what should you do?',
+        options: [
+          'Tell them you don\'t handle billing and leave it there',
+          'Try to answer it yourself even if you\'re not sure',
+          'Pass it to the director within 1 hour and let the parent know you did',
+          'Wait until end of day and mention it to someone'
+        ],
+        correct: 2,
+        feedback: 'Our 1-hour turnaround policy: solve it or pass it to the right person within an hour, and tell the parent who you passed it to.'
+      }
+    ]
+  },
+
+  /* ============== MODULE 2: CONNECTION ============== */
+  {
+    id: 'connection',
+    number: 2,
+    title: 'Connection',
+    tagline: 'Setting up.',
+    subtitle: 'Required paperwork, online licensing trainings, communication platforms, professional development, and the personal-style assessments that help us work together better.',
+    accent: 'teal',
+    icon: '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>',
+    sections: [
+      {
+        id: 'paperwork',
+        title: 'Required Paperwork',
+        sub: 'Everything we need on file before day one',
+        accent: 'teal',
+        icon: '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>',
+        body: `
+          <h4>Background & screening (before starting)</h4>
+          <ul class="check-list">
+            <li>Criminal History Background Check</li>
+            <li>Negative TB Screening</li>
+            <li>Central Registry form completed</li>
+            <li>Sworn Disclosure completed</li>
+            <li>Out-of-state background check (if applicable, within 5 years)</li>
+          </ul>
+          <h4>Required online trainings</h4>
+          <ul class="check-list">
+            <li>Child Abuse and Neglect</li>
+            <li>Virginia Preservice Training (10 hour)</li>
+            <li>Annual Virginia Health and Safety (3 hour)</li>
+            <li>Health Screening for Child Care Professionals</li>
+          </ul>
+          <h4>Proof of education</h4>
+          <ul class="check-list">
+            <li>High School Diploma</li>
+            <li>College Degree (if applicable)</li>
+            <li>Transcripts</li>
+            <li>Completed application, emergency contact, 2 references, employment history</li>
+          </ul>
+          <h4>Additional forms to submit</h4>
+          <ul class="check-list">
+            <li>Staff Contract · Direct Deposit Form · W-4 (VA and Federal)</li>
+            <li>Non-disclosure · Non-Compete · Gossip Pledge · Non-Smoking Policy</li>
+            <li>No Cell Phone Policy · Rules of Conduct · I-9 form + two forms of ID</li>
+            <li>5 Languages of Appreciation · Favorite Things · Teacher Bio</li>
+            <li>CPR and First Aid Certificate · MAT Certificate (if applicable)</li>
+          </ul>
+          <div class="callout warn"><strong>Important.</strong> All training certificates must be uploaded as PDF files. If you've already completed any of the required trainings, upload your existing certificates rather than retaking them.</div>
+        `
+      },
+      {
+        id: 'licensing-trainings',
+        title: 'Required Online Licensing Trainings',
+        sub: 'Complete these before you start',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>',
+        body: `
+          <p>These four trainings are state-required and must be completed before you start working with children. Each one lives on the <strong>Better Kid Care</strong> platform or the state equivalent — create an account, complete the training, and download your certificate as a PDF.</p>
+          <ul class="check-list">
+            <li><strong>Better Kid Care — Virginia Preservice Training</strong> (10 hour)</li>
+            <li><strong>Better Kid Care — Virginia Health and Safety Updated Training</strong></li>
+            <li><strong>Child Abuse and Neglect</strong> (CHLD 2015)</li>
+            <li><strong>Health Screen for Child Care Professionals</strong> (CHLD 2016)</li>
+          </ul>
+          <div class="callout teal"><strong>Tip.</strong> Upload each certificate as you finish it. Don't wait until you've done all four — break it up.</div>
+        `
+      },
+      {
+        id: 'communication',
+        title: 'Staff Communication Platforms',
+        sub: 'How we stay in touch',
+        accent: 'navy',
+        icon: '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>',
+        body: `
+          <p>Download <strong>GroupMe</strong> and log in or create an account, then join your site's group.</p>
+          <div class="locations-grid">
+            <div class="location-card"><div class="location-name">Crozet</div><div class="location-detail">Ask your director for the join link</div></div>
+            <div class="location-card"><div class="location-name">Forest Lakes</div><div class="location-detail">Ask your director for the join link</div></div>
+            <div class="location-card"><div class="location-name">Mill Creek</div><div class="location-detail">Ask your director for the join link</div></div>
+          </div>
+          <h4>Other platforms you'll use</h4>
+          <ul class="check-list">
+            <li><strong>ProCare</strong> — for clocking in/out, enrollment, billing</li>
+            <li><strong>Tadpoles</strong> — for parent communication, daily reports, attendance, photos</li>
+            <li><strong>GroupMe</strong> — internal staff chat (above)</li>
+          </ul>
+        `
+      },
+      {
+        id: 'pd-days',
+        title: 'Professional Development Days',
+        sub: 'How we grow together',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',
+        body: `
+          <p>We hold staff professional development training days <strong>3–4 times a year</strong>. These days are dedicated to enhancing your skills, knowledge, and understanding of early childhood education.</p>
+          <p>Days often include workshops, training sessions, and collaborative activities focused on child development, age-appropriate teaching strategies, classroom management, and fostering positive learning environments. We also review important policies and procedures to keep everyone up-to-date.</p>
+          <div class="callout"><strong>Goal:</strong> Equip you with the tools to provide high-quality care and education for young children.</div>
+        `
+      },
+      {
+        id: 'meetings',
+        title: 'Weekly Meetings & Mandatory Events',
+        sub: 'When attendance matters most',
+        accent: 'purple',
+        icon: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>',
+        body: `
+          <p>Each location holds a <strong>mandatory weekly staff meeting</strong>, typically Monday nights from 5:30–6:30 PM. We focus on current issues, plan special events, train on licensing topics, and share ideas.</p>
+          <h4>Mandatory events — "blackout" days (no time off)</h4>
+          <ul class="check-list">
+            <li>Back to School Night</li>
+            <li>Pre-K Graduation and End of the Year Picnic</li>
+            <li>Professional Development Days</li>
+            <li>First 10 Days of School</li>
+          </ul>
+          <div class="callout warn"><strong>Blackout days</strong> are listed on the family and staff calendars. Time off cannot be approved on these dates.</div>
+        `
+      },
+      {
+        id: 'appreciation',
+        title: '5 Languages of Appreciation',
+        sub: 'How you like to feel valued',
+        accent: 'teal',
+        icon: '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>',
+        body: `
+          <p>Knowing your preferred language of appreciation — and your co-workers' — makes a real difference. We'll ask you to take a short quiz so we know what means the most to you.</p>
+          <div class="two-col">
+            <div class="two-col-block"><h5>1. Words of Affirmation</h5><p style="font-size:13px;margin:0">Spoken or written words that affirm and encourage.</p></div>
+            <div class="two-col-block"><h5>2. Quality Time</h5><p style="font-size:13px;margin:0">Focused time and attention — being heard.</p></div>
+            <div class="two-col-block"><h5>3. Acts of Service</h5><p style="font-size:13px;margin:0">Help getting a task done; working alongside.</p></div>
+            <div class="two-col-block"><h5>4. Tangible Gifts</h5><p style="font-size:13px;margin:0">Thoughtful, not expensive — chocolate, coffee, a small related gift.</p></div>
+            <div class="two-col-block" style="grid-column:1/-1"><h5>5. Appropriate Physical Touch</h5><p style="font-size:13px;margin:0">High fives, fist bumps, handshakes — usually spontaneous, in celebration.</p></div>
+          </div>
+        `
+      },
+      {
+        id: 'enneagram',
+        title: 'Enneagram Personality Assessment',
+        sub: 'Understanding each other better',
+        accent: 'navy',
+        icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="2" x2="12" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>',
+        body: `
+          <p>The Enneagram describes people in terms of nine personality types, each with its own motivations, fears, and internal dynamics. To give us a better understanding of everyone's preferences and work styles, we ask new staff to complete the Enneagram quiz and share the results.</p>
+          <div class="callout teal"><strong>Why it matters.</strong> A team that understands its own dynamics fights better, supports better, and shows up for one another better.</div>
+        `
+      }
+    ],
+    quiz: [
+      {
+        q: 'Which of the following is required BEFORE you can start working with children?',
+        options: [
+          'Negative TB Screening',
+          'Enneagram quiz results',
+          'Favorite Things form',
+          'Teacher Bio'
+        ],
+        correct: 0,
+        feedback: 'Background check, TB screening, Central Registry, Sworn Disclosure, and the required online trainings must all be completed before starting.'
+      },
+      {
+        q: 'In what format must all training certificates be uploaded?',
+        options: ['JPG image', 'PDF file', 'Word document', 'Screenshot'],
+        correct: 1,
+        feedback: 'All training certificates must be uploaded as PDF files.'
+      },
+      {
+        q: 'Weekly staff meetings are typically held:',
+        options: [
+          'Friday mornings at 7:00 AM',
+          'Saturday afternoons',
+          'Monday nights from 5:30–6:30 PM',
+          'Only when there\'s an issue to discuss'
+        ],
+        correct: 2,
+        feedback: 'Monday nights from 5:30–6:30 PM at each location. They\'re mandatory.'
+      },
+      {
+        q: 'A "blackout day" means:',
+        options: [
+          'The school is closed',
+          'Time off cannot be approved — attendance is mandatory',
+          'There\'s no electricity',
+          'It\'s an unpaid holiday'
+        ],
+        correct: 1,
+        feedback: 'Blackout days include events like Back to School Night, PD Days, Pre-K Graduation, and the First 10 Days. Attendance is mandatory for all staff.'
+      },
+      {
+        q: 'What is the primary purpose of the 5 Languages of Appreciation assessment?',
+        options: [
+          'To rank teachers by performance',
+          'To determine pay raises',
+          'To help leadership and co-workers know how you like to feel valued',
+          'It\'s a state licensing requirement'
+        ],
+        correct: 2,
+        feedback: 'It helps us appreciate each other in ways that actually land — words, time, service, gifts, or appropriate physical touch.'
+      }
+    ]
+  },
+
+  /* ============== MODULE 3: COMPENSATION ============== */
+  {
+    id: 'compensation',
+    number: 3,
+    title: 'Compensation',
+    tagline: 'Pay & benefits.',
+    subtitle: 'Payroll, benefits, deductions, hours, requesting time off, paid holidays, and the staff referral program.',
+    accent: 'navy',
+    icon: '<svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
+    sections: [
+      {
+        id: 'payroll',
+        title: 'Payroll & Pay Policies',
+        sub: 'When and how you get paid',
+        accent: 'navy',
+        icon: '<svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>',
+        body: `
+          <ul class="check-list">
+            <li><strong>Paydays</strong> are every other Thursday. If a holiday falls in the week, payday bumps to Friday.</li>
+            <li>All staff must have paychecks <strong>direct deposited</strong> into a checking or savings account.</li>
+            <li>The bank and payroll company require at least three pay cycles for the first direct deposit. Until then, you'll get a live paycheck.</li>
+            <li>Live checks are available for pickup on paydays after 5:00 PM.</li>
+            <li>Payroll questions: email <strong>accounts@brightbeginningsva.com</strong> after 5:00 PM on payday with specific details. <em>Directors cannot answer payroll questions.</em></li>
+            <li>Pay rates reflect your current position. Moving up or down in role changes your pay rate accordingly.</li>
+            <li>All salaries are <strong>confidential</strong> and should not be discussed with anyone outside the administration team.</li>
+          </ul>
+        `
+      },
+      {
+        id: 'benefits',
+        title: 'Benefits',
+        sub: 'Medical, childcare, 401-K, PTO',
+        accent: 'teal',
+        icon: '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>',
+        body: `
+          <div class="two-col">
+            <div class="two-col-block"><h5>Medical Insurance</h5><p style="font-size:13px;margin:0">Full-time employees are eligible to enroll. Benefits become effective the first of the month after 90 calendar days of employment.</p></div>
+            <div class="two-col-block"><h5>Childcare Tuition</h5><p style="font-size:13px;margin:0">Staff who'd like to enroll their child(ren) must get approval from upper management in writing if space is available.</p></div>
+            <div class="two-col-block"><h5>401-K Retirement</h5><p style="font-size:13px;margin:0">Eligible after 3 years of consecutive full-time employment. Staff must initiate interest upon eligibility.</p></div>
+            <div class="two-col-block"><h5>Paid Time Off</h5><p style="font-size:13px;margin:0">Eligible after 1 year of full-time employment. Staff must initiate interest upon eligibility.</p></div>
+          </div>
+          <div class="callout"><strong>How to enroll.</strong> Staff interested in any of the above must email <strong>accounts@brightbeginningsva.com</strong> upon eligibility.</div>
+        `
+      },
+      {
+        id: 'deductions',
+        title: 'Deductions',
+        sub: 'What comes out of your paycheck',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>',
+        body: `
+          <p>Bright Beginnings is required by law to deduct federal, state, and local withholding taxes, social security taxes, and any court-ordered withholdings (garnishments, child support). These are designated on your paycheck stub and forwarded directly to the appropriate entity.</p>
+          <h4>One-time and conditional deductions</h4>
+          <ul class="check-list">
+            <li><strong>$51</strong> initial hiring/training costs — deducted from your first paycheck</li>
+            <li><strong>$10</strong> Central Registry background check — deducted from your first paycheck</li>
+            <li>Out-of-state background check fees (if applicable) — first paycheck</li>
+            <li>Trainings paid by Bright Beginnings (CPR/First Aid, MAT, CDA) — deducted from your <em>last</em> paycheck if you leave before they expire</li>
+          </ul>
+        `
+      },
+      {
+        id: 'hours',
+        title: 'Staff Hours',
+        sub: 'Schedules, clocking in/out, overtime',
+        accent: 'purple',
+        icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
+        body: `
+          <ul class="check-list">
+            <li><strong>Hours of operation:</strong> 7:30 AM – 5:30 PM</li>
+            <li><strong>Full-time staff:</strong> 35–40 hours max. Why? To prevent teacher burnout and allow time for staff meetings and special events.</li>
+            <li><strong>Part-time staff:</strong> approximately 10–25 hours per week. Not eligible for benefits, PTO, holiday, or vacation pay.</li>
+            <li>You'll receive a personalized code to clock in/out via <strong>ProCare and Tadpoles</strong>.</li>
+            <li>Inform your site director if you are in danger of reaching over 40 hours. We will adjust to avoid overtime.</li>
+            <li>Schedules are based strictly on enrollment. You may occasionally need to wait to clock in or clock out early, especially around daylight savings, weather, and summer.</li>
+          </ul>
+        `
+      },
+      {
+        id: 'rto',
+        title: 'Requesting Time Off (RTO)',
+        sub: 'How to request, what gets approved',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>',
+        body: `
+          <ul class="check-list">
+            <li>Submit RTOs <strong>at least 2 weeks in advance</strong> (paid or unpaid vacation, personal days, other).</li>
+            <li>Submit via the RTO link (provided by your director).</li>
+            <li>Requests may not be approved if another employee has already been granted that day.</li>
+            <li>Staff are allowed <strong>10 days per year</strong> (vacation, sick, etc.).</li>
+            <li>Schedule appointments during your lunch break whenever possible.</li>
+            <li>Schedule swaps with another employee MUST be pre-approved by your site director.</li>
+            <li>If you fail to follow RTO policy and don't show up, it's an unexcused absence.</li>
+          </ul>
+          <div class="callout warn"><strong>Exceptions exist.</strong> On rare occasions you may not be able to give 2 weeks' notice — you still must submit an RTO so we can track attendance and plan for your absence.</div>
+          <div class="callout"><strong>Approvals are at the sole discretion of the director and admin team.</strong> Blackout days (mandatory events) cannot be approved off.</div>
+        `
+      },
+      {
+        id: 'holidays',
+        title: 'Paid Holidays',
+        sub: 'Eligibility and rules',
+        accent: 'teal',
+        icon: '<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>',
+        body: `
+          <p>Paid holidays are granted at the discretion of the leadership team and depend on staff standing, attendance, and other factors. They are a recognition of consistent, long-term employment.</p>
+          <h4>Eligibility</h4>
+          <ul class="check-list">
+            <li>Newly hired full-time staff (35 hours) with perfect attendance — eligible after 3 months/90 days.</li>
+            <li>Otherwise, full-time employees must work 12 consecutive months.</li>
+            <li>Part-time staff are not eligible.</li>
+            <li>You must request paid holidays — it must be noted in your contract.</li>
+            <li>Staff must be in good standing: no write-ups, hours reductions, or disciplinary actions in the 3 months prior.</li>
+            <li>Staff must work their full scheduled shift the day before and the day after the holiday to receive holiday pay.</li>
+          </ul>
+          <h4>Recognized paid holidays</h4>
+          <ul class="check-list">
+            <li>New Year's Day · Memorial Day · Independence Day</li>
+            <li>Labor Day · Thanksgiving Day · Christmas Day</li>
+          </ul>
+        `
+      },
+      {
+        id: 'referral',
+        title: 'Staff Referral Policy',
+        sub: '$200 bonus for bringing in great people',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>',
+        body: `
+          <p>Staff who refer another staff member receive a <strong>$200 bonus</strong> after the new staff member has been employed for at least 1 month. Both staff members must be in good standing for the bonus to be awarded.</p>
+          <h4>Good standing requires</h4>
+          <ul class="check-list">
+            <li>Good attendance</li>
+            <li>Showing up to work on time</li>
+            <li>Following dress code</li>
+            <li>Completing daily Sign Out Logs (SOLs)</li>
+            <li>Lesson plans in Tadpoles and curriculum being implemented</li>
+            <li>Completing daily, weekly, and monthly jobs</li>
+          </ul>
+        `
+      }
+    ],
+    quiz: [
+      {
+        q: 'Paydays at Bright Beginnings are:',
+        options: [
+          'Every Friday',
+          'Every other Thursday (bumps to Friday if a holiday falls in the week)',
+          'The 1st and 15th of each month',
+          'The last day of each month'
+        ],
+        correct: 1,
+        feedback: 'Every other Thursday — unless a holiday falls in the week, in which case payday moves to Friday.'
+      },
+      {
+        q: 'You have a payroll question. Who should you go to?',
+        options: [
+          'Your site director',
+          'Your mentor teacher',
+          'Email accounts@brightbeginningsva.com after 5:00 PM on payday',
+          'The opening supervisor'
+        ],
+        correct: 2,
+        feedback: 'Directors cannot answer payroll questions. Email accounts@brightbeginningsva.com after 5:00 PM on payday with specific details.'
+      },
+      {
+        q: 'How many days of time off are staff allowed per year (vacation, sick days, etc.)?',
+        options: ['5 days', '7 days', '10 days', 'Unlimited'],
+        correct: 2,
+        feedback: 'Staff are allowed 10 days per year total.'
+      },
+      {
+        q: 'How far in advance must an RTO request typically be submitted?',
+        options: ['1 day', '3 days', '1 week', '2 weeks minimum'],
+        correct: 3,
+        feedback: 'A minimum of 2 weeks in advance. Rare exceptions exist, but you still must submit an RTO.'
+      },
+      {
+        q: 'For paid holiday pay, what must a staff member do?',
+        options: [
+          'Just be employed on the holiday',
+          'Work their full scheduled shift the day before AND the day after the holiday',
+          'Submit a request only',
+          'Be a part-time employee'
+        ],
+        correct: 1,
+        feedback: 'Staff must work their full scheduled shift the day before AND the day after the holiday — and meet all other eligibility requirements.'
+      },
+      {
+        q: 'When are full-time employees eligible for medical benefits?',
+        options: [
+          'Day one of employment',
+          'After 30 days',
+          'First of the month after 90 calendar days',
+          'After 1 year'
+        ],
+        correct: 2,
+        feedback: 'Medical benefits become effective the first of the month after 90 calendar days of employment.'
+      }
+    ]
+  },
+
+  /* ============== MODULE 4: COMPLIANCE ============== */
+  {
+    id: 'compliance',
+    number: 4,
+    title: 'Compliance',
+    tagline: 'Safety & policy.',
+    subtitle: 'Conduct, safety, health, ratios, supervision, medication, allergies, and the day-to-day routines that keep our children safe and our program in good standing.',
+    accent: 'purple',
+    icon: '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
+    sections: [
+      {
+        id: 'gossip',
+        title: 'Gossip Policy',
+        sub: 'What it is, why it matters',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>',
+        body: `
+          <div class="callout warn"><strong>Definition:</strong> Gossip is "anything discussed with someone who does not have the ability to fix the problem" — or casual conversation about other people, often involving details not confirmed as being true.</div>
+          <p>If you're participating in gossip — either as the speaker or the recipient — you're breaking a Bright Beginnings policy rooted in our core values of trust, nurture, learn, communicate, play, and kindness.</p>
+          <ul class="check-list">
+            <li>Confidentiality applies to all matters involving children, families, colleagues, management, and our program.</li>
+            <li>Discussions of issues happen in private, professional settings — with the people who can actually resolve them.</li>
+            <li>Gossip includes verbal, written, and all social media platforms.</li>
+            <li>The gossip pledge applies during school hours, lunch breaks, and encounters outside of work.</li>
+          </ul>
+        `
+      },
+      {
+        id: 'attendance',
+        title: 'Attendance / Absenteeism',
+        sub: 'Calling out, doctor\'s notes, consequences',
+        accent: 'navy',
+        icon: '<svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>',
+        body: `
+          <p>To run a quality program, staff must be at work each day. Children depend on consistency — including the same teachers each day.</p>
+          <h4>If you can't make it to work</h4>
+          <ul class="check-list">
+            <li>Call as soon as you know — at least <strong>2 hours in advance</strong>.</li>
+            <li>Speak to the opening supervisor, designated staff, or Director. <strong>Don't leave a voicemail or text.</strong></li>
+            <li>Each location has a specific person who handles call-outs — ask your site director who to contact.</li>
+            <li>Bring in a <strong>doctor's note</strong> for any time missed due to illness.</li>
+            <li>Try to come in unless you're running a fever or vomiting.</li>
+          </ul>
+          <div class="callout warn"><strong>Excessive absences</strong> (in management's view, or beyond 10 days/year) can result in: hours cut to part-time/sub status, pay rate reduced by $1+/hour or job loss, position change, probation and loss of paid holidays.</div>
+        `
+      },
+      {
+        id: 'social-media',
+        title: 'Social Media Policy',
+        sub: 'What you can and cannot post',
+        accent: 'teal',
+        icon: '<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>',
+        body: `
+          <ul class="check-list">
+            <li>You should have submitted all Facebook, Instagram, Twitter, Snapchat, LinkedIn, and Pinterest handles on your application.</li>
+            <li><strong>Strongly discouraged:</strong> friending parents and staff. You are responsible for any consequences.</li>
+            <li><strong>Never</strong> post pictures or names of children or staff on personal social media — see Confidentiality Policy.</li>
+            <li>Keep privacy settings high — parents will research you.</li>
+            <li>We reserve the right to look at your social media accounts at any time.</li>
+            <li>Anything that doesn't reflect our core values, or that breaks confidentiality, could be grounds for immediate termination.</li>
+          </ul>
+        `
+      },
+      {
+        id: 'dress-code',
+        title: 'Dress Code',
+        sub: 'Professional but comfortable',
+        accent: 'purple',
+        icon: '<svg viewBox="0 0 24 24"><path d="M16 4l3 1.5L21 4l-1 7-2 1-2-1-1-7zM8 4L5 5.5 3 4l1 7 2 1 2-1 1-7zM12 5l-1 2-3 1 0 6 2 4 4 0 2-4 0-6-3-1-1-2z"></path></svg>',
+        body: `
+          <div class="two-col">
+            <div class="two-col-block">
+              <h5>What to wear</h5>
+              <ul class="check-list" style="margin:0">
+                <li>Knee-length skirts and dresses</li>
+                <li>Khakis or black pants</li>
+                <li>Colored jeans</li>
+                <li>Short nails — ¼ in. or shorter</li>
+                <li>Fashion sneakers (Toms, Keds, Vans, Converse)</li>
+                <li>Bright Beginnings branded apparel</li>
+              </ul>
+            </div>
+            <div class="two-col-block">
+              <h5>What NOT to wear</h5>
+              <ul class="x-list" style="margin:0">
+                <li>Sweatpants or yoga pants</li>
+                <li>Tank tops</li>
+                <li>Graphic tees</li>
+                <li>Workout gear</li>
+                <li>Jeans with holes</li>
+                <li>Open-toed shoes or sandals</li>
+                <li>Long nails, face piercings, dangling earrings</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 'non-smoking',
+        title: 'Non-Smoking / Drug Policy',
+        sub: 'Zero tolerance on premises',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>',
+        body: `
+          <ul class="check-list">
+            <li><strong>No smoking anywhere on premises</strong> — classrooms, playgrounds, parking lots. Applies to cigarettes, cigars, e-cigarettes, all tobacco.</li>
+            <li><strong>No smoking during preschool-related activities</strong>, field trips, or while supervising children.</li>
+            <li>Do not smell of tobacco while on duty.</li>
+            <li>Illegal drugs: use, possession, distribution, or sale is strictly prohibited — on or off premises. Immediate dismissal and possible legal action.</li>
+            <li>Do not be under the influence of alcohol or non-prescribed medications while working.</li>
+            <li>Prescription medication must be under a doctor's orders and must not impair your ability to do your job safely.</li>
+          </ul>
+        `
+      },
+      {
+        id: 'cell-phone',
+        title: 'Cell Phone / Technology Policy',
+        sub: 'No phones, no headphones, no videos',
+        accent: 'navy',
+        icon: '<svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>',
+        body: `
+          <ul class="check-list">
+            <li><strong>Cell phones and smart watches</strong> are NOT allowed in classrooms or playgrounds. Leave them in your car or locked in the office.</li>
+            <li><strong>Headphones and earbuds</strong> are prohibited in classrooms and playgrounds.</li>
+            <li>Personal electronics are only allowed on break — never when children are present.</li>
+            <li>Classroom tablets are for <strong>Tadpoles and curriculum planning only</strong>.</li>
+            <li>Teachers are strictly prohibited from using tablets or personal devices to show videos to children during class.</li>
+          </ul>
+          <div class="callout warn"><strong>Violations are handled through standard disciplinary procedure — and could result in immediate termination.</strong></div>
+        `
+      },
+      {
+        id: 'rules-of-conduct',
+        title: 'Rules of Conduct',
+        sub: 'Immediate dismissal vs. disciplinary action',
+        accent: 'purple',
+        icon: '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
+        body: `
+          <p>No code of conduct can replace the thoughtful behavior of an ethical employee. Still, we hold ourselves to the highest standard.</p>
+          <h4>Immediate dismissal offenses</h4>
+          <ul class="x-list">
+            <li>Insubordination — refusing supervisor instructions</li>
+            <li>Refusal to accept a proper job assignment</li>
+            <li>Falsifying applications or work records</li>
+            <li>Immoral conduct (drinking/drugs/sexual)</li>
+            <li>Fighting or horseplay</li>
+            <li>Malicious damage to or theft of company property</li>
+            <li>Child abuse or neglect</li>
+            <li>Reporting under the influence</li>
+            <li>Inappropriate use of technology or social media</li>
+          </ul>
+          <h4>Disciplinary action (warning, then dismissal if repeated)</h4>
+          <ul class="x-list">
+            <li>Excessive absenteeism or tardiness</li>
+            <li>Failure to report unexcused absences properly</li>
+            <li>Leaving the classroom or building without permission</li>
+            <li>Obscene, abusive, or threatening language</li>
+            <li>Unauthorized use of phone for personal use</li>
+            <li>Creating unsafe or unsanitary conditions</li>
+            <li>Smoking on or near property</li>
+            <li>Unsupportive/negative behavior or comments about the company or staff</li>
+            <li>Inability to perform job functions as needed</li>
+          </ul>
+        `
+      },
+      {
+        id: 'ratios',
+        title: 'Staff-to-Child Ratios',
+        sub: 'Non-negotiable. Always.',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
+        body: `
+          <p>Children's safety is our number one priority. We are required to always follow proper supervision requirements.</p>
+          <ul class="check-list">
+            <li>Staff must NOT leave a classroom out of ratio for ANY reason.</li>
+            <li>Use walkie talkies to communicate if you need to leave a classroom.</li>
+            <li>Ratios <strong>double at nap time</strong> for all classes except infants (12:45–3:00 PM, for children 16 months+).</li>
+            <li>Violations are handled through standard disciplinary procedure.</li>
+          </ul>
+          <div class="callout warn"><strong>Important:</strong> Ratios are based on age — not the room name. Always check posted ratio requirements.</div>
+        `
+      },
+      {
+        id: 'safe-sleep',
+        title: 'Infant Safe Sleep Practices',
+        sub: 'Back to sleep. Empty crib. Check every 15 min.',
+        accent: 'teal',
+        icon: '<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>',
+        body: `
+          <ul class="check-list">
+            <li>ALWAYS place infants on their <strong>back</strong> for sleep.</li>
+            <li>If an infant can roll from back to belly, place them on their back but let them adopt their preferred position.</li>
+            <li>Check resting or sleeping infants every <strong>15 minutes</strong>.</li>
+            <li>Firm, flat, non-inclined surface. No soft bedding, pillows, comforters, or blankets.</li>
+            <li>No pillows or filled comforters for any child under 2.</li>
+            <li>Cribs: <strong>nothing inside</strong> except the infant — and a non-weighted sleep sack if used.</li>
+            <li>Pacifiers OK in cribs as long as they don't have a clip attached.</li>
+            <li>No bibs, hoodies, or jackets while in the crib.</li>
+          </ul>
+        `
+      },
+      {
+        id: 'allergies',
+        title: 'Allergies & Medication',
+        sub: 'Emergency-only, MAT-trained, paperwork on file',
+        accent: 'navy',
+        icon: '<svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',
+        body: `
+          <h4>Preventing allergic reactions</h4>
+          <ul class="check-list">
+            <li>Parents are required to notify us of allergies. Individual allergy plans are required for all food allergies.</li>
+            <li>Allergy lists are posted on the back of each classroom door.</li>
+            <li>Wash hands if you may have come in contact with allergens.</li>
+            <li>If a child contacts an allergen, follow their allergy plan and notify parents immediately.</li>
+          </ul>
+          <h4>Emergency medications only</h4>
+          <ul class="check-list">
+            <li>Only emergency medications (EpiPen, inhaler) — and only by MAT-trained staff.</li>
+            <li>Must be in original container, current, not expired.</li>
+            <li>Written authorization from parent AND physician required, kept in the Medicine Log.</li>
+            <li>Medications must be locked at all times.</li>
+            <li>We do NOT administer antibiotics or prescription medications.</li>
+          </ul>
+        `
+      },
+      {
+        id: 'health',
+        title: 'Health Policy & Daily Observation',
+        sub: 'Symptoms that keep children home',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>',
+        body: `
+          <p>Each child is observed upon entering by a staff member trained in the "daily health observation." If signs or symptoms of illness are detected, the child may not attend.</p>
+          <h4>Symptoms that keep children home</h4>
+          <ul class="x-list">
+            <li>Fever above 100.4°F (not teething)</li>
+            <li>Severe coughing, difficult or rapid breathing</li>
+            <li>Yellowish skin or eyes</li>
+            <li>Pink eye, ear drainage, sore throat</li>
+            <li>Severe itching, evidence of lice</li>
+            <li>Unusual spots, rashes, infected skin patches</li>
+            <li>Crusty, bright yellow, dry or gummy skin areas</li>
+            <li>Dark, tea-colored urine</li>
+            <li>Diarrhea (a courtesy call goes out after 2 diarrhea diapers/toilet visits)</li>
+            <li>Vomiting · Headache and stiff neck</li>
+          </ul>
+          <div class="callout"><strong>Return rule:</strong> Children must be symptom-free, or fever-free without medication for 48 hours, or have a physician's release before returning.</div>
+        `
+      },
+      {
+        id: 'handwashing',
+        title: 'Handwashing & Cleaning',
+        sub: 'When, how, with what',
+        accent: 'teal',
+        icon: '<svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>',
+        body: `
+          <h4>Children must wash hands with soap and water</h4>
+          <ul class="check-list">
+            <li>Arriving at school · After playground · After diapering/toileting</li>
+            <li>After contact with blood, feces, urine, or other bodily fluids</li>
+            <li><strong>Before AND after</strong> eating meals and snacks</li>
+          </ul>
+          <h4>Staff must wash hands with soap and water</h4>
+          <ul class="check-list">
+            <li>Arriving at school · After playground · Before/after helping with toilet</li>
+            <li>Before AND after each diaper change · After using the toilet</li>
+            <li>After contact with body fluids (including wiping noses)</li>
+            <li>Before feeding or helping children with feeding</li>
+            <li>Before preparing or serving food</li>
+          </ul>
+          <h4>Cleaning vs. disinfecting</h4>
+          <p><strong>Spray bottles must be emptied each night and refilled with new solutions every morning.</strong></p>
+          <ul class="check-list">
+            <li><strong>Clean</strong> with soap & water before/after meals or activities at tables, before/after diaper changes, anytime there's a mess.</li>
+            <li><strong>Disinfect</strong> with bleach solution after diaper changes and after meals: spray soap & water and wipe; then spray bleach solution and let sit at least 2 minutes; then wipe with a wet paper towel.</li>
+          </ul>
+        `
+      },
+      {
+        id: 'behavior',
+        title: 'Behavior Management',
+        sub: 'Restorative practice, not punishment',
+        accent: 'purple',
+        icon: '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>',
+        body: `
+          <p>Behavior challenges may arise as part of normal child development. We use a <strong>Restorative Practice approach</strong>, fostering a positive classroom environment through daily routines, modeling, and empowering students to resolve conflicts.</p>
+          <h4>Key principles</h4>
+          <ul class="check-list">
+            <li><strong>Positive reinforcement</strong> over criticism</li>
+            <li><strong>Modeling and guidance</strong> — staff model appropriate behavior and validate feelings</li>
+            <li>Three rules: Respect yourself. Respect others. Respect the environment.</li>
+          </ul>
+          <h4>Prohibited practices</h4>
+          <ul class="x-list">
+            <li>No physical, emotional, or humiliating punishment</li>
+            <li>No force, no withholding food, exercise, or rest</li>
+            <li>No isolation — "time-out" is considered harsh and inappropriate</li>
+          </ul>
+          <h4>Strategies we use</h4>
+          <ul class="check-list">
+            <li>Redirect or distract from issues</li>
+            <li>Offer engaging, age-appropriate activities</li>
+            <li>Validate emotions; encourage words to resolve conflicts</li>
+            <li>Address harm by prioritizing the victim, briefly removing the aggressor, and discussing feelings and alternatives</li>
+            <li>Inform parents of serious incidents and collaborate on solutions</li>
+          </ul>
+        `
+      },
+      {
+        id: 'daily-routine',
+        title: 'Bright Beginnings Daily Routine',
+        sub: 'A day at the school',
+        accent: 'navy',
+        icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
+        body: `
+          <ul class="check-list">
+            <li><strong>7:30–8:30 AM</strong> — Drop-off. Classrooms must be set up with activities on all tables for children. You may wait in the kitchen to clock in if you're not needed in ratio.</li>
+            <li><strong>9:00 AM</strong> — Director or assistant director brings around the Morning Message: reminders, upcoming events, and the day's break schedule.</li>
+            <li><strong>12:45 PM</strong> — Ratios double at nap. All children on mats by 12:45. First teacher breaks 12:45–2:00, second teacher 2:00–3:00.</li>
+            <li><strong>3:30–4:00 PM</strong> — Pick-up starts. Departure pattern (on the Morning Message) determines who clocks out first.</li>
+          </ul>
+        `
+      },
+      {
+        id: 'resignation',
+        title: 'Resignation Policy',
+        sub: 'Leaving in good standing',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>',
+        body: `
+          <ul class="check-list">
+            <li>Give <strong>at least 2 weeks' written notice</strong> to your direct supervisor and email accounts@brightbeginningsva.com.</li>
+            <li>Keep your intentions confidential until a transition plan is agreed upon — let the school communicate with families.</li>
+            <li>To leave in <strong>good standing</strong>, we ask for at least a 30-day notice (allows time to find, train, transition).</li>
+            <li>You must work the full 2 weeks with no RTOs or call-outs.</li>
+            <li>Return all materials within 24 hours of your last day — t-shirts, sweatshirts, cups/mugs, teacher bags. Fees deducted if not returned.</li>
+            <li>Trainings paid for by Bright Beginnings (CPR/First Aid, MAT, CDA) deducted from your last paycheck if not expired.</li>
+          </ul>
+        `
+      }
+    ],
+    quiz: [
+      {
+        q: 'A child has had two diarrhea diapers in one morning. What happens?',
+        options: [
+          'Continue caring for them as normal',
+          'Send them home immediately',
+          'A courtesy call goes out to the parents, and the child needs to be picked up',
+          'Wait for a third diaper'
+        ],
+        correct: 2,
+        feedback: 'A courtesy call is given after 2 diarrhea diapers/toilet visits. Children need to be symptom-free or fever-free for 48 hours before returning.'
+      },
+      {
+        q: 'You\'re alone in a classroom and need to step out briefly. What should you do?',
+        options: [
+          'Step out — the children will be fine for a minute',
+          'Ask the child closest to the door to watch the others',
+          'NEVER leave the classroom out of ratio — use a walkie talkie to call for coverage',
+          'Lock the door and leave'
+        ],
+        correct: 2,
+        feedback: 'Staff must NEVER leave a classroom out of ratio for ANY reason. Use walkie talkies to communicate if you need to leave.'
+      },
+      {
+        q: 'Infant safe sleep requires:',
+        options: [
+          'Placing infants on their stomach with a soft pillow',
+          'Always placing infants on their BACK, on a firm flat surface, with nothing else in the crib',
+          'Letting infants choose their position from day one',
+          'Side sleeping with a wedge'
+        ],
+        correct: 1,
+        feedback: 'Always on the back, firm flat non-inclined surface, nothing in the crib (except a non-weighted sleep sack if used). Check every 15 minutes.'
+      },
+      {
+        q: 'Cell phones and smart watches in classrooms and on playgrounds are:',
+        options: [
+          'Allowed if on silent',
+          'Allowed only for emergencies',
+          'NOT allowed — leave them in your car or locked in the office',
+          'Allowed for taking photos of children'
+        ],
+        correct: 2,
+        feedback: 'Cell phones and smart watches are not allowed in classrooms or playgrounds. Personal electronics are only allowed on break, never when children are present.'
+      },
+      {
+        q: 'When MUST staff wash their hands with soap and water? (Select the most complete answer.)',
+        options: [
+          'Only after diaper changes',
+          'Only before eating',
+          'Arriving at school, after playground, before/after diapering, before/after toileting, after nose-wiping, before food prep — and more',
+          'Once at the start of each shift'
+        ],
+        correct: 2,
+        feedback: 'Handwashing is required at many points throughout the day — arrival, after playground, before/after toileting and diapering, after any bodily fluid contact, before feeding or food prep.'
+      },
+      {
+        q: 'How should you handle a call-out if you can\'t make it to work?',
+        options: [
+          'Text the director',
+          'Leave a voicemail',
+          'Call and speak directly to the opening supervisor, designated staff, or Director — at least 2 hours in advance',
+          'Email the next morning'
+        ],
+        correct: 2,
+        feedback: 'Call and speak directly — no voicemails or texts. At least 2 hours in advance. A doctor\'s note is required for any time missed due to illness.'
+      },
+      {
+        q: 'Our approach to behavior management is best described as:',
+        options: [
+          'Time-outs and isolation',
+          'Withholding food or rest as consequences',
+          'Restorative Practice — positive reinforcement, modeling, validating feelings, redirecting',
+          'Physical discipline'
+        ],
+        correct: 2,
+        feedback: 'We use Restorative Practice. Time-out, isolation, withholding food/rest, and physical or humiliating punishment are all prohibited.'
+      }
+    ]
+  },
+
+  /* ============== MODULE 5: CURRICULUM/CLASSROOM MANAGEMENT ============== */
+  {
+    id: 'curriculum',
+    number: 5,
+    title: 'Curriculum',
+    tagline: 'The classroom.',
+    subtitle: 'Curriculum planning, Tadpoles, parent communication, tours, outdoor education, and the classroom standards that make Bright Beginnings feel like Bright Beginnings.',
+    accent: 'orange',
+    icon: '<svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>',
+    sections: [
+      {
+        id: 'curriculum-planning',
+        title: 'Curriculum & Lesson Planning',
+        sub: 'Calendars, lesson plans, supplies',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>',
+        body: `
+          <ul class="check-list">
+            <li>You'll receive <strong>monthly curriculum calendars</strong> by age group (Infants · Toddlers/Twos · Preschool).</li>
+            <li>Curriculum calendars are <strong>guidelines for the year</strong> and must be followed.</li>
+            <li>Lesson plans are due at least <strong>one week in advance</strong> and must be uploaded into Tadpoles.</li>
+            <li>Use <strong>complete sentences</strong> in lesson plans and day notes.</li>
+            <li>Note required materials for each activity. Involve parents where possible (e.g. asking them to bring materials).</li>
+            <li>If parent involvement isn't reasonable, submit supply requests to your site director.</li>
+            <li>Supply orders are placed at the end of each month for the next month — December supplies need to be requested in November.</li>
+            <li>Lesson plans are reviewed by your site director.</li>
+            <li>All lesson plans must be accessible in case a substitute is needed in your classroom.</li>
+          </ul>
+        `
+      },
+      {
+        id: 'tadpoles',
+        title: 'Tadpoles & iPad Policy',
+        sub: 'Photos, day notes, attendance',
+        accent: 'teal',
+        icon: '<svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>',
+        body: `
+          <p>Tadpoles is the app we use for parent communication and daily reports. It also tracks children and staff attendance.</p>
+          <ul class="check-list">
+            <li>All info on children, parents, staff, restrictions, allergies, and custody MUST be noted in Tadpoles.</li>
+            <li>At least <strong>two pictures of every child</strong> must be sent EVERY day.</li>
+            <li>A <strong>"Day Note"</strong> must be completed every day for each child — reflecting your lesson plans.</li>
+            <li>Day notes should be detailed: all the activities the child participated in or was offered.</li>
+            <li>iPads are your responsibility while in your classroom. Tell your director immediately if not working properly or damaged.</li>
+          </ul>
+        `
+      },
+      {
+        id: 'tour-takeover',
+        title: 'Room Tour / Tour Takeover',
+        sub: 'Show off your classroom',
+        accent: 'purple',
+        icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>',
+        body: `
+          <h4>When a family walks in</h4>
+          <ul class="check-list">
+            <li>Greet every family that walks into your classroom — shake their hand, introduce yourself.</li>
+            <li>Greet every child at their level.</li>
+            <li>Invite every child/family to participate in your current activity.</li>
+            <li>Have something fun ready for the child to do.</li>
+            <li>Be ready to engage about the day when the tour giver asks.</li>
+            <li>Know your curriculum and discuss it.</li>
+            <li>Show off your room — show 1–2 things you're most proud of.</li>
+            <li>Be clear and show your personality. Tell them you'd love to have them at our school.</li>
+            <li>Keep attention on your class as you assist with the tour.</li>
+            <li>Ask if they have questions you can answer.</li>
+          </ul>
+          <div class="callout"><strong>$25 On-the-Spot Enrollment Bonus</strong> — if the family enrolls on the spot or by Friday of the same week and you led the tour takeover.</div>
+        `
+      },
+      {
+        id: 'outdoor-weather',
+        title: 'Outdoor Weather Policy',
+        sub: '"There\'s no such thing as bad weather, just bad clothes."',
+        accent: 'teal',
+        icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>',
+        body: `
+          <ul class="check-list">
+            <li>We go outside multiple times each day — this is <strong>mandatory</strong>.</li>
+            <li>Bring changes of clothing and tennis shoes for running.</li>
+            <li>Check the weather in advance, build it into your lesson plan, and plan fun outdoor experiences.</li>
+            <li>All babies who can sit in a buggy must go outside at least once each day.</li>
+          </ul>
+          <div class="callout teal"><strong>Note on tennis shoes:</strong> They aren't part of the daily dress code — only worn on the playground.</div>
+        `
+      },
+      {
+        id: 'outdoor-classroom',
+        title: 'Outdoor Classroom Project',
+        sub: 'Virginia\'s only Level II Certified location',
+        accent: 'orange',
+        icon: '<svg viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 1-7-7c0-2 1-3.9 3-5.5s3.5-4 4-6.5c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a7 7 0 0 1-7 7z"></path></svg>',
+        body: `
+          <p>We're proud to be Virginia's only <strong>Level II Certified Outdoor Classroom Project</strong> location. The Outdoor Classroom is part of how we teach, not just where children play.</p>
+          <h4>Content areas at each site</h4>
+          <ul class="check-list">
+            <li>Garden · Tires · Nature trail · Pots for digging · Sandbox</li>
+            <li>Easel · Music · Birds · Art at picnic tables · Reading under a tree</li>
+          </ul>
+          <h4>Sunscreen</h4>
+          <p>BB staff are responsible for applying sunscreen to all children in their care during summer months (May–August), or per parent's request every afternoon. Parents have agreed (per their contract) to apply in the morning before school.</p>
+          <div class="callout purple"><strong>This program is continuously growing.</strong> Expect continuous training as we expand the Outdoor Classroom curriculum.</div>
+        `
+      },
+      {
+        id: 'branding',
+        title: 'Branding & Classroom Standards',
+        sub: 'What our classrooms look like',
+        accent: 'navy',
+        icon: '<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>',
+        body: `
+          <ul class="check-list">
+            <li>All notes and signs must be approved by the director and branded with our logo, correct font, and correct colors.</li>
+            <li><strong>NO handwritten notes</strong> posted anywhere — use Tadpoles.</li>
+            <li>Email anything you need branded and printed to the director.</li>
+            <li><strong>No clutter</strong> in your classroom.</li>
+            <li>No tape on walls, tables, chairs, windows, furniture, or doors.</li>
+            <li>No clutter on top of cubbies — use them for library book displays.</li>
+            <li>All centers / play areas are present, labeled, and cared for at all times.</li>
+            <li>All manipulatives are in basket bins, labeled, and cared for.</li>
+            <li>Daily schedules posted and branded. Classrooms with 2+ teachers must utilize split groups for the entire day (except nap and lunch).</li>
+            <li>Classrooms must be clutter-free, cleaned, disinfected, and sanitized throughout the day.</li>
+          </ul>
+        `
+      },
+      {
+        id: 'parent-communication',
+        title: 'Communicating with Parents',
+        sub: 'Daily, intentional, kind',
+        accent: 'purple',
+        icon: '<svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>',
+        body: `
+          <p>Parents trust you with the most important thing in their lives. Communication isn't an extra — it's part of the job.</p>
+          <ul class="check-list">
+            <li>Greet every parent at drop-off and pick-up — by name when you can.</li>
+            <li>Use Tadpoles for all classroom communication: photos (2+ per child per day), day notes, important updates.</li>
+            <li>Avoid sensitive conversations at the door — schedule a time with the director if a topic needs more than a minute.</li>
+            <li>1-hour turnaround on parent questions (see Module 1 Customer Service).</li>
+            <li>Be warm, professional, and honest. When you don't know something, say so and find out.</li>
+          </ul>
+        `
+      }
+    ],
+    quiz: [
+      {
+        q: 'When are lesson plans due, and where do they go?',
+        options: [
+          'The day of, posted on the classroom door',
+          'At least one week in advance, uploaded into Tadpoles',
+          'Whenever you finish them, given to your mentor',
+          'Once a month at the staff meeting'
+        ],
+        correct: 1,
+        feedback: 'Lesson plans are due at least one week in advance and must be uploaded into Tadpoles, in complete sentences.'
+      },
+      {
+        q: 'How many photos of each child must be sent through Tadpoles each day?',
+        options: ['1', 'At least 2', 'At least 5', 'It varies'],
+        correct: 1,
+        feedback: 'At least two pictures of every child must be sent EVERY day, plus a detailed day note.'
+      },
+      {
+        q: 'A family is touring during your activity time. The tour giver brings them into your classroom. What\'s your role?',
+        options: [
+          'Step back and let the tour giver handle it',
+          'Greet the family at their level, invite them to participate, show off 1–2 things you\'re most proud of — while keeping attention on your class',
+          'Pause your activity and give the full tour yourself',
+          'Wait for them to leave before resuming'
+        ],
+        correct: 1,
+        feedback: 'Greet warmly, engage the family and child, show off your room — and keep attention on your class throughout. There\'s also a $25 enrollment bonus if you led the tour takeover and they enroll on the spot or by that Friday.'
+      },
+      {
+        q: 'Do classes go outside in cold or rainy weather?',
+        options: [
+          'No — children stay inside in bad weather',
+          'Only if the temperature is above 60°F',
+          'Yes — multiple times a day is mandatory. "No such thing as bad weather, just bad clothes."',
+          'Only the older classes'
+        ],
+        correct: 2,
+        feedback: 'Multiple outdoor visits each day are mandatory. Even babies who can sit in a buggy go out at least once a day.'
+      },
+      {
+        q: 'Which of the following is NOT allowed in your classroom?',
+        options: [
+          'Labeled basket bins of manipulatives',
+          'A branded, printed daily schedule on the door',
+          'A handwritten note taped to the wall about a parent reminder',
+          'Library books displayed on top of cubbies'
+        ],
+        correct: 2,
+        feedback: 'No handwritten notes posted anywhere — use Tadpoles. Also no tape on walls/tables/windows/furniture. All signage must be approved, branded, and printed.'
+      }
+    ]
+  }
+];
+
+/* ============================================
+   APP STATE
+   ============================================ */
+let appState = {
+  currentModule: null,
+  sections: {},        // { 'culture::mission': true, ... }
+  quizzes: {},         // { 'culture': { passed: true, score: 5 }, ... }
+  startedAt: null
+};
+
+const PASS_THRESHOLD = 0.8; // 80% to pass
+
+/* ============================================
+   INIT
+   ============================================ */
+(async function init() {
+  const saved = await StorageAdapter.load();
+  if (saved) appState = { ...appState, ...saved };
+  renderModulesGrid();
+  updateProgress();
+  updateStartButton();
+})();
+
+/* ============================================
+   PROGRESS CALC
+   ============================================ */
+function getModuleProgress(modIdx) {
+  const mod = MODULES[modIdx];
+  const total = mod.sections.length + 1; // +1 for the quiz
+  let done = 0;
+  mod.sections.forEach(s => {
+    if (appState.sections[`${mod.id}::${s.id}`]) done++;
+  });
+  if (appState.quizzes[mod.id] && appState.quizzes[mod.id].passed) done++;
+  return { done, total, pct: Math.round((done / total) * 100) };
+}
+
+function getOverallProgress() {
+  let totalDone = 0, totalAll = 0;
+  MODULES.forEach((m, i) => {
+    const p = getModuleProgress(i);
+    totalDone += p.done;
+    totalAll += p.total;
+  });
+  return Math.round((totalDone / totalAll) * 100);
+}
+
+function isModuleComplete(modIdx) {
+  const p = getModuleProgress(modIdx);
+  return p.done === p.total;
+}
+
+function isModuleUnlocked(modIdx) {
+  if (modIdx === 0) return true;
+  return isModuleComplete(modIdx - 1);
+}
+
+function updateProgress() {
+  const pct = getOverallProgress();
+  document.getElementById('topProgressFill').style.width = pct + '%';
+  document.getElementById('topProgressText').textContent = pct + '%';
+
+  // Update timeline
+  document.querySelectorAll('.timeline-step').forEach((el, i) => {
+    if (isModuleComplete(i)) el.classList.add('complete');
+    else el.classList.remove('complete');
+  });
+
+  // Update modules grid
+  renderModulesGrid();
+}
+
+function updateStartButton() {
+  // Find the first incomplete module
+  let firstIncomplete = MODULES.findIndex((_, i) => !isModuleComplete(i));
+  if (firstIncomplete === -1) {
+    document.getElementById('startBtnText').textContent = 'All complete — review';
+    document.getElementById('footerCtaText').textContent = 'Review modules';
+  } else if (firstIncomplete === 0 && getModuleProgress(0).done === 0) {
+    document.getElementById('startBtnText').textContent = 'Start onboarding';
+    document.getElementById('footerCtaText').textContent = 'Begin Module 1';
+  } else {
+    document.getElementById('startBtnText').textContent = `Continue Module ${firstIncomplete + 1}`;
+    document.getElementById('footerCtaText').textContent = `Continue Module ${firstIncomplete + 1}`;
+  }
+}
+
+/* ============================================
+   MODULES GRID
+   ============================================ */
+function renderModulesGrid() {
+  const grid = document.getElementById('modulesGrid');
+  grid.innerHTML = MODULES.map((mod, i) => {
+    const unlocked = isModuleUnlocked(i);
+    const complete = isModuleComplete(i);
+    const progress = getModuleProgress(i);
+
+    let statusEl;
+    if (complete) statusEl = '<span class="module-card-status complete">✓ Complete</span>';
+    else if (unlocked) statusEl = `<span class="module-card-status available">${progress.pct}% done</span>`;
+    else statusEl = '<span class="module-card-status locked">🔒 Locked</span>';
+
+    return `
+      <div class="module-card" onclick="${unlocked ? `openModule(${i})` : `showToast('Complete Module ${i} to unlock this one.')`}" style="${!unlocked ? 'opacity:0.55' : ''}">
+        <div class="module-card-watermark">0${mod.number}</div>
+        <div class="module-icon">${mod.icon}</div>
+        <div class="module-card-eyebrow">Module ${mod.number}</div>
+        <h3 class="module-card-title">${mod.title} <span style="font-weight:400;color:var(--muted)">— ${mod.tagline}</span></h3>
+        <p class="module-card-desc">${mod.subtitle}</p>
+        <div class="module-card-meta">
+          <span>${mod.sections.length} sections · ${mod.quiz.length}-Q quiz</span>
+          ${statusEl}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ============================================
+   MODULE VIEW RENDER
+   ============================================ */
+function openModule(idx) {
+  if (!isModuleUnlocked(idx)) {
+    showToast(`Complete Module ${idx} to unlock this one.`);
+    return;
+  }
+  appState.currentModule = idx;
+  document.getElementById('home-view').style.display = 'none';
+  document.getElementById('module-view').classList.add('active');
+  renderModule(idx);
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function goHome() {
+  appState.currentModule = null;
+  document.getElementById('home-view').style.display = 'block';
+  document.getElementById('module-view').classList.remove('active');
+  updateProgress();
+  updateStartButton();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderModule(idx) {
+  const mod = MODULES[idx];
+  const view = document.getElementById('module-view');
+  const prog = getModuleProgress(idx);
+
+  const sectionsHTML = mod.sections.map((s) => {
+    const checked = appState.sections[`${mod.id}::${s.id}`];
+    return `
+      <div class="accordion ${checked ? 'open' : ''}" data-accent="${s.accent}" data-section-id="${s.id}">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-trigger-content">
+            <div class="accordion-icon">${s.icon}</div>
+            <div class="accordion-title-wrap">
+              <div class="accordion-title">${s.title}</div>
+              <div class="accordion-sub">${s.sub}</div>
+            </div>
+          </div>
+          <div class="accordion-status">
+            <div class="checkbox-marker ${checked ? 'checked' : ''}">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-inner">
+            ${s.body}
+            <div class="confirm-row">
+              <div class="confirm-row-text">Mark this section as reviewed to track your progress.</div>
+              <button class="confirm-btn ${checked ? 'done' : ''}" onclick="markSection('${mod.id}', '${s.id}', this)">
+                ${checked ? '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Reviewed' : 'Mark as reviewed'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const quizHTML = renderQuiz(mod, idx);
+
+  view.innerHTML = `
+    <div class="module-hero">
+      <div class="module-hero-inner">
+        <button class="back-link" onclick="goHome()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          Back to all modules
+        </button>
+        <span class="module-hero-eyebrow">Module ${mod.number} — ${mod.tagline}</span>
+        <h1 class="module-hero-title">${mod.title}</h1>
+        <p class="module-hero-sub">${mod.subtitle}</p>
+        <div class="module-hero-progress">
+          <div class="module-hero-progress-label">
+            <span>Module progress</span>
+            <span>${prog.done} of ${prog.total} complete</span>
+          </div>
+          <div class="module-hero-progress-bar">
+            <div class="module-hero-progress-fill" style="width:${prog.pct}%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="module-content">
+      ${sectionsHTML}
+      ${quizHTML}
+    </div>
+  `;
+}
+
+function toggleAccordion(btn) {
+  btn.parentElement.classList.toggle('open');
+}
+
+function markSection(moduleId, sectionId, btn) {
+  const key = `${moduleId}::${sectionId}`;
+  const wasChecked = appState.sections[key];
+  appState.sections[key] = !wasChecked;
+  StorageAdapter.save(appState);
+
+  // Update UI in place
+  const accordion = btn.closest('.accordion');
+  const marker = accordion.querySelector('.checkbox-marker');
+  if (appState.sections[key]) {
+    marker.classList.add('checked');
+    btn.classList.add('done');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Reviewed';
+    showToast('Section marked complete');
+  } else {
+    marker.classList.remove('checked');
+    btn.classList.remove('done');
+    btn.textContent = 'Mark as reviewed';
+  }
+  refreshModuleProgressUI();
+  updateProgress();
+}
+
+function refreshModuleProgressUI() {
+  if (appState.currentModule === null) return;
+  const prog = getModuleProgress(appState.currentModule);
+  const fill = document.querySelector('.module-hero-progress-fill');
+  const label = document.querySelector('.module-hero-progress-label span:last-child');
+  if (fill) fill.style.width = prog.pct + '%';
+  if (label) label.textContent = `${prog.done} of ${prog.total} complete`;
+}
+
+/* ============================================
+   QUIZ
+   ============================================ */
+function renderQuiz(mod, idx) {
+  const passedAlready = appState.quizzes[mod.id] && appState.quizzes[mod.id].passed;
+
+  const qHTML = mod.quiz.map((q, qi) => {
+    return `
+      <div class="quiz-question" data-q="${qi}">
+        <div class="quiz-qnum">Question ${qi + 1}</div>
+        <div class="quiz-qtext">${q.q}</div>
+        <div class="quiz-options">
+          ${q.options.map((opt, oi) => `
+            <button class="quiz-option" onclick="selectOption(${qi}, ${oi})">
+              <div class="quiz-option-radio"></div>
+              <div>${opt}</div>
+            </button>
+          `).join('')}
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+    `;
+  }).join('');
+
+  return `
+    <div class="quiz-section" id="quizSection">
+      <div class="quiz-inner">
+        <span class="quiz-eyebrow">Quiz Time — ${mod.quiz.length} questions</span>
+        <h2 class="quiz-title">Test what you know.</h2>
+        <p class="quiz-lead">Answer all questions, then submit. Score 80% or higher to complete the module and unlock the next one.</p>
+        ${qHTML}
+        <div class="quiz-actions">
+          <button class="quiz-submit-btn" id="quizSubmit" onclick="submitQuiz(${idx})" disabled>${passedAlready ? 'Retake quiz' : 'Submit quiz'}</button>
+          <div class="quiz-score" id="quizScore"></div>
+        </div>
+        <div class="quiz-results" id="quizResults"></div>
+      </div>
+    </div>
+  `;
+}
+
+let quizAnswers = {};
+
+function selectOption(qIdx, oIdx) {
+  quizAnswers[qIdx] = oIdx;
+  const qBlock = document.querySelector(`.quiz-question[data-q="${qIdx}"]`);
+  qBlock.querySelectorAll('.quiz-option').forEach((opt, i) => {
+    opt.classList.toggle('selected', i === oIdx);
+  });
+  // Enable submit if all answered
+  const mod = MODULES[appState.currentModule];
+  const allAnswered = mod.quiz.every((_, i) => quizAnswers[i] !== undefined);
+  document.getElementById('quizSubmit').disabled = !allAnswered;
+}
+
+function submitQuiz(modIdx) {
+  const mod = MODULES[modIdx];
+  let correct = 0;
+
+  mod.quiz.forEach((q, qi) => {
+    const qBlock = document.querySelector(`.quiz-question[data-q="${qi}"]`);
+    const opts = qBlock.querySelectorAll('.quiz-option');
+    const feedback = qBlock.querySelector('.quiz-feedback');
+    const chosen = quizAnswers[qi];
+
+    opts.forEach((opt, oi) => {
+      opt.classList.add('disabled');
+      opt.classList.remove('selected');
+      if (oi === q.correct) {
+        opt.classList.add('correct');
+      } else if (oi === chosen) {
+        opt.classList.add('incorrect');
+      }
+    });
+
+    if (chosen === q.correct) {
+      correct++;
+      feedback.classList.add('show', 'correct');
+      feedback.innerHTML = `<strong>Correct.</strong> ${q.feedback}`;
+    } else {
+      feedback.classList.add('show', 'incorrect');
+      feedback.innerHTML = `<strong>Not quite.</strong> ${q.feedback}`;
+    }
+  });
+
+  const total = mod.quiz.length;
+  const pct = correct / total;
+  const passed = pct >= PASS_THRESHOLD;
+
+  appState.quizzes[mod.id] = {
+    passed,
+    score: correct,
+    total,
+    pct: Math.round(pct * 100),
+    at: new Date().toISOString()
+  };
+  StorageAdapter.save(appState);
+
+  // Results card
+  const resEl = document.getElementById('quizResults');
+  resEl.classList.add('show');
+  const nextIdx = modIdx + 1;
+  const hasNext = nextIdx < MODULES.length;
+
+  resEl.innerHTML = `
+    <h3>${passed ? 'You passed!' : 'Almost there.'}</h3>
+    <div class="quiz-results-score">${correct} / ${total}</div>
+    <p>${passed
+      ? `You scored ${Math.round(pct*100)}%. ${hasNext ? `Module ${nextIdx + 1} is now unlocked.` : 'You\'ve completed all modules.'}`
+      : `You scored ${Math.round(pct*100)}%. You need ${Math.round(PASS_THRESHOLD*100)}% to pass. Review the sections above and try again.`}
+    </p>
+    <div class="quiz-results-actions">
+      <button class="quiz-retry-btn" onclick="retakeQuiz(${modIdx})">Retake quiz</button>
+      ${passed && hasNext ? `<button class="quiz-next-btn" onclick="openModule(${nextIdx})">Go to Module ${nextIdx + 1} →</button>` : ''}
+      ${passed && !hasNext ? `<button class="quiz-next-btn" onclick="goHome()">Back to home →</button>` : ''}
+    </div>
+  `;
+
+  document.getElementById('quizSubmit').style.display = 'none';
+  document.getElementById('quizScore').innerHTML = `<strong>${correct}/${total}</strong> correct`;
+
+  // Scroll to results
+  setTimeout(() => resEl.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+
+  // Celebrate if module is now fully complete
+  if (passed && isModuleComplete(modIdx)) {
+    setTimeout(() => showCelebrate(modIdx), 700);
+  }
+
+  refreshModuleProgressUI();
+  updateProgress();
+}
+
+function retakeQuiz(modIdx) {
+  quizAnswers = {};
+  // Re-render only the quiz section
+  const mod = MODULES[modIdx];
+  const oldQuiz = document.getElementById('quizSection');
+  const wrap = document.createElement('div');
+  wrap.innerHTML = renderQuiz(mod, modIdx);
+  oldQuiz.replaceWith(wrap.firstElementChild);
+  document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ============================================
+   CELEBRATION & FLOW
+   ============================================ */
+function showCelebrate(modIdx) {
+  const mod = MODULES[modIdx];
+  const nextIdx = modIdx + 1;
+  const hasNext = nextIdx < MODULES.length;
+  document.getElementById('celebrateTitle').textContent = `Module ${modIdx + 1}: ${mod.title} complete.`;
+  document.getElementById('celebrateText').innerHTML = hasNext
+    ? `Beautiful work. <strong>Module ${nextIdx + 1}: ${MODULES[nextIdx].title}</strong> is now unlocked.`
+    : `You've finished every module. Welcome to the Bright Beginnings family — the rest is the real work.`;
+  document.getElementById('celebrateModal').classList.add('show');
+}
+
+function closeCelebrate() {
+  document.getElementById('celebrateModal').classList.remove('show');
+  const modIdx = appState.currentModule;
+  const nextIdx = modIdx + 1;
+  if (nextIdx < MODULES.length) {
+    openModule(nextIdx);
+  } else {
+    goHome();
+  }
+}
+
+function startOrContinue() {
+  let firstIncomplete = MODULES.findIndex((_, i) => !isModuleComplete(i));
+  if (firstIncomplete === -1) firstIncomplete = 0;
+  openModule(firstIncomplete);
+}
+
+/* ============================================
+   RESET
+   ============================================ */
+function resetProgress() {
+  if (!confirm('Reset all onboarding progress? This cannot be undone.')) return;
+  appState = { currentModule: null, sections: {}, quizzes: {}, startedAt: null };
+  StorageAdapter.clear();
+  quizAnswers = {};
+  goHome();
+  showToast('Progress reset');
+}
+
+/* ============================================
+   TOAST
+   ============================================ */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastText').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+</script>
+</body>
+</html>
