@@ -297,8 +297,146 @@ button { font-family: inherit; cursor: pointer; border: none; outline: none; }
   font-size: 16px;
   color: var(--muted);
   max-width: 640px;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
   line-height: 1.7;
+}
+
+/* HOW IT WORKS STEPS */
+.how-it-works {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 600px;
+  margin-bottom: 48px;
+}
+.hiw-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.hiw-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.hiw-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hiw-body strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.hiw-body span {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* CERTIFICATE MODAL */
+.cert-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(26,26,46,0.85);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.cert-modal.show { display: flex; }
+.cert-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 56px 48px;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+  border: 3px solid var(--orange);
+  position: relative;
+  overflow: hidden;
+}
+.cert-card::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(255,107,53,0.06);
+}
+.cert-card::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(78,205,196,0.06);
+}
+.cert-emoji { font-size: 52px; margin-bottom: 16px; line-height: 1; }
+.cert-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 12px;
+}
+.cert-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.cert-name {
+  color: var(--orange);
+  display: block;
+}
+.cert-body {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+.cert-school {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.cert-btn {
+  display: inline-block;
+  padding: 14px 36px;
+  background: var(--orange);
+  color: var(--white);
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.cert-btn:hover {
+  background: #e55a2a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255,107,53,0.3);
+}
+@media (max-width: 560px) {
+  .cert-card { padding: 40px 24px; }
+  .cert-heading { font-size: 24px; }
 }
 
 .timeline {
@@ -1611,6 +1749,16 @@ button { font-family: inherit; cursor: pointer; border: none; outline: none; }
         <label>Confirm Password</label>
         <input type="password" id="auth-confirm" placeholder="Confirm password" minlength="6" autocomplete="new-password">
       </div>
+      <div style="display:none;gap:10px" id="auth-name-fields">
+        <div class="auth-field" style="flex:1;margin-bottom:0">
+          <label>First Name</label>
+          <input type="text" id="auth-firstname" placeholder="Jane" autocomplete="given-name">
+        </div>
+        <div class="auth-field" style="flex:1;margin-bottom:0">
+          <label>Last Name</label>
+          <input type="text" id="auth-lastname" placeholder="Smith" autocomplete="family-name">
+        </div>
+      </div>
       <div class="auth-field" id="auth-school-field" style="display:none">
         <label>School</label>
         <select id="auth-school" style="width:100%;padding:12px 16px;border:2px solid #e8e4da;border-radius:10px;font-size:15px;font-family:inherit;color:var(--text);background:var(--cream);outline:none;transition:border-color 0.2s;appearance:none;">
@@ -1670,7 +1818,7 @@ button { font-family: inherit; cursor: pointer; border: none; outline: none; }
   <div class="hero-inner">
     <span class="hero-eyebrow">New Teacher Orientation</span>
     <h1 class="hero-title">Welcome to the Bright Beginnings family.</h1>
-    <p class="hero-subtitle">A guided onboarding experience built around our five C's — Culture, Connection, Compensation, Compliance, and Curriculum. Work through it at your own pace.</p>
+    <p class="hero-subtitle">This onboarding experience is built on our five C's — Culture, Connection, Compensation, Compliance, and Curriculum — and guided by the values at the heart of everything we do: <em>nurture, communicate, play, learn, trust, and family.</em> All sprinkled with kindness. Work through it at your own pace.</p>
 
     <div class="hero-cta-row">
       <button class="hero-cta" onclick="startOrContinue()">
@@ -1693,7 +1841,37 @@ button { font-family: inherit; cursor: pointer; border: none; outline: none; }
 <section class="timeline-section">
   <span class="section-eyebrow">Your path</span>
   <h2 class="section-title">Five modules. One steady, supported journey.</h2>
-  <p class="section-lead">Each module builds on the last. Complete sections as you go, take a short quiz at the end, and unlock the next module. Your progress is saved automatically.</p>
+  <p class="section-lead">Each module builds on the last — take your time, there's no rush. Here's how it works:</p>
+  <div class="how-it-works">
+    <div class="hiw-step">
+      <div class="hiw-num">1</div>
+      <div class="hiw-body">
+        <strong>Read each section</strong>
+        <span>Open the accordion, read at your own pace. Every section has everything you need to know.</span>
+      </div>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">2</div>
+      <div class="hiw-body">
+        <strong>Mark as Reviewed</strong>
+        <span>Click the <em>Mark as Reviewed</em> button at the bottom of each section. You must complete every section before the quiz unlocks — no skipping ahead.</span>
+      </div>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">3</div>
+      <div class="hiw-body">
+        <strong>Pass the quiz</strong>
+        <span>A short quiz at the end of each module checks your understanding. Score 80% or higher to unlock the next module.</span>
+      </div>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">4</div>
+      <div class="hiw-body">
+        <strong>Your progress saves automatically</strong>
+        <span>Close the tab, come back later — you'll pick up exactly where you left off.</span>
+      </div>
+    </div>
+  </div>
 
   <div class="timeline" id="timeline">
     <div class="timeline-step" onclick="openModule(0)">
@@ -1759,6 +1937,20 @@ button { font-family: inherit; cursor: pointer; border: none; outline: none; }
 <!-- ============================================
      MODAL — Module Complete
      ============================================ -->
+<!-- ============================================
+     CERTIFICATE MODAL — Final completion
+     ============================================ -->
+<div class="cert-modal" id="certModal">
+  <div class="cert-card">
+    <div class="cert-emoji">🎉</div>
+    <div class="cert-eyebrow">Course Complete</div>
+    <h2 class="cert-heading">Good job, <span class="cert-name" id="certName">there</span>!</h2>
+    <p class="cert-body">You have completed the<br><strong>Bright Beginnings Preschool Onboarding Course.</strong></p>
+    <p class="cert-school" id="certDate"></p>
+    <button class="cert-btn" onclick="closeCertificate()">Back to Home</button>
+  </div>
+</div>
+
 <div class="celebrate-modal" id="celebrateModal">
   <div class="celebrate-card">
     <div class="celebrate-icon">
@@ -1795,6 +1987,8 @@ const db = firebase.firestore();
 /* ============================================
    AUTH STATE
    ============================================ */
+let staffName = { first: '', last: '' };
+
 auth.onAuthStateChanged(async (user) => {
   if (user) {
     document.getElementById('auth-overlay').style.display = 'none';
@@ -1803,10 +1997,13 @@ auth.onAuthStateChanged(async (user) => {
     document.getElementById('topnav-email').textContent = user.email;
     try {
       const snap = await db.collection('progress').doc(user.uid).get();
-      if (snap.exists && snap.data().role === 'admin') {
-        document.getElementById('admin-link').style.display = 'inline-flex';
+      if (snap.exists) {
+        const d = snap.data();
+        if (d.role === 'admin') document.getElementById('admin-link').style.display = 'inline-flex';
+        staffName.first = d.firstName || '';
+        staffName.last  = d.lastName  || '';
       }
-    } catch (e) { /* admin check failure is non-fatal */ }
+    } catch (e) { /* non-fatal */ }
     await initApp();
   } else {
     document.getElementById('auth-overlay').style.display = 'flex';
@@ -1826,6 +2023,7 @@ function switchAuthTab(mode, el) {
   el.classList.add('active');
   const isSignup = mode === 'signup';
   document.getElementById('auth-confirm-field').style.display = isSignup ? 'block' : 'none';
+  document.getElementById('auth-name-fields').style.display  = isSignup ? 'flex'  : 'none';
   document.getElementById('auth-school-field').style.display = isSignup ? 'block' : 'none';
   document.getElementById('auth-submit-btn').textContent = isSignup ? 'Create Account' : 'Sign In';
   document.getElementById('auth-forgot-btn').style.display = isSignup ? 'none' : 'block';
@@ -1842,13 +2040,16 @@ async function handleAuthSubmit(e) {
   btn.textContent = authMode === 'signin' ? 'Signing in…' : 'Creating account…';
   try {
     if (authMode === 'signup') {
-      const confirm = document.getElementById('auth-confirm').value;
-      const school  = document.getElementById('auth-school').value;
-      if (password !== confirm) { showAuthMsg('Passwords do not match.', 'error'); return; }
+      const confirm   = document.getElementById('auth-confirm').value;
+      const firstName = document.getElementById('auth-firstname').value.trim();
+      const lastName  = document.getElementById('auth-lastname').value.trim();
+      const school    = document.getElementById('auth-school').value;
+      if (password !== confirm)  { showAuthMsg('Passwords do not match.', 'error'); return; }
+      if (!firstName || !lastName) { showAuthMsg('Please enter your first and last name.', 'error'); return; }
       if (!school) { showAuthMsg('Please select your school.', 'error'); return; }
       const cred = await auth.createUserWithEmailAndPassword(email, password);
       await db.collection('progress').doc(cred.user.uid).set({
-        email, school, role: 'staff',
+        email, firstName, lastName, school, role: 'staff',
         lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
       }, { merge: true });
     } else {
@@ -3612,22 +3813,31 @@ function showCelebrate(modIdx) {
   const mod = MODULES[modIdx];
   const nextIdx = modIdx + 1;
   const hasNext = nextIdx < MODULES.length;
-  document.getElementById('celebrateTitle').textContent = `Module ${modIdx + 1}: ${mod.title} complete.`;
-  document.getElementById('celebrateText').innerHTML = hasNext
-    ? `Beautiful work. <strong>Module ${nextIdx + 1}: ${MODULES[nextIdx].title}</strong> is now unlocked.`
-    : `You've finished every module. Welcome to the Bright Beginnings family — the rest is the real work.`;
-  document.getElementById('celebrateModal').classList.add('show');
+
+  if (!hasNext) {
+    // Final module — show certificate
+    const fullName = [staffName.first, staffName.last].filter(Boolean).join(' ') || 'there';
+    document.getElementById('certName').textContent = fullName;
+    document.getElementById('certDate').textContent =
+      new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    document.getElementById('certModal').classList.add('show');
+  } else {
+    document.getElementById('celebrateTitle').textContent = `Module ${modIdx + 1}: ${mod.title} complete.`;
+    document.getElementById('celebrateText').innerHTML =
+      `Beautiful work. <strong>Module ${nextIdx + 1}: ${MODULES[nextIdx].title}</strong> is now unlocked.`;
+    document.getElementById('celebrateModal').classList.add('show');
+  }
 }
 
 function closeCelebrate() {
   document.getElementById('celebrateModal').classList.remove('show');
   const modIdx = appState.currentModule;
-  const nextIdx = modIdx + 1;
-  if (nextIdx < MODULES.length) {
-    openModule(nextIdx);
-  } else {
-    goHome();
-  }
+  openModule(modIdx + 1);
+}
+
+function closeCertificate() {
+  document.getElementById('certModal').classList.remove('show');
+  goHome();
 }
 
 function startOrContinue() {

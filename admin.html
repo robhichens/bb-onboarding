@@ -427,6 +427,7 @@ td {
       <table>
         <thead>
           <tr>
+            <th>Name</th>
             <th>Staff Email</th>
             <th>School</th>
             <th>Role</th>
@@ -635,8 +636,10 @@ function renderTable(staff) {
       lastActive = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     }
 
+    const fullName = [s.firstName, s.lastName].filter(Boolean).join(' ') || '—';
     return `
       <tr>
+        <td style="font-weight:600;color:var(--navy);white-space:nowrap">${fullName}</td>
         <td class="td-email">${s.email || s.uid}</td>
         <td style="font-size:13px;color:var(--text);white-space:nowrap">${school}</td>
         <td><span class="role-badge ${roleCls}">${role}</span></td>
@@ -648,7 +651,7 @@ function renderTable(staff) {
 }
 
 function exportCSV() {
-  const headers = ['Email', 'School', 'Role', ...MODULE_DEFS.map(d => d.title), 'Overall %', 'Last Active'];
+  const headers = ['First Name', 'Last Name', 'Email', 'School', 'Role', ...MODULE_DEFS.map(d => d.title), 'Overall %', 'Last Active'];
   const rows = allStaff.map(s => {
     const modCols = MODULE_DEFS.map(def => {
       const st = getModuleStats(s, def);
@@ -659,7 +662,7 @@ function exportCSV() {
       const d = s.lastUpdated.toDate ? s.lastUpdated.toDate() : new Date(s.lastUpdated);
       lastActive = d.toLocaleDateString();
     }
-    return [s.email || s.uid, s.school || '', s.role || 'staff', ...modCols, getOverallPct(s) + '%', lastActive];
+    return [s.firstName || '', s.lastName || '', s.email || s.uid, s.school || '', s.role || 'staff', ...modCols, getOverallPct(s) + '%', lastActive];
   });
 
   const csv = [headers, ...rows].map(r => r.map(v => `"${v}"`).join(',')).join('\n');
