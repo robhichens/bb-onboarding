@@ -428,6 +428,7 @@ td {
         <thead>
           <tr>
             <th>Staff Email</th>
+            <th>School</th>
             <th>Role</th>
             <th style="text-align:center">Culture</th>
             <th style="text-align:center">Connection</th>
@@ -626,6 +627,7 @@ function renderTable(staff) {
 
     const role = s.role || 'staff';
     const roleCls = role === 'admin' ? 'admin' : 'staff';
+    const school = s.school || '—';
 
     let lastActive = '—';
     if (s.lastUpdated) {
@@ -636,6 +638,7 @@ function renderTable(staff) {
     return `
       <tr>
         <td class="td-email">${s.email || s.uid}</td>
+        <td style="font-size:13px;color:var(--text);white-space:nowrap">${school}</td>
         <td><span class="role-badge ${roleCls}">${role}</span></td>
         ${modCells}
         <td class="mod-cell"><span class="overall-pill ${pillCls}">${pct}%</span></td>
@@ -645,7 +648,7 @@ function renderTable(staff) {
 }
 
 function exportCSV() {
-  const headers = ['Email', 'Role', ...MODULE_DEFS.map(d => d.title), 'Overall %', 'Last Active'];
+  const headers = ['Email', 'School', 'Role', ...MODULE_DEFS.map(d => d.title), 'Overall %', 'Last Active'];
   const rows = allStaff.map(s => {
     const modCols = MODULE_DEFS.map(def => {
       const st = getModuleStats(s, def);
@@ -656,7 +659,7 @@ function exportCSV() {
       const d = s.lastUpdated.toDate ? s.lastUpdated.toDate() : new Date(s.lastUpdated);
       lastActive = d.toLocaleDateString();
     }
-    return [s.email || s.uid, s.role || 'staff', ...modCols, getOverallPct(s) + '%', lastActive];
+    return [s.email || s.uid, s.school || '', s.role || 'staff', ...modCols, getOverallPct(s) + '%', lastActive];
   });
 
   const csv = [headers, ...rows].map(r => r.map(v => `"${v}"`).join(',')).join('\n');
