@@ -399,6 +399,37 @@ img { max-width: 100%; }
   .two-col { grid-template-columns: 1fr; }
   .mod-title { font-size: 28px; }
 }
+
+/* ── DESKTOP / TABLET: widen gracefully ───────────────
+   Phones (<768px) keep the single-column app shell.
+   Wider screens get a roomier shell, a top tab bar,
+   2-column card grids, and a readable content measure. */
+@media (min-width: 768px) {
+  body { background: var(--cream); }
+  .app-shell { max-width: 940px; min-height: 100vh; box-shadow: 0 0 80px rgba(0,0,0,0.06); }
+
+  /* Move the tab bar from the bottom to a top bar under the logo */
+  .topbar     { order: 1; }
+  .bottom-nav { order: 2; position: static; transform: none; left: auto; width: 100%; max-width: none;
+                border-top: none; border-bottom: 1px solid var(--lt-gray); padding: 4px 0; justify-content: center; gap: 6px; }
+  .bottom-nav .tab-item { flex: 0 0 auto; padding: 10px 22px; }
+  .bottom-nav .tab-item.on::before { top: auto; bottom: -4px; }
+  .app-main   { order: 3; padding-bottom: 0; }
+
+  /* Two-up card grids */
+  .course-cards { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 18px; padding: 4px 28px 30px; }
+  .module-list  { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 16px; padding: 26px 28px; }
+
+  /* Roomier banners + a comfortable reading measure for content views */
+  .home-hero      { padding: 34px 28px 22px; min-height: 160px; }
+  .home-hero-tree { height: 180px; }
+  .home-title     { font-size: 30px; }
+  .course-head    { padding: 38px 36px 32px; }
+  .mod-hero       { padding: 44px 40px 38px; }
+  .module-content, .quiz-section { max-width: 720px; margin-left: auto; margin-right: auto; }
+  .panel-wrap     { max-width: 760px; margin: 0 auto; }
+  .achieve        { padding: 56px 24px 48px; }
+}
 </style>
 <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
