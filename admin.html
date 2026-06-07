@@ -3,385 +3,114 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel — Bright Beginnings Onboarding</title>
+<title>Admin · Bright Beginnings Learning Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 :root {
-  --navy:   #1a1a2e;
-  --orange: #FF6B35;
-  --teal:   #4ECDC4;
-  --cream:  #F5F0E8;
-  --purple: #9B59B6;
-  --white:  #ffffff;
-  --text:   #333333;
-  --muted:  #777777;
-  --green:  #2ecc71;
-  --red:    #e74c3c;
+  --coral:#F08782; --yellow:#FFD437; --yellow-soft:#FFF8D6; --sky:#AEDFE5; --sky-soft:#E8F7F9;
+  --mid-gray:#A7A9AC; --lt-gray:#D1D2D4; --dk-gray:#6D6E71; --charcoal:#545454;
+  --cream:#FAFAF5; --coral-soft:#FAE8E7; --white:#fff;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Inter', -apple-system, sans-serif;
-  background: var(--cream);
-  color: var(--text);
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
-button { font-family: inherit; cursor: pointer; border: none; outline: none; }
-a { text-decoration: none; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Inter',-apple-system,sans-serif; background:var(--cream); color:var(--dk-gray); line-height:1.5; -webkit-font-smoothing:antialiased; }
+button { font-family:inherit; cursor:pointer; border:none; outline:none; }
+a { text-decoration:none; }
 
-/* NAV */
-.topnav {
-  background: var(--navy);
-  padding: 14px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.15);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.topnav-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--white);
-}
-.topnav-logo {
-  width: 38px; height: 38px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--orange), var(--teal));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-weight: 800;
-  color: var(--white);
-  font-size: 18px;
-}
-.topnav-name {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 20px;
-  color: var(--white);
-}
-.topnav-sub {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--orange);
-  margin-top: 1px;
-}
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.nav-email {
-  font-size: 12px;
-  color: rgba(255,255,255,0.6);
-  font-weight: 500;
-}
-.nav-btn {
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.8);
-  background: rgba(255,255,255,0.1);
-  transition: all 0.2s;
-}
-.nav-btn:hover { background: rgba(255,255,255,0.18); color: var(--white); }
+/* TOPBAR */
+.topnav { background:var(--charcoal); padding:12px 40px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
+.topnav-brand { display:flex; align-items:center; gap:14px; }
+.topnav-brand img { height:30px; width:auto; }
+.topnav-brand .am-tag { font-size:10px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.5); border-left:1px solid rgba(255,255,255,0.25); padding-left:14px; }
+.nav-actions { display:flex; align-items:center; gap:12px; }
+.nav-email { font-size:12px; color:rgba(255,255,255,0.55); }
+.nav-btn { padding:8px 16px; border-radius:50px; font-size:13px; font-weight:600; color:rgba(255,255,255,0.85); background:rgba(255,255,255,0.12); transition:all 0.2s; }
+.nav-btn:hover { background:rgba(255,255,255,0.2); color:var(--white); }
 
-/* LOADING / GATE */
-.gate {
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 16px;
-  color: var(--muted);
-}
-.gate-icon {
-  font-size: 48px;
-}
-.gate h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 24px;
-  color: var(--navy);
-}
-.gate p { font-size: 15px; color: var(--muted); }
-.spinner {
-  width: 36px; height: 36px;
-  border: 3px solid rgba(26,26,46,0.15);
-  border-top-color: var(--orange);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
+/* GATE */
+.gate { min-height:60vh; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; color:var(--mid-gray); text-align:center; padding:0 20px; }
+.gate-icon { font-size:44px; }
+.gate h2 { font-family:'Lora',serif; font-size:24px; color:var(--charcoal); }
+.spinner { width:36px; height:36px; border:3px solid var(--lt-gray); border-top-color:var(--coral); border-radius:50%; animation:spin 0.7s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
 
 /* PAGE */
-.page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 32px 80px;
-}
-.page-header {
-  margin-bottom: 32px;
-}
-.page-eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--orange);
-  margin-bottom: 6px;
-}
-.page-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 36px;
-  color: var(--navy);
-  margin-bottom: 8px;
-}
-.page-sub { font-size: 15px; color: var(--muted); }
+.page { max-width:1240px; margin:0 auto; padding:36px 32px 80px; }
+.page-eyebrow { font-size:11px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--coral); margin-bottom:6px; }
+.page-title { font-family:'Lora',serif; font-weight:600; font-size:34px; color:var(--charcoal); margin-bottom:6px; }
+.page-sub { font-size:14px; color:var(--mid-gray); margin-bottom:30px; }
 
-/* SUMMARY CARDS */
-.summary-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 16px;
-  margin-bottom: 40px;
-}
-.stat-card {
-  background: var(--white);
-  border-radius: 16px;
-  padding: 24px 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-}
-.stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--navy);
-  line-height: 1;
-  margin-bottom: 6px;
-}
-.stat-label {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
+/* SUMMARY */
+.summary-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:16px; margin-bottom:30px; }
+.stat-card { background:var(--white); border-radius:16px; padding:22px 20px; box-shadow:0 2px 14px rgba(0,0,0,0.05); border-left:4px solid var(--lt-gray); }
+.stat-card.c { border-left-color:var(--coral); }
+.stat-card.s { border-left-color:var(--sky); }
+.stat-card.y { border-left-color:var(--yellow); }
+.stat-num { font-family:'Lora',serif; font-size:34px; font-weight:600; color:var(--charcoal); line-height:1; margin-bottom:6px; }
+.stat-label { font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--mid-gray); }
+
+/* INVITE */
+.invite-card { background:var(--white); border-radius:16px; padding:24px 28px; box-shadow:0 2px 14px rgba(0,0,0,0.05); margin-bottom:28px; display:flex; align-items:flex-end; gap:16px; flex-wrap:wrap; }
+.invite-card-text { flex:1; min-width:200px; }
+.invite-card-title { font-weight:700; font-size:15px; color:var(--charcoal); margin-bottom:3px; }
+.invite-card-sub { font-size:13px; color:var(--mid-gray); }
+.invite-fields { display:flex; gap:10px; align-items:center; flex:2; min-width:280px; flex-wrap:wrap; }
+.invite-input { flex:1; min-width:200px; padding:11px 16px; border:1.5px solid var(--lt-gray); border-radius:50px; font-size:14px; font-family:inherit; color:var(--charcoal); background:var(--cream); outline:none; transition:border-color 0.2s; }
+.invite-input:focus { border-color:var(--coral); background:var(--white); }
+.invite-btn { padding:11px 24px; background:var(--coral); color:var(--white); border-radius:50px; font-size:14px; font-weight:700; white-space:nowrap; transition:all 0.2s; }
+.invite-btn:hover:not(:disabled) { background:#e36f69; }
+.invite-btn:disabled { opacity:0.6; cursor:default; }
+.invite-feedback { width:100%; padding:9px 14px; border-radius:10px; font-size:13px; display:none; }
+.invite-feedback.success { background:var(--sky-soft); color:#2a7a82; }
+.invite-feedback.error { background:var(--coral-soft); color:#b04a45; }
 
 /* TABLE */
-.table-wrap {
-  background: var(--white);
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  overflow-x: auto;
-}
-.table-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 24px 16px;
-  border-bottom: 1px solid #f0ebe0;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.table-toolbar-title {
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--navy);
-}
-.export-btn {
-  padding: 8px 18px;
-  background: var(--navy);
-  color: var(--white);
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-.export-btn:hover { background: #2a2a4e; }
+.table-wrap { background:var(--white); border-radius:16px; box-shadow:0 2px 14px rgba(0,0,0,0.05); overflow-x:auto; }
+.table-toolbar { display:flex; align-items:center; justify-content:space-between; padding:18px 24px 14px; border-bottom:1px solid var(--cream); gap:16px; flex-wrap:wrap; }
+.table-toolbar-title { font-weight:700; font-size:15px; color:var(--charcoal); }
+.export-btn { padding:9px 20px; background:var(--charcoal); color:var(--white); border-radius:50px; font-size:13px; font-weight:600; transition:all 0.2s; }
+.export-btn:hover { background:#444; }
+table { width:100%; border-collapse:collapse; font-size:13.5px; }
+thead th { padding:10px 12px; text-align:left; font-size:10.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--dk-gray); background:var(--cream); border-bottom:1px solid var(--lt-gray); white-space:nowrap; }
+thead th.grp { text-align:center; color:var(--coral); border-left:1px solid var(--lt-gray); }
+thead th.grp.lic { color:#2a7a82; }
+thead th.modh { text-align:center; font-size:10px; color:var(--mid-gray); }
+tbody tr { border-bottom:1px solid var(--cream); transition:background 0.15s; }
+tbody tr:last-child { border-bottom:none; }
+tbody tr:hover { background:var(--cream); }
+td { padding:12px; vertical-align:middle; }
+.td-name { font-weight:600; color:var(--charcoal); white-space:nowrap; }
+.td-email { color:var(--dk-gray); max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12.5px; }
+.td-date { color:var(--mid-gray); font-size:12.5px; white-space:nowrap; }
+.mod-cell { text-align:center; }
+.mod-cell.grpstart { border-left:1px solid var(--cream); }
+.mod-badge { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; font-size:12px; font-weight:700; }
+.mod-badge.complete { background:var(--coral); color:var(--white); }
+.mod-badge.partial { background:var(--yellow-soft); color:#6d4c00; }
+.mod-badge.none { background:var(--cream); color:var(--mid-gray); }
+.overall-pill { display:inline-block; padding:4px 11px; border-radius:100px; font-size:12px; font-weight:700; }
+.overall-pill.high { background:var(--coral); color:var(--white); }
+.overall-pill.mid { background:var(--yellow-soft); color:#6d4c00; }
+.overall-pill.low { background:var(--sky-soft); color:#2a7a82; }
+.overall-pill.zero { background:var(--cream); color:var(--mid-gray); }
+.role-badge { display:inline-block; padding:3px 9px; border-radius:6px; font-size:10.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; }
+.role-badge.admin { background:var(--coral-soft); color:#b04a45; }
+.role-badge.staff { background:var(--sky-soft); color:#2a7a82; }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
-thead th {
-  padding: 12px 16px;
-  text-align: left;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  background: #faf8f4;
-  border-bottom: 1px solid #f0ebe0;
-  white-space: nowrap;
-}
-tbody tr {
-  border-bottom: 1px solid #f7f4ef;
-  transition: background 0.15s;
-}
-tbody tr:last-child { border-bottom: none; }
-tbody tr:hover { background: #faf8f4; }
-td {
-  padding: 14px 16px;
-  vertical-align: middle;
-}
-.td-email {
-  font-weight: 600;
-  color: var(--navy);
-  max-width: 220px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.td-date {
-  color: var(--muted);
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-/* MODULE CELLS */
-.mod-cell {
-  text-align: center;
-}
-.mod-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  font-size: 13px;
-  font-weight: 700;
-}
-.mod-badge.complete  { background: #d1fae5; color: #065f46; }
-.mod-badge.partial   { background: #fef9c3; color: #713f12; }
-.mod-badge.none      { background: #f3f4f6; color: #9ca3af; }
-
-/* OVERALL PILL */
-.overall-pill {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 100px;
-  font-size: 12px;
-  font-weight: 700;
-}
-.overall-pill.high   { background: #d1fae5; color: #065f46; }
-.overall-pill.mid    { background: #fef9c3; color: #713f12; }
-.overall-pill.low    { background: #fee2e2; color: #991b1b; }
-.overall-pill.zero   { background: #f3f4f6; color: #6b7280; }
-
-/* ROLE BADGE */
-.role-badge {
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.role-badge.admin { background: #ede9fe; color: #6d28d9; }
-.role-badge.staff { background: #e0f2fe; color: #0369a1; }
-
-/* INVITE CARD */
-.invite-card {
-  background: var(--white);
-  border-radius: 16px;
-  padding: 28px 32px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  margin-bottom: 32px;
-  display: flex;
-  align-items: flex-end;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.invite-card-text { flex: 1; min-width: 200px; }
-.invite-card-title {
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--navy);
-  margin-bottom: 4px;
-}
-.invite-card-sub { font-size: 13px; color: var(--muted); }
-.invite-fields {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex: 2;
-  min-width: 280px;
-  flex-wrap: wrap;
-}
-.invite-input {
-  flex: 1;
-  min-width: 200px;
-  padding: 10px 16px;
-  border: 2px solid #e8e4da;
-  border-radius: 10px;
-  font-size: 14px;
-  font-family: inherit;
-  color: var(--text);
-  background: var(--cream);
-  outline: none;
-  transition: border-color 0.2s;
-}
-.invite-input:focus { border-color: var(--orange); background: var(--white); }
-.invite-btn {
-  padding: 10px 22px;
-  background: var(--orange);
-  color: var(--white);
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 700;
-  white-space: nowrap;
-  transition: all 0.2s;
-}
-.invite-btn:hover:not(:disabled) {
-  background: #e55a2a;
-  transform: translateY(-1px);
-}
-.invite-btn:disabled { opacity: 0.6; cursor: default; }
-.invite-feedback {
-  width: 100%;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 13px;
-  display: none;
-}
-.invite-feedback.success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #15803d; }
-.invite-feedback.error   { background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; }
-
-@media (max-width: 768px) {
-  .topnav { padding: 12px 20px; }
-  .page { padding: 24px 16px 60px; }
-  .page-title { font-size: 28px; }
-}
+@media (max-width:768px) { .topnav { padding:12px 18px; } .page { padding:24px 14px 60px; } .page-title { font-size:26px; } }
 </style>
 </head>
 <body>
 
 <nav class="topnav">
   <div class="topnav-brand">
-    <div class="topnav-logo">B</div>
-    <div>
-      <div class="topnav-name">Bright Beginnings</div>
-      <div class="topnav-sub">Admin Panel</div>
-    </div>
+    <img src="assets/Brand%20and%20Elements/BB_Logo_white.png" alt="Bright Beginnings">
+    <span class="am-tag">Admin</span>
   </div>
   <div class="nav-actions">
     <span class="nav-email" id="nav-email"></span>
@@ -397,16 +126,14 @@ td {
 
 <div id="admin-panel" style="display:none">
   <div class="page">
-    <div class="page-header">
-      <div class="page-eyebrow">Dashboard</div>
-      <h1 class="page-title">Onboarding Overview</h1>
-      <p class="page-sub">Track every staff member's progress through the five onboarding modules.</p>
-    </div>
+    <div class="page-eyebrow">Dashboard</div>
+    <h1 class="page-title">Learning Platform Overview</h1>
+    <p class="page-sub">Track every staff member's progress across both courses — Onboarding and Virginia Licensing Standards.</p>
 
     <div class="invite-card">
       <div class="invite-card-text">
         <div class="invite-card-title">Invite a Staff Member</div>
-        <div class="invite-card-sub">Sends them the onboarding link with instructions to create an account.</div>
+        <div class="invite-card-sub">Sends them the platform link with instructions to create an account.</div>
       </div>
       <div class="invite-fields">
         <input type="email" class="invite-input" id="invite-email" placeholder="staff@email.com">
@@ -415,9 +142,7 @@ td {
       </div>
     </div>
 
-    <div class="summary-row" id="summary-row">
-      <!-- filled by JS -->
-    </div>
+    <div class="summary-row" id="summary-row"></div>
 
     <div class="table-wrap">
       <div class="table-toolbar">
@@ -425,24 +150,8 @@ td {
         <button class="export-btn" onclick="exportCSV()">Export CSV</button>
       </div>
       <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Staff Email</th>
-            <th>School</th>
-            <th>Role</th>
-            <th style="text-align:center">Culture</th>
-            <th style="text-align:center">Connection</th>
-            <th style="text-align:center">Compensation</th>
-            <th style="text-align:center">Compliance</th>
-            <th style="text-align:center">Curriculum</th>
-            <th style="text-align:center">Overall</th>
-            <th>Last Active</th>
-          </tr>
-        </thead>
-        <tbody id="staff-tbody">
-          <!-- filled by JS -->
-        </tbody>
+        <thead id="table-head"></thead>
+        <tbody id="staff-tbody"></tbody>
       </table>
     </div>
   </div>
@@ -461,26 +170,39 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 // ── EmailJS config ─────────────────────────────────────────
-// Fill these in after completing EmailJS setup (see README)
 const EMAILJS_PUBLIC_KEY  = 'sxTxSw0jkVLUIWPpr';
 const EMAILJS_SERVICE_ID  = 'service_vzv701i';
 const EMAILJS_TEMPLATE_ID = 'template_wvq9wp9';
-// ───────────────────────────────────────────────────────────
-
 emailjs.init(EMAILJS_PUBLIC_KEY);
+
+/* Course/module definitions — mirror index.html. Section counts must match the
+   live content; quiz counts as the +1 final step per module. */
+const COURSE_DEFS = [
+  { id:'onboarding', title:'New Staff Onboarding', short:'Onboarding', modules:[
+    { id:'culture',      title:'Culture',      sections:9  },
+    { id:'connection',   title:'Connection',   sections:7  },
+    { id:'compensation', title:'Compensation', sections:7  },
+    { id:'compliance',   title:'Compliance',   sections:15 },
+    { id:'curriculum',   title:'Curriculum',   sections:7  },
+  ]},
+  { id:'licensing', title:'Virginia Licensing Standards', short:'Licensing', modules:[
+    { id:'lic-roles',       title:'Roles',       sections:6 },
+    { id:'lic-classroom',   title:'Classroom',   sections:6 },
+    { id:'lic-playground',  title:'Playground',  sections:4 },
+    { id:'lic-credentials', title:'Credentials', sections:6 },
+  ]},
+];
+const ALL_MODULES = COURSE_DEFS.flatMap(c => c.modules);
+
+let allStaff = [];
 
 async function sendInvite() {
   const emailInput = document.getElementById('invite-email');
   const btn        = document.getElementById('invite-btn');
-  const feedback   = document.getElementById('invite-feedback');
   const email      = emailInput.value.trim();
-
   if (!email) { showInviteFeedback('Please enter an email address.', 'error'); return; }
-
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-  feedback.style.display = 'none';
-
+  btn.disabled = true; btn.textContent = 'Sending…';
+  document.getElementById('invite-feedback').style.display = 'none';
   try {
     await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
       to_email:    email,
@@ -493,43 +215,23 @@ async function sendInvite() {
     console.error('EmailJS error', err);
     showInviteFeedback('Failed to send. Check your EmailJS config.', 'error');
   } finally {
-    btn.disabled = false;
-    btn.textContent = 'Send Invite';
+    btn.disabled = false; btn.textContent = 'Send Invite';
   }
 }
-
 function showInviteFeedback(msg, type) {
   const el = document.getElementById('invite-feedback');
-  el.textContent = msg;
-  el.className = 'invite-feedback ' + type;
-  el.style.display = 'block';
+  el.textContent = msg; el.className = 'invite-feedback ' + type; el.style.display = 'block';
   if (type === 'success') setTimeout(() => { el.style.display = 'none'; }, 4000);
 }
 
-const MODULE_DEFS = [
-  { id: 'culture',      title: 'Culture',      sections: 8  },
-  { id: 'connection',   title: 'Connection',   sections: 6  },
-  { id: 'compensation', title: 'Compensation', sections: 7  },
-  { id: 'compliance',   title: 'Compliance',   sections: 15 },
-  { id: 'curriculum',   title: 'Curriculum',   sections: 7  },
-];
-
-let allStaff = [];
-
 auth.onAuthStateChanged(async (user) => {
-  if (!user) {
-    window.location.href = 'index.html';
-    return;
-  }
+  if (!user) { window.location.href = 'index.html'; return; }
   document.getElementById('nav-email').textContent = user.email;
-
-  // Check admin role
   let isAdmin = false;
   try {
     const snap = await db.collection('progress').doc(user.uid).get();
     isAdmin = snap.exists && snap.data().role === 'admin';
   } catch (e) { /* fall through */ }
-
   if (!isAdmin) {
     document.getElementById('gate').innerHTML = `
       <div class="gate-icon">🔒</div>
@@ -537,147 +239,142 @@ auth.onAuthStateChanged(async (user) => {
       <p>Your account doesn't have admin access. Contact your director to request it.</p>`;
     return;
   }
-
   document.getElementById('gate').style.display = 'none';
   document.getElementById('admin-panel').style.display = 'block';
+  buildHead();
   await loadStaff();
 });
 
 async function loadStaff() {
   const snapshot = await db.collection('progress').get();
   allStaff = [];
-  snapshot.forEach(doc => {
-    allStaff.push({ uid: doc.id, ...doc.data() });
-  });
+  snapshot.forEach(doc => allStaff.push({ uid: doc.id, ...doc.data() }));
   renderSummary(allStaff);
   renderTable(allStaff);
 }
 
+/* ── progress math (flat sections/quizzes namespace) ── */
 function getModuleStats(data, def) {
   const sections = data.sections || {};
   const quizzes  = data.quizzes  || {};
   const done = Object.keys(sections).filter(k => k.startsWith(def.id + '::') && sections[k]).length;
   const passed = !!(quizzes[def.id] && quizzes[def.id].passed);
   const total = def.sections + 1;
-  const pct = Math.round(((done + (passed ? 1 : 0)) / total) * 100);
+  const pct = Math.min(100, Math.round(((done + (passed ? 1 : 0)) / total) * 100));
   return { done, total: def.sections, passed, pct };
 }
-
+function getCoursePct(data, course) {
+  let d = 0, a = 0;
+  course.modules.forEach(def => { const s = getModuleStats(data, def); d += s.done + (s.passed ? 1 : 0); a += def.sections + 1; });
+  return a ? Math.min(100, Math.round((d / a) * 100)) : 0;
+}
+function isCourseComplete(data, course) { return getCoursePct(data, course) >= 100; }
 function getOverallPct(data) {
-  let totalDone = 0, totalAll = 0;
-  MODULE_DEFS.forEach(def => {
-    const s = getModuleStats(data, def);
-    totalDone += s.done + (s.passed ? 1 : 0);
-    totalAll  += def.sections + 1;
+  let d = 0, a = 0;
+  ALL_MODULES.forEach(def => { const s = getModuleStats(data, def); d += s.done + (s.passed ? 1 : 0); a += def.sections + 1; });
+  return a ? Math.min(100, Math.round((d / a) * 100)) : 0;
+}
+function pillClass(pct) { return pct === 100 ? 'high' : pct >= 50 ? 'mid' : pct > 0 ? 'low' : 'zero'; }
+
+function buildHead() {
+  const head = document.getElementById('table-head');
+  let grp = `<tr>
+    <th rowspan="2">Name</th><th rowspan="2">Email</th><th rowspan="2">School</th><th rowspan="2">Role</th>`;
+  let cols = `<tr>`;
+  COURSE_DEFS.forEach((c, ci) => {
+    grp += `<th class="grp ${c.id==='licensing'?'lic':''}" colspan="${c.modules.length + 1}">${c.short}</th>`;
+    c.modules.forEach((m, mi) => {
+      cols += `<th class="modh ${mi===0?'mod-cell grpstart':''}">${m.title}</th>`;
+    });
+    cols += `<th class="modh">${c.short} %</th>`;
   });
-  return Math.min(100, Math.round((totalDone / totalAll) * 100));
+  grp += `<th rowspan="2">Overall</th><th rowspan="2">Last Active</th></tr>`;
+  cols += `</tr>`;
+  head.innerHTML = grp + cols;
 }
 
 function renderSummary(staff) {
   const total = staff.length;
-  const complete = staff.filter(s => getOverallPct(s) >= 100).length;
-  const inProgress = staff.filter(s => { const p = getOverallPct(s); return p > 0 && p < 100; }).length;
+  const onbDone = staff.filter(s => isCourseComplete(s, COURSE_DEFS[0])).length;
+  const licDone = staff.filter(s => isCourseComplete(s, COURSE_DEFS[1])).length;
   const notStarted = staff.filter(s => getOverallPct(s) === 0).length;
-
   document.getElementById('summary-row').innerHTML = `
-    <div class="stat-card">
-      <div class="stat-num">${total}</div>
-      <div class="stat-label">Total Staff</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" style="color:var(--green)">${complete}</div>
-      <div class="stat-label">Fully Complete</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" style="color:var(--orange)">${inProgress}</div>
-      <div class="stat-label">In Progress</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" style="color:var(--muted)">${notStarted}</div>
-      <div class="stat-label">Not Started</div>
-    </div>`;
-
+    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Staff</div></div>
+    <div class="stat-card c"><div class="stat-num">${onbDone}</div><div class="stat-label">Onboarding Complete</div></div>
+    <div class="stat-card s"><div class="stat-num">${licDone}</div><div class="stat-label">Licensing Complete</div></div>
+    <div class="stat-card y"><div class="stat-num">${notStarted}</div><div class="stat-label">Not Started</div></div>`;
   document.getElementById('table-title').textContent = `Staff Progress (${total})`;
 }
 
 function renderTable(staff) {
   const sorted = [...staff].sort((a, b) => getOverallPct(b) - getOverallPct(a));
   const tbody = document.getElementById('staff-tbody');
-
+  const colCount = 6 + ALL_MODULES.length + COURSE_DEFS.length;
   if (!sorted.length) {
-    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--muted)">No staff records yet.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="${colCount}" style="text-align:center;padding:40px;color:var(--mid-gray)">No staff records yet.</td></tr>`;
     return;
   }
-
   tbody.innerHTML = sorted.map(s => {
-    const modCells = MODULE_DEFS.map(def => {
-      const st = getModuleStats(s, def);
-      let cls, label;
-      if (st.passed) {
-        cls = 'complete'; label = '✓';
-      } else if (st.done > 0) {
-        cls = 'partial'; label = st.done;
-      } else {
-        cls = 'none'; label = '–';
-      }
-      return `<td class="mod-cell"><span class="mod-badge ${cls}" title="${st.done}/${st.total} sections${st.passed ? ', quiz passed' : ''}">${label}</span></td>`;
-    }).join('');
-
+    let modCells = '';
+    COURSE_DEFS.forEach(c => {
+      c.modules.forEach((def, mi) => {
+        const st = getModuleStats(s, def);
+        let cls, label;
+        if (st.passed) { cls = 'complete'; label = '✓'; }
+        else if (st.done > 0) { cls = 'partial'; label = st.done; }
+        else { cls = 'none'; label = '–'; }
+        modCells += `<td class="mod-cell ${mi===0?'grpstart':''}"><span class="mod-badge ${cls}" title="${st.done}/${st.total} sections${st.passed ? ', quiz passed' : ''}">${label}</span></td>`;
+      });
+      const cp = getCoursePct(s, c);
+      modCells += `<td class="mod-cell"><span class="overall-pill ${pillClass(cp)}">${cp}%</span></td>`;
+    });
     const pct = getOverallPct(s);
-    let pillCls = pct === 100 ? 'high' : pct >= 50 ? 'mid' : pct > 0 ? 'low' : 'zero';
-
     const role = s.role || 'staff';
     const roleCls = role === 'admin' ? 'admin' : 'staff';
     const school = s.school || '—';
-
     let lastActive = '—';
     if (s.lastUpdated) {
       const d = s.lastUpdated.toDate ? s.lastUpdated.toDate() : new Date(s.lastUpdated);
-      lastActive = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      lastActive = d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
     }
-
     const fullName = [s.firstName, s.lastName].filter(Boolean).join(' ') || '—';
     return `
       <tr>
-        <td style="font-weight:600;color:var(--navy);white-space:nowrap">${fullName}</td>
+        <td class="td-name">${fullName}</td>
         <td class="td-email">${s.email || s.uid}</td>
-        <td style="font-size:13px;color:var(--text);white-space:nowrap">${school}</td>
+        <td style="font-size:13px;white-space:nowrap">${school}</td>
         <td><span class="role-badge ${roleCls}">${role}</span></td>
         ${modCells}
-        <td class="mod-cell"><span class="overall-pill ${pillCls}">${pct}%</span></td>
+        <td class="mod-cell"><span class="overall-pill ${pillClass(pct)}">${pct}%</span></td>
         <td class="td-date">${lastActive}</td>
       </tr>`;
   }).join('');
 }
 
 function exportCSV() {
-  const headers = ['First Name', 'Last Name', 'Email', 'School', 'Role', ...MODULE_DEFS.map(d => d.title), 'Overall %', 'Last Active'];
+  const headers = ['First Name','Last Name','Email','School','Role'];
+  COURSE_DEFS.forEach(c => { c.modules.forEach(m => headers.push(`${c.short}: ${m.title}`)); headers.push(`${c.short} %`); });
+  headers.push('Overall %','Last Active');
   const rows = allStaff.map(s => {
-    const modCols = MODULE_DEFS.map(def => {
-      const st = getModuleStats(s, def);
-      return st.passed ? '100%' : `${Math.round(((st.done) / (st.total + 1)) * 100)}%`;
+    const cols = [s.firstName || '', s.lastName || '', s.email || s.uid, s.school || '', s.role || 'staff'];
+    COURSE_DEFS.forEach(c => {
+      c.modules.forEach(def => { const st = getModuleStats(s, def); cols.push(st.pct + '%'); });
+      cols.push(getCoursePct(s, c) + '%');
     });
     let lastActive = '';
-    if (s.lastUpdated) {
-      const d = s.lastUpdated.toDate ? s.lastUpdated.toDate() : new Date(s.lastUpdated);
-      lastActive = d.toLocaleDateString();
-    }
-    return [s.firstName || '', s.lastName || '', s.email || s.uid, s.school || '', s.role || 'staff', ...modCols, getOverallPct(s) + '%', lastActive];
+    if (s.lastUpdated) { const d = s.lastUpdated.toDate ? s.lastUpdated.toDate() : new Date(s.lastUpdated); lastActive = d.toLocaleDateString(); }
+    cols.push(getOverallPct(s) + '%', lastActive);
+    return cols;
   });
-
   const csv = [headers, ...rows].map(r => r.map(v => `"${v}"`).join(',')).join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url;
-  a.download = `bb-onboarding-${new Date().toISOString().slice(0,10)}.csv`;
-  a.click();
+  a.href = url; a.download = `bb-learning-${new Date().toISOString().slice(0,10)}.csv`; a.click();
   URL.revokeObjectURL(url);
 }
 
-function doSignOut() {
-  auth.signOut().then(() => window.location.href = 'index.html');
-}
+function doSignOut() { auth.signOut().then(() => window.location.href = 'index.html'); }
 </script>
 </body>
 </html>

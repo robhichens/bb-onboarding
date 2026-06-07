@@ -1,0 +1,7 @@
+# Local-only / generated — never deploy these
+.claude/
+preview-test.html
+preview-admin.html
+design-preview.html
+*.bak
+.build_*
