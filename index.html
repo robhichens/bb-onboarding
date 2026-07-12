@@ -281,6 +281,47 @@ img { max-width: 100%; }
 .confirm-btn { display: inline-flex; align-items: center; gap: 7px; background: var(--coral); color: var(--white); border: none; border-radius: 50px; padding: 11px 20px; font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer; flex-shrink: 0; }
 .confirm-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 .confirm-btn.done { background: var(--white); color: var(--coral); border: 2px solid var(--coral); }
+/* --- Before You Start additions --- */
+.doc-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--charcoal); color: #fff; text-decoration: none; border-radius: 50px; padding: 11px 18px; font-size: 13px; font-weight: 700; margin: 4px 8px 8px 0; }
+.doc-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.doc-btn:hover { background: #3f3f3f; }
+.doc-btn.ghost { background: var(--white); color: var(--charcoal); border: 2px solid var(--lt-gray); }
+.deadline-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.03em; padding: 3px 11px; border-radius: 50px; margin-bottom: 12px; }
+.deadline-badge.before  { background: var(--coral-soft); color: #b8544f; }
+.deadline-badge.day1    { background: var(--sky-soft); color: #2a7a82; }
+.deadline-badge.d7      { background: var(--sky-soft); color: #2a7a82; }
+.deadline-badge.d30     { background: var(--yellow-soft); color: #8a6d00; }
+.deadline-badge.d90     { background: #F3EAF8; color: #7a4f96; }
+.deadline-badge.ongoing { background: var(--cream); color: var(--mid-gray); border: 1px solid var(--lt-gray); }
+.confirm-row.ack { align-items: flex-start; background: var(--cream); border: 1px solid var(--lt-gray); border-radius: 12px; padding: 14px 16px; }
+.confirm-row.ack .confirm-row-text { max-width: none; font-size: 12.5px; color: var(--charcoal); font-style: italic; line-height: 1.55; }
+.tl { list-style: none; margin: 8px 0 4px; padding: 0; }
+.tl li { position: relative; padding: 0 0 18px 26px; border-left: 2px solid var(--lt-gray); margin-left: 6px; }
+.tl li:last-child { border-left-color: transparent; padding-bottom: 0; }
+.tl li::before { content: ''; position: absolute; left: -8px; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--coral); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--lt-gray); }
+.tl li strong { display: block; color: var(--charcoal); font-size: 14.5px; }
+.tl li span { font-size: 13px; color: var(--mid-gray); }
+.summary-cta { text-align: center; padding: 8px 0 20px; }
+/* print completion summary */
+.print-summary { display: none; }
+@media print {
+  body.printing > *:not(.print-summary) { display: none !important; }
+  body.printing .print-summary { display: block !important; padding: 0; }
+  .print-summary * { color: #000 !important; }
+}
+.print-summary { font-family: 'Inter', sans-serif; padding: 24px; max-width: 760px; margin: 0 auto; color: var(--charcoal); }
+.ps-head { display: flex; align-items: center; gap: 16px; border-bottom: 3px solid var(--coral); padding-bottom: 14px; margin-bottom: 18px; }
+.ps-head img { height: 46px; }
+.ps-head h1 { font-family: 'Lora', serif; font-size: 22px; margin: 0; }
+.ps-meta { font-size: 13px; margin-bottom: 18px; }
+.ps-meta b { display: inline-block; min-width: 130px; }
+.ps-sec { margin-bottom: 20px; }
+.ps-sec h2 { font-family: 'Lora', serif; font-size: 16px; border-bottom: 1px solid var(--lt-gray); padding-bottom: 6px; margin-bottom: 10px; }
+.ps-item { font-size: 13px; padding: 5px 0; border-bottom: 1px dotted var(--lt-gray); display: flex; justify-content: space-between; gap: 12px; }
+.ps-item .when { color: var(--mid-gray); font-size: 11.5px; white-space: nowrap; }
+.ps-sign { margin-top: 34px; display: flex; gap: 40px; }
+.ps-sign div { flex: 1; border-top: 1.5px solid var(--charcoal); padding-top: 6px; font-size: 12px; }
+.ps-note { font-size: 11.5px; color: var(--mid-gray); margin-top: 16px; font-style: italic; }
 
 /* ── QUIZ ─────────────────────────── */
 .quiz-section { background: var(--charcoal); border-radius: 16px; margin: 6px 18px 0; padding: 26px 20px; position: relative; overflow: hidden; }
@@ -584,7 +625,7 @@ const db = firebase.firestore();
 /* ============================================
    AUTH STATE
    ============================================ */
-let staffName = { first: '', last: '' };
+let staffName = { first: '', last: '', school: '' };
 
 auth.onAuthStateChanged(async (user) => {
   if (user) {
@@ -597,6 +638,7 @@ auth.onAuthStateChanged(async (user) => {
         if (d.role === 'admin') document.getElementById('admin-link').style.display = 'inline-flex';
         staffName.first = d.firstName || '';
         staffName.last  = d.lastName  || '';
+        staffName.school = d.school   || '';
       }
     } catch (e) { /* non-fatal */ }
     const initials = ((staffName.first[0] || user.email[0] || 'B')).toUpperCase();
@@ -739,6 +781,7 @@ const StorageAdapter = {
       await db.collection('progress').doc(uid).set({
         sections: state.sections,
         quizzes: state.quizzes,
+        acknowledgments: state.acknowledgments || {},
         startedAt: state.startedAt,
         email: auth.currentUser.email,
         lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
@@ -2485,13 +2528,332 @@ const LICENSING_COURSE = {
   modules: LICENSING_MODULES
 };
 
-const COURSES = [ONBOARDING_COURSE, LICENSING_COURSE];
+/* ============================================
+   COURSE 0 — BEFORE YOU START
+   Compliance runway, policy acknowledgments, documents to sign, trainings.
+   ============================================ */
+const ICON = {
+  map:  '<svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>',
+  clock:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  check:'<svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
+  shield:'<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  doc:  '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+  book: '<svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+  grad: '<svg viewBox="0 0 24 24"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2 2 6 2s6-1 6-2v-5"/></svg>',
+  phone:'<svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>',
+  lock: '<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  heart:'<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  cal:  '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+  star: '<svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/></svg>',
+};
+function dlBtn(file, label) {
+  return `<a class="doc-btn" href="docs/${file}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>${label}</a>`;
+}
+
+const BEFORE_YOU_START_MODULES = [
+  {
+    id: 'bys-path', number: 1, title: 'Your Path to Day One', tagline: 'What happens, and when.',
+    subtitle: 'Every step from offer to your first day — the paperwork, the deadlines, and what to expect. No guesswork.',
+    accent: 'orange', icon: ICON.map,
+    sections: [
+      { id: 'how-it-works', title: 'How this course works', sub: 'Start here', accent: 'navy', icon: ICON.star,
+        body: `
+          <p>Welcome to Bright Beginnings. This course is your single place to get fully ready for your first day.</p>
+          <p>By the end, you will have:</p>
+          <ul class="check-list">
+            <li>Read and acknowledged every workplace policy.</li>
+            <li>Downloaded, printed, and signed the documents you need to bring.</li>
+            <li>Started the required state trainings, with every deadline clear.</li>
+            <li>A printable summary to hand your director — your record that you're ready.</li>
+          </ul>
+          <div class="callout"><strong>Your progress saves automatically.</strong> Close the tab and come back anytime — you'll pick up right where you left off.</div>`
+      },
+      { id: 'before-first-day', title: 'Before your first day', sub: 'Complete these first', accent: 'orange', icon: ICON.clock,
+        body: `
+          <span class="deadline-badge before">Before employment begins</span>
+          <p>Virginia licensing requires several things to be underway <strong>before</strong> you can start. Your director will guide you, but here's the full picture:</p>
+          <ul class="check-list">
+            <li><strong>Sworn Disclosure Statement</strong> — completed and signed.</li>
+            <li><strong>Fingerprints (Fieldprint)</strong> — schedule and complete your appointment. Do this as early as possible; you cannot work independently until results clear. <span class="cite">Va. Code § 22.1-289.035</span></li>
+            <li><strong>Central Registry search</strong> — your form is submitted (your director sends it in on your behalf).</li>
+            <li><strong>Out-of-state checks</strong> — only if you've lived outside Virginia in the past 5 years.</li>
+            <li><strong>TB screening</strong> — dated within the 30 days before you start, on file before contact with children. <span class="cite">8VAC20-780-160</span></li>
+            <li><strong>W-4s + direct deposit + a voided check</strong> — payroll needs these before your start date (your first deposit takes about 3 pay cycles to begin).</li>
+          </ul>
+          <div class="callout warn"><strong>Tip:</strong> Fingerprints are the most common holdup. Book your Fieldprint appointment the day you get your codes — you can always go early.</div>`
+      },
+      { id: 'provisional', title: 'Can I start before everything clears?', sub: 'The provisional rule', accent: 'teal', icon: ICON.shield,
+        body: `
+          <p>Sometimes yes — under specific conditions set by state law.</p>
+          <p>You may begin working <strong>before all background results are back</strong> only if <strong>both</strong> are true:</p>
+          <ul class="check-list">
+            <li>Your <strong>fingerprint results have returned with qualifying results</strong>, and</li>
+            <li>You are <strong>supervised at all times</strong> by a staff member who has a cleared background check. <span class="cite">Va. Code § 22.1-289.035</span></li>
+          </ul>
+          <div class="callout"><strong>Being alone with children</strong> is a higher bar at Bright Beginnings: all paperwork, orientation, and training complete, <em>plus</em> six months of experience — or always within sight and sound of your supervisor.</div>`
+      },
+      { id: 'day-one', title: 'Your first day', sub: 'What happens on Day 1', accent: 'teal', icon: ICON.check,
+        body: `
+          <span class="deadline-badge day1">Day 1</span>
+          <p>Your director will welcome you and walk you through the essentials. On Day 1 you'll:</p>
+          <ul class="check-list">
+            <li>Complete your <strong>Documentation of Orientation</strong> with your director (a Virginia licensing requirement — done before the end of the day).</li>
+            <li>Complete <strong>Section 1 of your I-9</strong> and show your original ID documents.</li>
+            <li>Get set up in <strong>Tadpoles</strong> and <strong>ProCare</strong>, meet your team, and tour your classroom.</li>
+            <li>Start your <strong>Annual Training Log</strong>.</li>
+          </ul>
+          <div class="callout teal"><strong>Bring:</strong> your signed documents (next module), your original I-9 IDs, and a voided check if you haven't submitted direct deposit yet.</div>`
+      },
+      { id: 'first-weeks-timeline', title: 'Your first 7, 30, and 90 days', sub: 'The training clock', accent: 'purple', icon: ICON.clock,
+        body: `
+          <p>Once you start, the state sets clear deadlines for orientation and training. Here's the runway:</p>
+          <ul class="tl">
+            <li><strong>Within 7 days</strong><span>Complete center orientation training — required <em>before</em> you work alone with children. <span class="cite">8VAC20-780-240</span></span></li>
+            <li><strong>Within 30 days</strong><span>Complete First Aid / CPR certification. <span class="cite">8VAC20-780-240</span></span></li>
+            <li><strong>Within 90 days</strong><span>Complete the free VDOE Preservice health &amp; safety course (10 hours). <span class="cite">8VAC20-780-240</span></span></li>
+            <li><strong>Every year</strong><span>16 hours of ongoing training, age-appropriate to your classroom. <span class="cite">8VAC20-780-245</span></span></li>
+          </ul>
+          <div class="callout">You'll find direct links to every training in <strong>Module 4</strong> of this course.</div>`
+      },
+      { id: 'your-responsibilities', title: 'What is expected of you', sub: 'Before you start', accent: 'navy', icon: ICON.heart,
+        body: `
+          <p>More than anything, we want you to know what success looks like here before Day 1:</p>
+          <ul class="check-list">
+            <li>Children are in your <strong>sight and sound at all times</strong> — always know your count.</li>
+            <li>You <strong>never leave a classroom</strong> until you're relieved.</li>
+            <li>Your <strong>phone stays out of the classroom</strong> — a safety and privacy rule with no exceptions.</li>
+            <li>You bring <strong>warmth, professionalism, and a team spirit</strong> — our culture is our promise to families.</li>
+          </ul>
+          <div class="callout">The next module walks you through each policy in full. Read them carefully — you'll acknowledge each one.</div>`
+      },
+    ]
+  },
+  {
+    id: 'bys-policies', number: 2, title: 'Read & Acknowledge: Policies', tagline: 'Read, understand, confirm.',
+    subtitle: 'Read each policy in full and acknowledge it. Your acknowledgment is recorded with the date and time under your account.',
+    accent: 'teal', icon: ICON.shield,
+    sections: [
+      { id: 'ack-attendance', kind: 'ack', title: 'Attendance & Call-Out Policy', sub: 'Being here matters', accent: 'orange', icon: ICON.clock,
+        ackTitle: 'Attendance & Call-Out Policy',
+        body: `
+          <p>Consistency matters deeply for young children — they thrive when their teachers are present each day.</p>
+          <ul class="check-list">
+            <li>If you can't attend, you <strong>must call and speak to</strong> the opening supervisor or Director at least <strong>2 hours before</strong> your shift.</li>
+            <li>A courtesy text is welcome any time — but it never replaces the phone call.</li>
+            <li>Come in unless you're running a fever or vomiting; stay until a sub is secured.</li>
+            <li>Bring a <strong>doctor's note</strong> for any illness-related absence.</li>
+            <li>Attendance is tracked and affects evaluations, reviews, and raises.</li>
+          </ul>`
+      },
+      { id: 'ack-dress', kind: 'ack', title: 'Dress Code', sub: 'Professional & active', accent: 'teal', icon: ICON.check,
+        ackTitle: 'Dress Code',
+        body: `
+          <p>We keep a professional standard suited to an active childcare environment.</p>
+          <ul class="check-list">
+            <li>Skirts, skorts, dresses at the knee; tights or leggings in fall and winter.</li>
+            <li>Closed-toe, sturdy shoes always — no open toes, flip flops, or sandals (an insurance requirement).</li>
+            <li>Solid colors; BB-branded tops. No writing/logos except BB-issued.</li>
+          </ul>
+          <ul class="x-list">
+            <li>No shorts, mini skirts, sweatpants, or workout gear.</li>
+            <li>No blue jeans, scrubs, hats, or low/revealing necklines.</li>
+          </ul>
+          <div class="callout"><strong>The standard:</strong> professional, warm, and active — not the gym, not a night out.</div>`
+      },
+      { id: 'ack-cellphone', kind: 'ack', title: 'Cell Phone & Technology Policy', sub: 'A non-negotiable safety rule', accent: 'purple', icon: ICON.phone,
+        ackTitle: 'Cell Phone & Technology Policy',
+        body: `
+          <p>Phones are a distraction from supervision and a privacy risk. This is one of our most serious policies.</p>
+          <ul class="check-list">
+            <li>Cell phones and smart watches are <strong>not allowed in classrooms or playgrounds</strong> — leave them in your car or locked in the office.</li>
+            <li>No headphones or earbuds around children.</li>
+            <li>Personal devices only on break, never when children are present.</li>
+            <li><strong>Never</strong> photograph children on a personal device or share anything about them on social media.</li>
+            <li>Classroom tablets are for Tadpoles and curriculum only — never videos for children.</li>
+          </ul>
+          <div class="callout warn"><strong>A phone in the classroom can mean immediate termination — even a first offense — because of the liability risk.</strong></div>`
+      },
+      { id: 'ack-confidentiality', kind: 'ack', title: 'Confidentiality & Gossip Policy', sub: 'Protecting our community', accent: 'teal', icon: ICON.lock,
+        ackTitle: 'Confidentiality & Gossip Policy',
+        body: `
+          <p>A healthy, trusting environment serves children and families best. Gossip breaks that trust.</p>
+          <ul class="check-list">
+            <li>Respect the confidentiality of all matters concerning children, families, colleagues, and the program.</li>
+            <li>Gossip — talking about a problem with someone who can't fix it — is not tolerated, in person or online.</li>
+            <li>If you spot gossip, name it kindly: "This is gossip. I'd rather bring it to the director."</li>
+            <li>Concerns about children belong in professional settings — staff meetings or with your supervisor.</li>
+          </ul>`
+      },
+      { id: 'ack-social', kind: 'ack', title: 'Social Media', sub: 'Children are never online', accent: 'orange', icon: ICON.phone,
+        ackTitle: 'Social Media Policy',
+        body: `
+          <ul class="check-list">
+            <li><strong>Never</strong> post photos, videos, or information about children, families, or the classroom on any personal platform.</li>
+            <li>Photos of BB children, staff, or property must be deleted from personal devices.</li>
+            <li>Represent Bright Beginnings with professionalism online, on and off the clock.</li>
+          </ul>
+          <div class="callout">This protects the privacy and safety of every child in our care — no exceptions.</div>`
+      },
+      { id: 'ack-drug', kind: 'ack', title: 'Non-Smoking & Drug Policy', sub: 'Zero tolerance', accent: 'navy', icon: ICON.shield,
+        ackTitle: 'Non-Smoking & Drug Policy',
+        body: `
+          <p>The safety and health of children come first. Bright Beginnings maintains a zero-tolerance policy.</p>
+          <ul class="check-list">
+            <li>No smoking, vaping, or alcohol anywhere on any premises — including parking lots — at any time children could be present. This includes cigarettes, e-cigarettes, THC, and CBD.</li>
+            <li>Never smell of tobacco on duty; bring a change of clothes if needed.</li>
+            <li>Illegal drugs: use, possession, or sale means immediate dismissal.</li>
+            <li>We conduct random drug testing.</li>
+            <li>Prescription medications must not impair your ability to work safely.</li>
+          </ul>`
+      },
+      { id: 'ack-conduct', kind: 'ack', title: 'Rules of Conduct', sub: 'How we treat each other', accent: 'teal', icon: ICON.heart,
+        ackTitle: 'Rules of Conduct',
+        body: `
+          <p>No code can replace the thoughtful behavior of an ethical employee — but here is what we expect and what we will not accept.</p>
+          <p><strong>Grounds for immediate dismissal include:</strong></p>
+          <ul class="x-list">
+            <li>Child abuse or neglect; leaving children unsupervised or out of ratio.</li>
+            <li>Insubordination; falsifying records; reporting under the influence.</li>
+            <li>Fighting or verbal arguments; inappropriate use of technology or social media.</li>
+          </ul>
+          <p><strong>We lead with:</strong></p>
+          <ul class="check-list">
+            <li>Leadership and integrity in every interaction with coworkers and families.</li>
+            <li>Taking responsibility and treating everyone with trust and respect.</li>
+          </ul>`
+      },
+      { id: 'ack-resignation', kind: 'ack', title: 'Resignation Policy', sub: 'Leaving well', accent: 'purple', icon: ICON.cal,
+        ackTitle: 'Resignation Policy',
+        body: `
+          <p>We ask that departures are handled with the same care you brought when you joined.</p>
+          <ul class="check-list">
+            <li>Give at least <strong>two weeks' written notice</strong> to your director and email accounts@brightbeginningsva.com.</li>
+            <li>Keep your plans confidential until a transition plan is agreed — let the school communicate it.</li>
+            <li>A 30-day notice is required to leave in good standing.</li>
+            <li>Return all BB materials; work your full notice with no call-outs.</li>
+          </ul>`
+      },
+    ]
+  },
+  {
+    id: 'bys-documents', number: 3, title: 'Print, Sign & Return', tagline: 'The formal paperwork.',
+    subtitle: 'Open each document, print it, and sign it. Bring the signed pages to your director by your first week.',
+    accent: 'purple', icon: ICON.doc,
+    sections: [
+      { id: 'doc-how', title: 'How to return your documents', sub: 'Read first', accent: 'navy', icon: ICON.star,
+        body: `
+          <p>Each item below opens as a PDF you can print at home. Sign where indicated and bring the pages to your director.</p>
+          <ul class="check-list">
+            <li>Government forms must be completed exactly as printed — don't alter the wording.</li>
+            <li>No printer at home? Let your director know — we'll print them for you.</li>
+            <li>Return everything by the end of your <strong>first week</strong>.</li>
+          </ul>
+          <div class="callout">Mark each document below once you've printed and signed it, so your completion summary is accurate.</div>`
+      },
+      { id: 'doc-packet', kind: 'doc', title: 'The Signature Packet', sub: 'All 8 forms (incl. NDA & Tadpoles)', accent: 'purple', icon: ICON.doc,
+        body: `
+          <p>This one packet contains everything you sign for Bright Beginnings: Employee Application, Non-Disclosure Agreement, Tadpoles App Agreement, Documentation of Orientation, TB Screening, Fieldprint instructions, Annual Training Log, and Direct Deposit.</p>
+          ${dlBtn('BB-Signature-Packet.pdf','Open & print the packet')}
+          <div class="callout"><strong>Attach:</strong> your resume, diploma/transcripts, and a voided check for direct deposit.</div>`
+      },
+      { id: 'doc-i9', kind: 'doc', title: 'I-9 + bring your IDs', sub: 'Federal form', accent: 'teal', icon: ICON.doc,
+        body: `
+          <p>Complete <strong>Section 1</strong> on or before your first day, and bring <strong>original</strong> identity documents (e.g., passport, or driver's license + Social Security card). Photocopies aren't accepted.</p>
+          ${dlBtn('forms/I-9.pdf','Open & print the I-9')}`
+      },
+      { id: 'doc-va4', kind: 'doc', title: 'VA-4 Tax Withholding', sub: 'Virginia state form', accent: 'orange', icon: ICON.doc,
+        body: `<p>Complete your Virginia income tax withholding, sign, and date. Consult a tax advisor if you're unsure about exemptions.</p>
+          ${dlBtn('forms/VA-4.pdf','Open & print the VA-4')}`
+      },
+      { id: 'doc-registry', kind: 'doc', title: 'Central Registry Search', sub: 'Licensing form', accent: 'teal', icon: ICON.doc,
+        body: `<p>Complete your personal information. Your director submits this on your behalf.</p>
+          ${dlBtn('forms/Central-Registry-Search.pdf','Open & print the form')}`
+      },
+      { id: 'doc-sworn', kind: 'doc', title: 'Sworn Statement', sub: 'Licensing requirement', accent: 'purple', icon: ICON.doc,
+        body: `<p>Read every statement carefully, complete honestly, and sign. This is a Virginia licensing requirement.</p>
+          ${dlBtn('forms/Sworn-Statement.pdf','Open & print the statement')}`
+      },
+      { id: 'doc-handbook', kind: 'doc', title: 'Employee Handbook', sub: 'Keep for reference', accent: 'navy', icon: ICON.book,
+        body: `<p>Your full handbook — every policy, procedure, and the culture that makes us who we are. Keep it handy; you don't need to sign it.</p>
+          ${dlBtn('BB-Employee-Handbook.pdf','Open the handbook')}`
+      },
+    ]
+  },
+  {
+    id: 'bys-training', number: 4, title: 'Required Trainings', tagline: 'The credential clock.',
+    subtitle: 'Start these state-required trainings. Each shows its deadline — mark it complete once you finish.',
+    accent: 'orange', icon: ICON.grad,
+    sections: [
+      { id: 'tr-overview', title: 'How training works', sub: 'Deadlines at a glance', accent: 'navy', icon: ICON.clock,
+        body: `
+          <p>Virginia requires specific trainings on a clear timeline. The links below are the official courses — most are free and online.</p>
+          <ul class="tl">
+            <li><strong>Before working alone (within 7 days)</strong><span>Center orientation with your director.</span></li>
+            <li><strong>Within 30 days</strong><span>CPR / First Aid — Bright Beginnings will arrange this.</span></li>
+            <li><strong>Within 90 days</strong><span>VDOE Preservice health &amp; safety courses (below).</span></li>
+            <li><strong>Every year after</strong><span>16 hours of ongoing training.</span></li>
+          </ul>
+          <div class="callout">Keep every certificate — attach them to your Annual Training Log.</div>`
+      },
+      { id: 'tr-abuse', kind: 'training', title: 'Child Abuse & Neglect', sub: 'CHLD 2015', accent: 'orange', icon: ICON.grad,
+        body: `<span class="deadline-badge d90">Recognizing & reporting</span>
+          <p>Required for all staff — how to recognize and report suspected abuse or neglect as a mandated reporter.</p>
+          <a class="doc-btn" href="https://ccwatraining.learnpointlms.com/catalog/course.asp?id=222" target="_blank" rel="noopener">${ICON.grad} Start the training</a>`
+      },
+      { id: 'tr-foundations', kind: 'training', title: 'Preservice: Foundations for Health & Safety', sub: 'All staff · 3 hours', accent: 'teal', icon: ICON.grad,
+        body: `<span class="deadline-badge d90">Within 90 days</span>
+          <p>The core Virginia Preservice course for all child care staff.</p>
+          <a class="doc-btn" href="https://od.bkc.psu.edu/lesson/2656/information" target="_blank" rel="noopener">${ICON.grad} Start the training</a>
+          <a class="doc-btn ghost" href="https://od.bkc.psu.edu/lesson/2662/information" target="_blank" rel="noopener">En Español</a>`
+      },
+      { id: 'tr-b5', kind: 'training', title: 'Preservice: Birth-to-Five Care', sub: 'Child Day Center · 3 hours', accent: 'purple', icon: ICON.grad,
+        body: `<span class="deadline-badge d90">Within 90 days</span>
+          <p>Health &amp; safety specific to caring for children birth to five.</p>
+          <a class="doc-btn" href="https://od.bkc.psu.edu/lesson/2665/information" target="_blank" rel="noopener">${ICON.grad} Start the training</a>
+          <a class="doc-btn ghost" href="https://od.bkc.psu.edu/lesson/2670/information" target="_blank" rel="noopener">En Español</a>`
+      },
+      { id: 'tr-update', kind: 'training', title: 'Annual Health & Safety Update', sub: '3 hours · 2026', accent: 'orange', icon: ICON.grad,
+        body: `<span class="deadline-badge ongoing">Annual</span>
+          <p>The yearly Virginia health &amp; safety refresher for child care staff.</p>
+          <a class="doc-btn" href="https://od.bkc.psu.edu/lesson/2660/information" target="_blank" rel="noopener">${ICON.grad} Start the training</a>
+          <a class="doc-btn ghost" href="https://od.bkc.psu.edu/lesson/2661/information" target="_blank" rel="noopener">En Español</a>`
+      },
+      { id: 'tr-health', kind: 'training', title: 'Health Screening for Child Care Professionals', sub: 'CHLD 2016', accent: 'teal', icon: ICON.grad,
+        body: `<span class="deadline-badge d90">Health & safety</span>
+          <p>Daily health observation and screening practices.</p>
+          <a class="doc-btn" href="https://ccwatraining.learnpointlms.com/catalog/course.asp?id=221" target="_blank" rel="noopener">${ICON.grad} Start the training</a>`
+      },
+      { id: 'tr-schoolage', kind: 'training', title: 'Preservice: School-Age Care', sub: '1.5 hours · if applicable', accent: 'navy', icon: ICON.grad,
+        body: `<span class="deadline-badge ongoing">If you work with school-age children</span>
+          <p>Only needed if you'll care for school-age children (summer camp, before/after care).</p>
+          <a class="doc-btn" href="https://od.bkc.psu.edu/lesson/2658/information" target="_blank" rel="noopener">${ICON.grad} Start the training</a>
+          <a class="doc-btn ghost" href="https://od.bkc.psu.edu/lesson/2664/information" target="_blank" rel="noopener">En Español</a>`
+      },
+      { id: 'tr-cpr', kind: 'training', title: 'CPR / First Aid', sub: 'Within 30 days', accent: 'orange', icon: ICON.heart,
+        body: `<span class="deadline-badge d30">Within 30 days</span>
+          <p>Bright Beginnings arranges CPR &amp; First Aid certification for you — your director will schedule it. Mark this complete once you're certified.</p>`
+      },
+    ]
+  },
+];
+
+const BEFORE_YOU_START_COURSE = {
+  id: 'before-you-start',
+  title: 'Before You Start',
+  short: 'Before You Start',
+  subtitle: 'Everything you need to be ready for your first day.',
+  blurb: 'Your timeline, policies to acknowledge, documents to sign, and trainings to begin.',
+  accent: 'coral',
+  modules: BEFORE_YOU_START_MODULES
+};
+
+const COURSES = [BEFORE_YOU_START_COURSE, ONBOARDING_COURSE, LICENSING_COURSE];
 
 /* ============================================
    APP STATE
    ============================================ */
 function freshState() {
-  return { sections: {}, quizzes: {}, startedAt: null };
+  return { sections: {}, quizzes: {}, acknowledgments: {}, startedAt: null };
 }
 let appState = freshState();
 let nav = { course: 0, module: null };
@@ -2507,6 +2869,7 @@ async function initApp() {
   if (saved) {
     appState.sections  = saved.sections  || {};
     appState.quizzes   = saved.quizzes   || {};
+    appState.acknowledgments = saved.acknowledgments || {};
     appState.startedAt = saved.startedAt  || null;
   }
   nav = { course: 0, module: null };
@@ -2545,9 +2908,17 @@ function getCourseModulesDone(cI) {
 function isCourseComplete(cI) {
   return getCourseModulesDone(cI) === COURSES[cI].modules.length;
 }
+function courseHasProgress(cI) {
+  return COURSES[cI].modules.some(m =>
+    m.sections.some(s => appState.sections[`${m.id}::${s.id}`]) ||
+    (appState.quizzes[m.id] && appState.quizzes[m.id].passed)
+  );
+}
 function isCourseUnlocked(cI) {
   if (cI === 0) return true;
-  return isCourseComplete(cI - 1);
+  if (isCourseComplete(cI - 1)) return true;
+  // Never lock a course the user has already started or finished (protects existing staff)
+  return courseHasProgress(cI);
 }
 
 /* ============================================
@@ -2704,8 +3075,78 @@ function openCourse(cI) {
       <h1 class="course-head-title">${course.title}</h1>
       <p class="course-head-sub">${course.subtitle}</p>
     </div>
-    <div class="module-list">${modsHTML}</div>`;
+    <div class="module-list">${modsHTML}</div>
+    <div id="course-done-cta">${courseDoneCtaHTML(cI)}</div>`;
   showView('course-view');
+}
+
+// Completion CTA — only the "Before You Start" course offers a printable summary
+function courseDoneCtaHTML(cI) {
+  if (COURSES[cI].id !== 'before-you-start') return '';
+  if (!isCourseComplete(cI)) return '';
+  return `
+    <div class="summary-cta">
+      <button class="cta-btn" onclick="printCompletionSummary()">
+        <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Print my completion summary
+      </button>
+      <p style="font-size:12.5px;color:var(--mid-gray);margin-top:10px;max-width:340px;margin-left:auto;margin-right:auto">Print this, sign it, and hand it to your director — it becomes the cover sheet of your staff file.</p>
+    </div>`;
+}
+
+function fmtDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) +
+    ' · ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+}
+
+function printCompletionSummary() {
+  const course = COURSES.find(c => c.id === 'before-you-start');
+  const name = [staffName.first, staffName.last].filter(Boolean).join(' ')
+    || (auth.currentUser && auth.currentUser.email) || 'New Employee';
+  const school = staffName.school || '';
+  const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  const modBlock = (modId, heading) => {
+    const mod = course.modules.find(m => m.id === modId);
+    const items = mod.sections.map(s => {
+      const key = `${mod.id}::${s.id}`;
+      const done = !!appState.sections[key];
+      const when = appState.acknowledgments[key] ? fmtDate(appState.acknowledgments[key]) : (done ? 'Completed' : '—');
+      return `<div class="ps-item"><span>${done ? '☑' : '☐'} ${s.title}</span><span class="when">${when}</span></div>`;
+    }).join('');
+    return `<div class="ps-sec"><h2>${heading}</h2>${items}</div>`;
+  };
+
+  const logo = document.querySelector('.topbar-logo, .login-logo, img[alt*="Bright"]');
+  const logoSrc = logo ? logo.src : 'logo.png';
+
+  const html = `
+    <div class="ps-head">
+      <img src="${logoSrc}" alt="Bright Beginnings">
+      <h1>New-Hire Readiness Summary</h1>
+    </div>
+    <div class="ps-meta">
+      <div><b>Name:</b> ${name}</div>
+      ${school ? `<div><b>Location:</b> ${school}</div>` : ''}
+      <div><b>Date printed:</b> ${today}</div>
+    </div>
+    ${modBlock('bys-policies', 'Policies Read & Acknowledged')}
+    ${modBlock('bys-documents', 'Documents Printed & Signed')}
+    ${modBlock('bys-training', 'Required Trainings')}
+    <div class="ps-sign">
+      <div>Employee signature &amp; date</div>
+      <div>Director signature &amp; date</div>
+    </div>
+    <p class="ps-note">Digital acknowledgments above were recorded under this employee's account at bbonboard.netlify.app with the date and time shown. This signed summary is the cover record for the staff file.</p>`;
+
+  let mount = document.querySelector('.print-summary');
+  if (!mount) { mount = document.createElement('div'); mount.className = 'print-summary'; document.body.appendChild(mount); }
+  mount.innerHTML = html;
+  document.body.classList.add('printing');
+  window.print();
+  setTimeout(() => document.body.classList.remove('printing'), 500);
 }
 
 /* ============================================
@@ -2774,12 +3215,7 @@ function renderModule(cI, mI) {
           <div class="accordion-inner">
             ${hookHTML}
             ${s.body}
-            <div class="confirm-row">
-              <div class="confirm-row-text">Mark this section as reviewed to track your progress.</div>
-              <button class="confirm-btn ${checked ? 'done' : ''}" onclick="markSection('${mod.id}','${s.id}',this)">
-                ${checked ? '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Reviewed' : 'Mark as reviewed'}
-              </button>
-            </div>
+            ${confirmRowHTML(s, checked, mod.id)}
           </div>
         </div>
       </div>`;
@@ -2809,26 +3245,72 @@ function toggleAccordion(btn) {
   btn.parentElement.classList.toggle('open');
 }
 
+function findSection(moduleId, sectionId) {
+  for (const c of COURSES) for (const m of c.modules) {
+    if (m.id === moduleId) return m.sections.find(s => s.id === sectionId) || null;
+  }
+  return null;
+}
+
+function kindLabels(s) {
+  const kind = (s && s.kind) || 'review';
+  if (kind === 'ack') return { rowClass: 'ack', done: 'Acknowledged', todo: 'I have read &amp; understand', toast: 'Policy acknowledged',
+    text: `By marking this, I confirm I have <strong>read and understand the ${s.ackTitle || s.title}</strong> and agree to follow it.` };
+  if (kind === 'doc') return { rowClass: '', done: 'Ready', todo: 'I have this ready', toast: 'Marked ready',
+    text: 'Mark this once you have printed and signed it.' };
+  if (kind === 'training') return { rowClass: '', done: 'Completed', todo: 'Mark complete', toast: 'Training marked complete',
+    text: 'Mark complete once you have finished this training.' };
+  return { rowClass: '', done: 'Reviewed', todo: 'Mark as reviewed', toast: 'Section reviewed',
+    text: 'Mark this section as reviewed to track your progress.' };
+}
+
+function confirmRowHTML(s, checked, moduleId) {
+  const L = kindLabels(s);
+  const chk = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> ';
+  return `
+    <div class="confirm-row ${L.rowClass}">
+      <div class="confirm-row-text">${L.text}</div>
+      <button class="confirm-btn ${checked ? 'done' : ''}" onclick="markSection('${moduleId}','${s.id}',this)">
+        ${checked ? chk + L.done : L.todo}
+      </button>
+    </div>`;
+}
+
 function markSection(moduleId, sectionId, btn) {
   const key = `${moduleId}::${sectionId}`;
+  const sec = findSection(moduleId, sectionId);
+  const L = kindLabels(sec);
   appState.sections[key] = !appState.sections[key];
+  const nowChecked = appState.sections[key];
+
+  // Legal acknowledgments get a timestamp
+  if (sec && sec.kind === 'ack') {
+    if (nowChecked) appState.acknowledgments[key] = new Date().toISOString();
+    else delete appState.acknowledgments[key];
+  }
   StorageAdapter.save(appState);
 
   const accordion = btn.closest('.accordion');
   const marker = accordion.querySelector('.checkbox-marker');
-  if (appState.sections[key]) {
+  const chk = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> ';
+  if (nowChecked) {
     marker.classList.add('checked');
     btn.classList.add('done');
-    btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Reviewed';
-    showToast('Section reviewed');
+    btn.innerHTML = chk + L.done;
+    showToast(L.toast);
   } else {
     marker.classList.remove('checked');
     btn.classList.remove('done');
-    btn.textContent = 'Mark as reviewed';
+    btn.innerHTML = L.todo;
   }
   // refresh progress strip + quiz lock state
-  document.getElementById('prog-strip-mount').innerHTML = stepStripHTML(nav.course, nav.module);
-  document.getElementById('quiz-mount').innerHTML = renderQuiz(nav.course, nav.module);
+  const strip = document.getElementById('prog-strip-mount');
+  const quiz = document.getElementById('quiz-mount');
+  if (strip) strip.innerHTML = stepStripHTML(nav.course, nav.module);
+  if (quiz) quiz.innerHTML = renderQuiz(nav.course, nav.module);
+  // refresh the completion CTA if this course is now done
+  const doneCta = document.getElementById('course-done-cta');
+  if (doneCta) doneCta.innerHTML = courseDoneCtaHTML(nav.course);
 }
 
 /* ============================================

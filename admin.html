@@ -178,6 +178,12 @@ emailjs.init(EMAILJS_PUBLIC_KEY);
 /* Course/module definitions — mirror index.html. Section counts must match the
    live content; quiz counts as the +1 final step per module. */
 const COURSE_DEFS = [
+  { id:'before-you-start', title:'Before You Start', short:'Before Start', modules:[
+    { id:'bys-path',      title:'Path',      sections:6, quiz:false },
+    { id:'bys-policies',  title:'Policies',  sections:8, quiz:false },
+    { id:'bys-documents', title:'Documents', sections:7, quiz:false },
+    { id:'bys-training',  title:'Training',  sections:8, quiz:false },
+  ]},
   { id:'onboarding', title:'New Staff Onboarding', short:'Onboarding', modules:[
     { id:'culture',      title:'Culture',      sections:9  },
     { id:'connection',   title:'Connection',   sections:7  },
@@ -257,23 +263,28 @@ async function loadStaff() {
 function getModuleStats(data, def) {
   const sections = data.sections || {};
   const quizzes  = data.quizzes  || {};
+  const hasQuiz = def.quiz !== false;
   const done = Object.keys(sections).filter(k => k.startsWith(def.id + '::') && sections[k]).length;
   const passed = !!(quizzes[def.id] && quizzes[def.id].passed);
-  const total = def.sections + 1;
-  const pct = Math.min(100, Math.round(((done + (passed ? 1 : 0)) / total) * 100));
-  return { done, total: def.sections, passed, pct };
+  const total = def.sections + (hasQuiz ? 1 : 0);
+  const complete = def.sections > 0 && done >= def.sections && (!hasQuiz || passed);
+  const pct = total ? Math.min(100, Math.round(((done + (passed ? 1 : 0)) / total) * 100)) : 0;
+  return { done, total: def.sections, passed, complete, pct };
 }
+function modDenom(def) { return def.sections + (def.quiz !== false ? 1 : 0); }
 function getCoursePct(data, course) {
   let d = 0, a = 0;
-  course.modules.forEach(def => { const s = getModuleStats(data, def); d += s.done + (s.passed ? 1 : 0); a += def.sections + 1; });
+  course.modules.forEach(def => { const s = getModuleStats(data, def); d += s.done + (s.passed ? 1 : 0); a += modDenom(def); });
   return a ? Math.min(100, Math.round((d / a) * 100)) : 0;
 }
 function isCourseComplete(data, course) { return getCoursePct(data, course) >= 100; }
 function getOverallPct(data) {
   let d = 0, a = 0;
-  ALL_MODULES.forEach(def => { const s = getModuleStats(data, def); d += s.done + (s.passed ? 1 : 0); a += def.sections + 1; });
+  ALL_MODULES.forEach(def => { const s = getModuleStats(data, def); d += s.done + (s.passed ? 1 : 0); a += modDenom(def); });
   return a ? Math.min(100, Math.round((d / a) * 100)) : 0;
 }
+function ackCount(data) { return Object.keys(data.acknowledgments || {}).length; }
+const TOTAL_POLICIES = 8;
 function pillClass(pct) { return pct === 100 ? 'high' : pct >= 50 ? 'mid' : pct > 0 ? 'low' : 'zero'; }
 
 function buildHead() {
@@ -288,7 +299,7 @@ function buildHead() {
     });
     cols += `<th class="modh">${c.short} %</th>`;
   });
-  grp += `<th rowspan="2">Overall</th><th rowspan="2">Last Active</th></tr>`;
+  grp += `<th rowspan="2">Policies Ack'd</th><th rowspan="2">Overall</th><th rowspan="2">Last Active</th></tr>`;
   cols += `</tr>`;
   head.innerHTML = grp + cols;
 }
@@ -309,7 +320,7 @@ function renderSummary(staff) {
 function renderTable(staff) {
   const sorted = [...staff].sort((a, b) => getOverallPct(b) - getOverallPct(a));
   const tbody = document.getElementById('staff-tbody');
-  const colCount = 6 + ALL_MODULES.length + COURSE_DEFS.length;
+  const colCount = 7 + ALL_MODULES.length + COURSE_DEFS.length;
   if (!sorted.length) {
     tbody.innerHTML = `<tr><td colspan="${colCount}" style="text-align:center;padding:40px;color:var(--mid-gray)">No staff records yet.</td></tr>`;
     return;
@@ -320,7 +331,7 @@ function renderTable(staff) {
       c.modules.forEach((def, mi) => {
         const st = getModuleStats(s, def);
         let cls, label;
-        if (st.passed) { cls = 'complete'; label = '✓'; }
+        if (st.complete) { cls = 'complete'; label = '✓'; }
         else if (st.done > 0) { cls = 'partial'; label = st.done; }
         else { cls = 'none'; label = '–'; }
         modCells += `<td class="mod-cell ${mi===0?'grpstart':''}"><span class="mod-badge ${cls}" title="${st.done}/${st.total} sections${st.passed ? ', quiz passed' : ''}">${label}</span></td>`;
@@ -345,6 +356,7 @@ function renderTable(staff) {
         <td style="font-size:13px;white-space:nowrap">${school}</td>
         <td><span class="role-badge ${roleCls}">${role}</span></td>
         ${modCells}
+        <td class="mod-cell"><span class="overall-pill ${ackCount(s)>=TOTAL_POLICIES?'high':ackCount(s)>0?'mid':'zero'}">${ackCount(s)}/${TOTAL_POLICIES}</span></td>
         <td class="mod-cell"><span class="overall-pill ${pillClass(pct)}">${pct}%</span></td>
         <td class="td-date">${lastActive}</td>
       </tr>`;
@@ -354,7 +366,7 @@ function renderTable(staff) {
 function exportCSV() {
   const headers = ['First Name','Last Name','Email','School','Role'];
   COURSE_DEFS.forEach(c => { c.modules.forEach(m => headers.push(`${c.short}: ${m.title}`)); headers.push(`${c.short} %`); });
-  headers.push('Overall %','Last Active');
+  headers.push("Policies Ack'd",'Overall %','Last Active');
   const rows = allStaff.map(s => {
     const cols = [s.firstName || '', s.lastName || '', s.email || s.uid, s.school || '', s.role || 'staff'];
     COURSE_DEFS.forEach(c => {
@@ -363,7 +375,7 @@ function exportCSV() {
     });
     let lastActive = '';
     if (s.lastUpdated) { const d = s.lastUpdated.toDate ? s.lastUpdated.toDate() : new Date(s.lastUpdated); lastActive = d.toLocaleDateString(); }
-    cols.push(getOverallPct(s) + '%', lastActive);
+    cols.push(`${ackCount(s)}/${TOTAL_POLICIES}`, getOverallPct(s) + '%', lastActive);
     return cols;
   });
   const csv = [headers, ...rows].map(r => r.map(v => `"${v}"`).join(',')).join('\n');
