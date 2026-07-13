@@ -3311,6 +3311,13 @@ function markSection(moduleId, sectionId, btn) {
   // refresh the completion CTA if this course is now done
   const doneCta = document.getElementById('course-done-cta');
   if (doneCta) doneCta.innerHTML = courseDoneCtaHTML(nav.course);
+
+  // No-quiz modules (e.g. "Before You Start") have no quiz to trigger the celebration —
+  // fire the module-complete achievement / course certificate when the last section lands.
+  const curMod = (nav.module !== null) && COURSES[nav.course] && COURSES[nav.course].modules[nav.module];
+  if (nowChecked && curMod && !moduleHasQuiz(curMod) && isModuleComplete(nav.course, nav.module)) {
+    setTimeout(() => showAchievement(nav.course, nav.module), 450);
+  }
 }
 
 /* ============================================
