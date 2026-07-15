@@ -146,6 +146,57 @@ img { max-width: 100%; }
 .cta-btn.ghost { background: var(--cream); color: var(--mid-gray); border: 1px solid var(--lt-gray); }
 .cta-btn:disabled { background: var(--lt-gray); color: var(--white); cursor: not-allowed; }
 
+/* ── JOURNEY (Home) ─────────────────── */
+.journey-hero { padding: 30px 20px 18px; position: relative; overflow: hidden; min-height: 128px; }
+.journey-hero-tree { position: absolute; right: -24px; bottom: -16px; height: 140px; width: auto; mix-blend-mode: multiply; opacity: 0.7; pointer-events: none; }
+.journey-greeting { font-size: 12px; font-weight: 500; color: var(--mid-gray); margin-bottom: 5px; position: relative; z-index: 1; }
+.journey-title { font-family: 'Lora', serif; font-size: 26px; font-weight: 600; color: var(--charcoal); line-height: 1.2; margin-bottom: 6px; position: relative; z-index: 1; }
+.journey-sub { font-size: 13px; color: var(--mid-gray); line-height: 1.55; position: relative; z-index: 1; max-width: 300px; }
+
+/* overall progress toward "ready for day one" */
+.journey-overall { margin: 4px 20px 20px; background: var(--white); border-radius: 16px; box-shadow: var(--shadow); padding: 17px 20px; }
+.jo-top { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 11px; }
+.jo-label { font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: var(--charcoal); }
+.jo-count { font-size: 12px; font-weight: 700; color: var(--coral); }
+.jo-bar { height: 8px; border-radius: 50px; background: var(--lt-gray); overflow: hidden; }
+.jo-fill { height: 100%; border-radius: 50px; background: var(--coral); transition: width .45s ease; }
+.jo-foot { font-size: 11.5px; color: var(--mid-gray); margin-top: 10px; }
+
+/* the path */
+.journey { padding: 0 20px 26px; }
+.journey-step { display: grid; grid-template-columns: 30px 1fr; column-gap: 14px; }
+.journey-rail { display: flex; flex-direction: column; align-items: center; }
+.jr-line { width: 2px; background: var(--lt-gray); }
+.jr-line.top { height: 22px; }
+.jr-line.bottom { flex: 1; min-height: 22px; }
+.jr-line.done { background: var(--coral); }
+.journey-step:first-child .jr-line.top { background: transparent; }
+.journey-step:last-child .jr-line.bottom { display: none; }
+.journey-node { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--white); border: 2px solid var(--lt-gray); }
+.journey-node svg { width: 13px; height: 13px; stroke: var(--white); fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.journey-node.done { background: var(--coral); border-color: var(--coral); }
+.journey-node.current { border-color: var(--coral); box-shadow: 0 0 0 4px var(--coral-soft); }
+.journey-node .jn-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lt-gray); }
+.journey-node.current .jn-dot { background: var(--coral); width: 9px; height: 9px; }
+
+.journey-card { background: var(--white); border-radius: 16px; box-shadow: var(--shadow); border-left: 5px solid var(--coral); padding: 17px 18px 15px; margin-bottom: 16px; position: relative; overflow: hidden; }
+.journey-card[data-accent="sky"]  { border-left-color: var(--sky); }
+.journey-card[data-accent="gold"] { border-left-color: var(--yellow); }
+.journey-card.current { box-shadow: 0 4px 20px rgba(240,135,130,0.18); }
+.jc-bird { position: absolute; bottom: 12px; right: 12px; height: 34px; width: auto; opacity: 0.16; pointer-events: none; }
+.jc-eyebrow { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+.jc-part { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mid-gray); }
+.jc-tag { font-size: 9px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; }
+.jc-tag.next { color: var(--coral); background: var(--coral-soft); }
+.jc-tag.done { color: #2a7a82; background: var(--sky-soft); }
+.jc-title { font-family: 'Lora', serif; font-size: 19px; font-weight: 600; color: var(--charcoal); line-height: 1.2; margin-bottom: 4px; }
+.jc-sub { font-size: 12.5px; color: var(--mid-gray); line-height: 1.5; margin-bottom: 13px; max-width: 290px; }
+.jc-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.jc-prog { font-size: 11px; color: var(--mid-gray); }
+.jc-btn { display: inline-flex; align-items: center; gap: 7px; background: var(--coral); color: var(--white); border: none; border-radius: 50px; padding: 9px 17px; font-size: 12.5px; font-weight: 700; font-family: inherit; cursor: pointer; flex-shrink: 0; }
+.jc-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.jc-btn.ghost { background: var(--cream); color: var(--dk-gray); border: 1px solid var(--lt-gray); }
+
 /* ── COURSE VIEW (module list) ─────── */
 .course-head { background: var(--charcoal); padding: 30px 22px 26px; position: relative; overflow: hidden; }
 .course-head .blob-c { top:-50px; right:-60px; width:220px; height:200px; }
@@ -239,7 +290,7 @@ img { max-width: 100%; }
 .accordion-inner p strong { color: var(--charcoal); font-weight: 600; }
 .accordion-inner h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--coral); margin: 20px 0 10px; }
 .accordion-inner h5 { font-size: 14px; font-weight: 700; color: var(--charcoal); margin-bottom: 4px; }
-.cite { display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; color: var(--mid-gray); background: var(--cream); border: 1px solid var(--lt-gray); padding: 2px 8px; border-radius: 6px; margin-bottom: 12px; }
+.cite { display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; color: var(--mid-gray); background: var(--cream); border: 1px solid var(--lt-gray); padding: 1px 7px; border-radius: 6px; vertical-align: baseline; white-space: nowrap; }
 
 .callout { background: var(--sky-soft); border-left: 4px solid var(--sky); border-radius: 0 12px 12px 0; padding: 14px 16px; margin-bottom: 16px; font-size: 14px; line-height: 1.65; color: var(--charcoal); }
 .callout strong { color: var(--charcoal); }
@@ -248,10 +299,21 @@ img { max-width: 100%; }
 .callout.warn { background: var(--yellow-soft); border-left-color: var(--yellow); }
 
 .check-list, .x-list { list-style: none; margin-bottom: 18px; }
-.check-list li, .x-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--dk-gray); line-height: 1.6; margin-bottom: 10px; }
+.check-list li, .x-list li { position: relative; padding-left: 28px; font-size: 14px; color: var(--dk-gray); line-height: 1.6; margin-bottom: 10px; }
 .check-list li strong, .x-list li strong { color: var(--charcoal); }
-.check-list li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--coral); flex-shrink: 0; margin-top: 2px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); background-size: 11px; background-repeat: no-repeat; background-position: center; }
-.x-list li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--mid-gray); flex-shrink: 0; margin-top: 2px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E"); background-size: 11px; background-repeat: no-repeat; background-position: center; }
+.check-list li::before { content: ''; position: absolute; left: 0; top: 2px; width: 18px; height: 18px; border-radius: 50%; background: var(--coral); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); background-size: 11px; background-repeat: no-repeat; background-position: center; }
+.x-list li::before { content: ''; position: absolute; left: 0; top: 2px; width: 18px; height: 18px; border-radius: 50%; background: var(--mid-gray); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E"); background-size: 11px; background-repeat: no-repeat; background-position: center; }
+
+/* requirement list — term on top, description below (no mid-phrase wraps, even rhythm) */
+.req-list { list-style: none; margin: 4px 0 18px; }
+.req-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px; }
+.req-list li:last-child { margin-bottom: 0; }
+.req-list li::before { content: ''; width: 20px; height: 20px; border-radius: 50%; background: var(--coral); flex-shrink: 0; margin-top: 1px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); background-size: 12px; background-repeat: no-repeat; background-position: center; }
+.req-body { min-width: 0; }
+.req-term { display: block; font-size: 14.5px; font-weight: 700; color: var(--charcoal); line-height: 1.35; margin-bottom: 2px; }
+.req-term em { font-style: normal; font-weight: 500; color: var(--mid-gray); }
+.req-desc { display: block; font-size: 13.5px; color: var(--dk-gray); line-height: 1.6; }
+.req-desc strong { color: var(--charcoal); font-weight: 700; }
 
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
 .two-col-block { background: var(--cream); border-radius: 12px; padding: 13px 14px; }
@@ -971,15 +1033,38 @@ const ONBOARDING_MODULES = [
         accent: 'navy',
         icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
         body: `
-          <ul class="check-list">
-            <li><strong>Listen</strong> — to parents, children, and co-workers.</li>
-            <li><strong>Teaming & positive problem-solving</strong> — show up, on time, every day.</li>
-            <li><strong>Ask questions</strong> — your mentor teacher and site director are there for this.</li>
-            <li><strong>Plan</strong> — proper planning prevents poor performance.</li>
-            <li><strong>First impressions</strong> — sight, smell, sound of school matter.</li>
-            <li><strong>Personal service</strong> — know all the children's names, parents' names, co-workers' names.</li>
-            <li><strong>Communication</strong> — daily notes, greeting parents at drop-off and pick-up.</li>
-            <li><strong>Understanding & following all Bright Beginnings policies.</strong></li>
+          <ul class="req-list">
+            <li><div class="req-body">
+              <span class="req-term">Listen</span>
+              <span class="req-desc">To parents, children, and co-workers.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">Teaming &amp; positive problem-solving</span>
+              <span class="req-desc">Show up, on time, every day.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">Ask questions</span>
+              <span class="req-desc">Your mentor teacher and site director are there for this.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">Plan</span>
+              <span class="req-desc">Proper planning prevents poor performance.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">First impressions</span>
+              <span class="req-desc">Sight, smell, sound of school matter.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">Personal service</span>
+              <span class="req-desc">Know all the children's names, parents' names, co-workers' names.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">Communication</span>
+              <span class="req-desc">Daily notes, greeting parents at drop-off and pick-up.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">Understanding &amp; following all Bright Beginnings policies.</span>
+            </div></li>
           </ul>
         `
       },
@@ -1134,10 +1219,19 @@ const ONBOARDING_MODULES = [
             <div class="location-card"><div class="location-name">Mill Creek</div><div class="location-detail">Ask your director for the join link</div></div>
           </div>
           <h4>Other platforms you'll use</h4>
-          <ul class="check-list">
-            <li><strong>ProCare</strong> — for clocking in/out, enrollment, billing</li>
-            <li><strong>Tadpoles</strong> — for parent communication, daily reports, attendance, photos</li>
-            <li><strong>GroupMe</strong> — internal staff chat (above)</li>
+          <ul class="req-list">
+            <li><div class="req-body">
+              <span class="req-term">ProCare</span>
+              <span class="req-desc">Clocking in/out, enrollment, and billing.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">Tadpoles</span>
+              <span class="req-desc">Parent communication, daily reports, attendance, and photos.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">GroupMe</span>
+              <span class="req-desc">Internal staff chat (above).</span>
+            </div></li>
           </ul>
         `
       },
@@ -1796,11 +1890,23 @@ const ONBOARDING_MODULES = [
         accent: 'navy',
         icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
         body: `
-          <ul class="check-list">
-            <li><strong>7:30–8:30 AM</strong> — Drop-off. Classrooms must be set up with activities on all tables for children. You may wait in the kitchen to clock in if you're not needed in ratio.</li>
-            <li><strong>9:00 AM</strong> — Director or assistant director brings around the Morning Message: reminders, upcoming events, and the day's break schedule.</li>
-            <li><strong>12:45 PM</strong> — Ratios double at nap. All children on mats by 12:45. First teacher breaks 12:45–2:00, second teacher 2:00–3:00.</li>
-            <li><strong>3:30–4:00 PM</strong> — Pick-up starts. Departure pattern (on the Morning Message) determines who clocks out first.</li>
+          <ul class="req-list">
+            <li><div class="req-body">
+              <span class="req-term">7:30–8:30 AM</span>
+              <span class="req-desc">Drop-off. Classrooms must be set up with activities on all tables for children. You may wait in the kitchen to clock in if you're not needed in ratio.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">9:00 AM</span>
+              <span class="req-desc">Director or assistant director brings around the Morning Message: reminders, upcoming events, and the day's break schedule.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">12:45 PM</span>
+              <span class="req-desc">Ratios double at nap. All children on mats by 12:45. First teacher breaks 12:45–2:00, second teacher 2:00–3:00.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">3:30–4:00 PM</span>
+              <span class="req-desc">Pick-up starts. Departure pattern (on the Morning Message) determines who clocks out first.</span>
+            </div></li>
           </ul>
         `
       },
@@ -2149,10 +2255,19 @@ const LICENSING_MODULES = [
             <div class="stat-box"><div class="stat-num">18</div><div class="stat-label">Program Leader min age</div></div>
             <div class="stat-box"><div class="stat-num">21</div><div class="stat-label">Program Director min age</div></div>
           </div>
-          <ul class="check-list">
-            <li><strong>TA / Assistant Teacher → “Aide”</strong> — minimum age <strong>16</strong>. <span class="cite">8VAC20-780-220</span></li>
-            <li><strong>Lead Teacher → “Program Leader”</strong> — minimum age <strong>18</strong>. <span class="cite">8VAC20-780-210</span></li>
-            <li><strong>Director → “Program Director”</strong> — minimum age <strong>21</strong>. <span class="cite">8VAC20-780-190</span></li>
+          <ul class="req-list">
+            <li><div class="req-body">
+              <span class="req-term">TA / Assistant Teacher → “Aide”</span>
+              <span class="req-desc">Minimum age <strong>16</strong>. <span class="cite">8VAC20-780-220</span></span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">Lead Teacher → “Program Leader”</span>
+              <span class="req-desc">Minimum age <strong>18</strong>. <span class="cite">8VAC20-780-210</span></span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">Director → “Program Director”</span>
+              <span class="req-desc">Minimum age <strong>21</strong>. <span class="cite">8VAC20-780-190</span></span>
+            </div></li>
           </ul>
           <div class="callout"><strong>Translation:</strong> When the state says <em>Aide</em>, <em>Program Leader</em>, or <em>Program Director</em>, this is who they mean at Bright Beginnings.</div>
         `
@@ -2571,14 +2686,32 @@ const BEFORE_YOU_START_MODULES = [
       { id: 'before-first-day', title: 'Before your first day', sub: 'Complete these first', accent: 'orange', icon: ICON.clock,
         body: `
           <span class="deadline-badge before">Before employment begins</span>
-          <p>Virginia licensing requires several things to be underway <strong>before</strong> you can start. Your director will guide you, but here's the full picture:</p>
-          <ul class="check-list">
-            <li><strong>Sworn Disclosure Statement</strong> — completed and signed.</li>
-            <li><strong>Fingerprints (Fieldprint)</strong> — schedule and complete your appointment. Do this as early as possible; you cannot work independently until results clear. <span class="cite">Va. Code § 22.1-289.035</span></li>
-            <li><strong>Central Registry search</strong> — your form is submitted (your director sends it in on your behalf).</li>
-            <li><strong>Out-of-state checks</strong> — only if you've lived outside Virginia in the past 5 years.</li>
-            <li><strong>TB screening</strong> — dated within the 30 days before you start, on file before contact with children. <span class="cite">8VAC20-780-160</span></li>
-            <li><strong>W-4s + direct deposit + a voided check</strong> — payroll needs these before your start date (your first deposit takes about 3 pay cycles to begin).</li>
+          <p>A few things need to be underway <strong>before</strong> your first day. Your director will walk you through each one — here's the full picture:</p>
+          <ul class="req-list">
+            <li><div class="req-body">
+              <span class="req-term">Sworn Disclosure Statement</span>
+              <span class="req-desc">Completed and signed.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">Fingerprints <em>(Fieldprint)</em></span>
+              <span class="req-desc">Schedule your appointment as early as you can — you can't work independently until the results clear.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">Central Registry search</span>
+              <span class="req-desc">Your director submits this form on your behalf.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">Out-of-state checks</span>
+              <span class="req-desc">Only if you've lived outside Virginia in the past 5 years.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">TB screening</span>
+              <span class="req-desc">Dated within the 30 days before you start, and on file before you're with children.</span>
+            </div></li>
+            <li><div class="req-body">
+              <span class="req-term">W-4s, direct deposit &amp; a voided check</span>
+              <span class="req-desc">Payroll needs these before your start date — your first deposit takes about three pay cycles to begin.</span>
+            </div></li>
           </ul>
           <div class="callout warn"><strong>Tip:</strong> Fingerprints are the most common holdup. Book your Fieldprint appointment the day you get your codes — you can always go early.</div>`
       },
@@ -2597,7 +2730,7 @@ const BEFORE_YOU_START_MODULES = [
           <span class="deadline-badge day1">Day 1</span>
           <p>Your director will welcome you and walk you through the essentials. On Day 1 you'll:</p>
           <ul class="check-list">
-            <li>Complete your <strong>Documentation of Orientation</strong> with your director (a Virginia licensing requirement — done before the end of the day).</li>
+            <li>Complete your <strong>Documentation of Orientation</strong> with your director — done before the end of the day.</li>
             <li>Complete <strong>Section 1 of your I-9</strong> and show your original ID documents.</li>
             <li>Get set up in <strong>Tadpoles</strong> and <strong>ProCare</strong>, meet your team, and tour your classroom.</li>
             <li>Start your <strong>Annual Training Log</strong>.</li>
@@ -2765,12 +2898,12 @@ const BEFORE_YOU_START_MODULES = [
         body: `<p>Complete your Virginia income tax withholding, sign, and date. Consult a tax advisor if you're unsure about exemptions.</p>
           ${dlBtn('forms/VA-4.pdf','Open & print the VA-4')}`
       },
-      { id: 'doc-registry', kind: 'doc', title: 'Central Registry Search', sub: 'Licensing form', accent: 'teal', icon: ICON.doc,
+      { id: 'doc-registry', kind: 'doc', title: 'Central Registry Search', sub: 'Complete & submit', accent: 'teal', icon: ICON.doc,
         body: `<p>Complete your personal information. Your director submits this on your behalf.</p>
           ${dlBtn('forms/Central-Registry-Search.pdf','Open & print the form')}`
       },
-      { id: 'doc-sworn', kind: 'doc', title: 'Sworn Statement', sub: 'Licensing requirement', accent: 'purple', icon: ICON.doc,
-        body: `<p>Read every statement carefully, complete honestly, and sign. This is a Virginia licensing requirement.</p>
+      { id: 'doc-sworn', kind: 'doc', title: 'Sworn Statement', sub: 'Read & sign', accent: 'purple', icon: ICON.doc,
+        body: `<p>Read every statement carefully, complete honestly, and sign.</p>
           ${dlBtn('forms/Sworn-Statement.pdf','Open & print the statement')}`
       },
       { id: 'doc-handbook', kind: 'doc', title: 'Employee Handbook', sub: 'Keep for reference', accent: 'navy', icon: ICON.book,
@@ -2899,14 +3032,27 @@ function isModuleComplete(cI, mI) {
   return p.done === p.total;
 }
 function isModuleUnlocked(cI, mI) {
-  if (mI === 0) return isCourseUnlocked(cI);
-  return isModuleComplete(cI, mI - 1);
+  // Journey model: every step is open from day one — no prior-module dependency.
+  return true;
 }
 function getCourseModulesDone(cI) {
   return COURSES[cI].modules.reduce((n, _, mI) => n + (isModuleComplete(cI, mI) ? 1 : 0), 0);
 }
 function isCourseComplete(cI) {
   return getCourseModulesDone(cI) === COURSES[cI].modules.length;
+}
+// Whole-journey progress across every part — one finish line: "ready for day one"
+function getJourneyProgress() {
+  let done = 0, total = 0;
+  COURSES.forEach((c, cI) => c.modules.forEach((_, mI) => {
+    const p = getModuleProgress(cI, mI);
+    done += p.done; total += p.total;
+  }));
+  return { done, total, pct: total ? Math.round(done / total * 100) : 0 };
+}
+// The step you're "on" — first part that isn't finished (−1 once everything's done)
+function currentJourneyIndex() {
+  return COURSES.findIndex((_, cI) => !isCourseComplete(cI));
 }
 function courseHasProgress(cI) {
   return COURSES[cI].modules.some(m =>
@@ -2915,10 +3061,9 @@ function courseHasProgress(cI) {
   );
 }
 function isCourseUnlocked(cI) {
-  if (cI === 0) return true;
-  if (isCourseComplete(cI - 1)) return true;
-  // Never lock a course the user has already started or finished (protects existing staff)
-  return courseHasProgress(cI);
+  // Journey model: every part of onboarding is open from day one — nothing is gated
+  // behind finishing a prior part. Everything still needs to be completed.
+  return true;
 }
 
 /* ============================================
@@ -2967,58 +3112,89 @@ function showHome() {
   setTab('home');
   const v = document.getElementById('home-view');
 
-  const birds = ['Copy%20of%20bird_coral-01.png', 'Copy%20of%20bird_gold-01.png'];
-  const cardsHTML = COURSES.map((course, cI) => {
+  const journey = getJourneyProgress();
+  const curJourney = currentJourneyIndex();          // -1 once everything's done
+  const allDone = curJourney === -1;
+  const accents = ['coral', 'sky', 'gold'];
+  const birds = ['Copy%20of%20bird_coral-01.png', 'Copy%20of%20bird_gold-01.png', 'Copy%20of%20bird_coral-01.png'];
+
+  // ── The path: one connected line through every part of onboarding ──
+  const stepsHTML = COURSES.map((course, cI) => {
     const total = course.modules.length;
-    const done = getCourseModulesDone(cI);
-    const unlocked = isCourseUnlocked(cI);
-    const cur = course.modules.findIndex((_, mI) => !isModuleComplete(cI, mI));
-    const curIdx = cur === -1 ? total : cur;
-    const c2 = cI > 0;
+    const done  = getCourseModulesDone(cI);
+    const complete = isCourseComplete(cI);
+    const started  = courseHasProgress(cI);
+    const isCurrent = cI === curJourney;
 
-    if (!unlocked) {
-      const prevShort = (COURSES[cI - 1].short || COURSES[cI - 1].title);
-      return `
-        <div class="course-card ${c2 ? 'c2' : ''} locked">
-          <div class="cc-badge">Unlocks after ${prevShort}</div>
-          <div class="cc-eyebrow">Course ${cI + 1}</div>
-          <div class="cc-title">${course.title}</div>
-          <div class="cc-sub">${course.blurb}</div>
-          <div class="pip-row">${pipRowHTML(total, 0, -1, c2)}</div>
-          <div class="cc-prog-label">${total} modules · finish ${prevShort} to begin</div>
-          <button class="cta-btn ghost" disabled>Locked</button>
-        </div>`;
-    }
+    // node + connector states
+    const nodeCls = complete ? 'done' : (isCurrent ? 'current' : 'upcoming');
+    const topDone = cI > 0 && isCourseComplete(cI - 1);
+    const botDone = complete;
+    const nodeInner = complete
+      ? '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>'
+      : '<div class="jn-dot"></div>';
 
-    let label, btnText;
-    if (isCourseComplete(cI))      { label = 'All modules complete — nice work.'; btnText = 'Review course'; }
-    else if (done === 0)           { label = `${total} modules to explore`; btnText = 'Start course'; }
-    else                           { label = `You've completed Module ${done} of ${total}`; btnText = 'Continue'; }
+    // per-part tag + progress label + button
+    let tag = '';
+    if (complete)       tag = '<span class="jc-tag done">Complete</span>';
+    else if (isCurrent) tag = '<span class="jc-tag next">Recommended next</span>';
+
+    let progLabel;
+    if (complete)      progLabel = `All ${total} modules complete`;
+    else if (started)  progLabel = `${done} of ${total} modules complete`;
+    else               progLabel = `${total} modules`;
+
+    const btnText = complete ? 'Review' : (started ? 'Continue' : 'Begin');
+    const btnCls  = complete ? 'jc-btn ghost' : 'jc-btn';
 
     return `
-      <div class="course-card ${c2 ? 'c2' : ''}">
-        <img class="course-card-bird" src="assets/Brand%20and%20Elements/${birds[cI] || birds[0]}" alt="">
-        <div class="cc-eyebrow">Course ${cI + 1}</div>
-        <div class="cc-title">${course.title}</div>
-        <div class="cc-sub">${course.blurb}</div>
-        <div class="pip-row">${pipRowHTML(total, done, curIdx, c2)}</div>
-        <div class="cc-prog-label">${label}</div>
-        <button class="cta-btn ${c2 ? 'sky' : ''}" onclick="openCourse(${cI})">${btnText}
-          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button>
+      <div class="journey-step">
+        <div class="journey-rail">
+          <div class="jr-line top ${topDone ? 'done' : ''}"></div>
+          <div class="journey-node ${nodeCls}">${nodeInner}</div>
+          <div class="jr-line bottom ${botDone ? 'done' : ''}"></div>
+        </div>
+        <div class="journey-card ${isCurrent ? 'current' : ''}" data-accent="${accents[cI] || 'coral'}"
+             onclick="openCourse(${cI})" style="cursor:pointer">
+          <img class="jc-bird" src="assets/Brand%20and%20Elements/${birds[cI] || birds[0]}" alt="">
+          <div class="jc-eyebrow">
+            <span class="jc-part">Part ${cI + 1} of ${COURSES.length}</span>
+            ${tag}
+          </div>
+          <div class="jc-title">${course.title}</div>
+          <div class="jc-sub">${course.blurb}</div>
+          <div class="jc-foot">
+            <span class="jc-prog">${progLabel}</span>
+            <button class="${btnCls}" onclick="event.stopPropagation();openCourse(${cI})">${btnText}
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
       </div>`;
   }).join('');
 
+  // ── Overall progress toward "ready for day one" ──
+  const overallFoot = allDone
+    ? "You're all set — you're ready for your first day. 🎉"
+    : `You're ${journey.pct}% of the way to ready for day one.`;
+
   v.innerHTML = `
-    <div class="home-hero">
-      <img class="home-hero-tree" src="assets/Brand%20and%20Elements/Tree_FullColor-01.png" alt="">
-      <div class="home-greeting">${greeting()}</div>
-      <h1 class="home-title">Your learning hub.</h1>
-      <p class="home-sub">Pick up where you left off, or start something new.</p>
+    <div class="journey-hero">
+      <img class="journey-hero-tree" src="assets/Brand%20and%20Elements/Tree_FullColor-01.png" alt="">
+      <div class="journey-greeting">${greeting()}</div>
+      <h1 class="journey-title">Your first days, mapped out.</h1>
+      <p class="journey-sub">Everything's open from day one — explore in any order. We'll keep track of what's done.</p>
     </div>
-    <div class="section-label">Your courses</div>
-    <div class="course-cards">
-      ${cardsHTML}
+    <div class="journey-overall">
+      <div class="jo-top">
+        <span class="jo-label">Your onboarding journey</span>
+        <span class="jo-count">${journey.done} of ${journey.total} steps</span>
+      </div>
+      <div class="jo-bar"><div class="jo-fill" style="width:${journey.pct}%"></div></div>
+      <div class="jo-foot">${overallFoot}</div>
+    </div>
+    <div class="journey">
+      ${stepsHTML}
     </div>`;
   showView('home-view');
 }
