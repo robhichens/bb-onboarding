@@ -70,21 +70,40 @@ a { text-decoration:none; }
 .invite-feedback.error { background:var(--coral-soft); color:#b04a45; }
 
 /* TABLE */
-.table-wrap { background:var(--white); border-radius:16px; box-shadow:0 2px 14px rgba(0,0,0,0.05); overflow-x:auto; }
+.table-wrap { background:var(--white); border-radius:16px; box-shadow:0 2px 14px rgba(0,0,0,0.05); }
 .table-toolbar { display:flex; align-items:center; justify-content:space-between; padding:18px 24px 14px; border-bottom:1px solid var(--cream); gap:16px; flex-wrap:wrap; }
 .table-toolbar-title { font-weight:700; font-size:15px; color:var(--charcoal); }
 .export-btn { padding:9px 20px; background:var(--charcoal); color:var(--white); border-radius:50px; font-size:13px; font-weight:600; transition:all 0.2s; }
 .export-btn:hover { background:#444; }
-table { width:100%; border-collapse:collapse; font-size:13.5px; }
-thead th { padding:10px 12px; text-align:left; font-size:10.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--dk-gray); background:var(--cream); border-bottom:1px solid var(--lt-gray); white-space:nowrap; }
+
+/* Filter bar */
+.filter-bar { display:flex; align-items:center; gap:10px; padding:12px 24px; border-bottom:1px solid var(--cream); flex-wrap:wrap; }
+.filter-bar select, .filter-bar input { font-family:inherit; font-size:13px; color:var(--charcoal); background:var(--cream); border:1px solid var(--lt-gray); border-radius:50px; padding:7px 14px; outline:none; }
+.filter-bar input { min-width:180px; }
+.filter-bar select:focus, .filter-bar input:focus { border-color:var(--coral); background:var(--white); }
+.filter-clear { font-size:12px; font-weight:600; color:var(--coral); background:none; border:none; cursor:pointer; padding:6px 8px; display:none; }
+.filter-clear.on { display:inline-block; }
+
+/* Scroll container: frozen header rows + frozen name column */
+.table-scroll { max-height:68vh; overflow:auto; border-radius:0 0 16px 16px; }
+table { width:100%; border-collapse:separate; border-spacing:0; font-size:13.5px; }
+thead th { padding:0 12px; height:36px; text-align:left; font-size:10.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--dk-gray); background:var(--cream); border-bottom:1px solid var(--lt-gray); white-space:nowrap; position:sticky; top:0; z-index:3; }
+thead tr:nth-child(2) th { top:36px; }
+thead th[rowspan] { z-index:4; }
 thead th.grp { text-align:center; color:var(--coral); border-left:1px solid var(--lt-gray); }
 thead th.grp.lic { color:#2a7a82; }
+thead th.grp.clickable { cursor:pointer; user-select:none; }
+thead th.grp.clickable:hover { color:var(--charcoal); }
 thead th.modh { text-align:center; font-size:10px; color:var(--mid-gray); }
+th.sticky-name, td.td-name { position:sticky; left:0; background:var(--white); z-index:2; box-shadow:2px 0 4px rgba(0,0,0,0.04); }
+th.sticky-name { background:var(--cream); z-index:5 !important; }
+tbody tr:hover td.td-name { background:var(--cream); }
 tbody tr { border-bottom:1px solid var(--cream); transition:background 0.15s; }
 tbody tr:last-child { border-bottom:none; }
 tbody tr:hover { background:var(--cream); }
 td { padding:12px; vertical-align:middle; }
 .td-name { font-weight:600; color:var(--charcoal); white-space:nowrap; }
+.td-name .name-email { display:block; font-weight:400; color:var(--mid-gray); font-size:11.5px; max-width:190px; overflow:hidden; text-overflow:ellipsis; }
 .td-email { color:var(--dk-gray); max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12.5px; }
 .td-date { color:var(--mid-gray); font-size:12.5px; white-space:nowrap; }
 .mod-cell { text-align:center; }
@@ -149,10 +168,35 @@ td { padding:12px; vertical-align:middle; }
         <span class="table-toolbar-title" id="table-title">Staff Progress</span>
         <button class="export-btn" onclick="exportCSV()">Export CSV</button>
       </div>
-      <table>
-        <thead id="table-head"></thead>
-        <tbody id="staff-tbody"></tbody>
-      </table>
+      <div class="filter-bar">
+        <input type="search" id="f-search" placeholder="Search name or email…" oninput="applyFilters()">
+        <select id="f-school" onchange="applyFilters()">
+          <option value="">All schools</option>
+          <option>Crozet</option>
+          <option>Forest Lakes</option>
+          <option>Mill Creek</option>
+          <option value="All Schools">All Schools (floaters)</option>
+        </select>
+        <select id="f-role" onchange="applyFilters()">
+          <option value="">All roles</option>
+          <option value="staff">Staff</option>
+          <option value="admin">Admin</option>
+        </select>
+        <select id="f-status" onchange="applyFilters()">
+          <option value="">Any status</option>
+          <option value="notstarted">Not started</option>
+          <option value="inprogress">In progress</option>
+          <option value="onb">Onboarding complete</option>
+          <option value="lic">Licensing complete</option>
+        </select>
+        <button class="filter-clear" id="f-clear" onclick="clearFilters()">✕ Clear filters</button>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead id="table-head"></thead>
+          <tbody id="staff-tbody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
@@ -263,7 +307,7 @@ async function loadStaff() {
   allStaff = [];
   snapshot.forEach(doc => allStaff.push({ uid: doc.id, ...doc.data() }));
   renderSummary(allStaff);
-  renderTable(allStaff);
+  applyFilters();
 }
 
 /* ── progress math (flat sections/quizzes namespace) ── */
@@ -294,21 +338,79 @@ function ackCount(data) { return Object.keys(data.acknowledgments || {}).length;
 const TOTAL_POLICIES = 8;
 function pillClass(pct) { return pct === 100 ? 'high' : pct >= 50 ? 'mid' : pct > 0 ? 'low' : 'zero'; }
 
+// Courses render collapsed (one % column) by default; click a course header
+// to expand it into per-module detail.
+const expandedCourses = new Set();
+
+function toggleCourse(id) {
+  expandedCourses.has(id) ? expandedCourses.delete(id) : expandedCourses.add(id);
+  buildHead();
+  applyFilters();
+}
+
 function buildHead() {
   const head = document.getElementById('table-head');
   let grp = `<tr>
-    <th rowspan="2">Name</th><th rowspan="2">Email</th><th rowspan="2">School</th><th rowspan="2">Role</th>`;
+    <th rowspan="2" class="sticky-name">Name</th><th rowspan="2">School</th><th rowspan="2">Role</th>`;
   let cols = `<tr>`;
-  COURSE_DEFS.forEach((c, ci) => {
-    grp += `<th class="grp ${c.id==='licensing'?'lic':''}" colspan="${c.modules.length + 1}">${c.short}</th>`;
-    c.modules.forEach((m, mi) => {
-      cols += `<th class="modh ${mi===0?'mod-cell grpstart':''}">${m.title}</th>`;
-    });
-    cols += `<th class="modh">${c.short} %</th>`;
+  COURSE_DEFS.forEach(c => {
+    const open = expandedCourses.has(c.id);
+    const licCls = c.id === 'licensing' ? 'lic' : '';
+    if (open) {
+      grp += `<th class="grp ${licCls} clickable" colspan="${c.modules.length + 1}" onclick="toggleCourse('${c.id}')" title="Collapse">${c.short} ▾</th>`;
+      c.modules.forEach((m, mi) => {
+        cols += `<th class="modh ${mi===0?'mod-cell grpstart':''}">${m.title}</th>`;
+      });
+      cols += `<th class="modh">${c.short} %</th>`;
+    } else {
+      grp += `<th rowspan="2" class="grp ${licCls} clickable" onclick="toggleCourse('${c.id}')" title="Expand modules">${c.short} ▸</th>`;
+    }
   });
   grp += `<th rowspan="2">Policies Ack'd</th><th rowspan="2">Overall</th><th rowspan="2">Last Active</th></tr>`;
   cols += `</tr>`;
   head.innerHTML = grp + cols;
+}
+
+// ── Filters ─────────────────────────────────────────────────────────────────
+function getFilters() {
+  return {
+    q:      document.getElementById('f-search').value.trim().toLowerCase(),
+    school: document.getElementById('f-school').value,
+    role:   document.getElementById('f-role').value,
+    status: document.getElementById('f-status').value,
+  };
+}
+
+function clearFilters() {
+  for (const id of ['f-search', 'f-school', 'f-role', 'f-status']) document.getElementById(id).value = '';
+  applyFilters();
+}
+
+function applyFilters() {
+  const f = getFilters();
+  const onbCourse = COURSE_DEFS.find(c => c.id === 'onboarding');
+  const licCourse = COURSE_DEFS.find(c => c.id === 'licensing');
+  const filtered = allStaff.filter(s => {
+    if (f.q) {
+      const hay = `${s.firstName ?? ''} ${s.lastName ?? ''} ${s.email ?? ''}`.toLowerCase();
+      if (!hay.includes(f.q)) return false;
+    }
+    if (f.school && (s.school || '') !== f.school) return false;
+    if (f.role && (s.role || 'staff') !== f.role) return false;
+    if (f.status) {
+      const pct = getOverallPct(s);
+      if (f.status === 'notstarted' && pct !== 0) return false;
+      if (f.status === 'inprogress' && !(pct > 0 && !isCourseComplete(s, onbCourse))) return false;
+      if (f.status === 'onb' && !isCourseComplete(s, onbCourse)) return false;
+      if (f.status === 'lic' && !isCourseComplete(s, licCourse)) return false;
+    }
+    return true;
+  });
+  const active = !!(f.q || f.school || f.role || f.status);
+  document.getElementById('f-clear').classList.toggle('on', active);
+  document.getElementById('table-title').textContent =
+    active ? `Staff Progress (${filtered.length} of ${allStaff.length})` : `Staff Progress (${allStaff.length})`;
+  renderTable(filtered);
 }
 
 function renderSummary(staff) {
@@ -331,24 +433,28 @@ function renderSummary(staff) {
 function renderTable(staff) {
   const sorted = [...staff].sort((a, b) => getOverallPct(b) - getOverallPct(a));
   const tbody = document.getElementById('staff-tbody');
-  const colCount = 7 + ALL_MODULES.length + COURSE_DEFS.length;
+  const colCount = 6 + COURSE_DEFS.reduce((n, c) => n + (expandedCourses.has(c.id) ? c.modules.length + 1 : 1), 0);
   if (!sorted.length) {
-    tbody.innerHTML = `<tr><td colspan="${colCount}" style="text-align:center;padding:40px;color:var(--mid-gray)">No staff records yet.</td></tr>`;
+    const msg = allStaff.length ? 'No staff match these filters.' : 'No staff records yet.';
+    tbody.innerHTML = `<tr><td colspan="${colCount}" style="text-align:center;padding:40px;color:var(--mid-gray)">${msg}</td></tr>`;
     return;
   }
   tbody.innerHTML = sorted.map(s => {
     let modCells = '';
     COURSE_DEFS.forEach(c => {
-      c.modules.forEach((def, mi) => {
-        const st = getModuleStats(s, def);
-        let cls, label;
-        if (st.complete) { cls = 'complete'; label = '✓'; }
-        else if (st.done > 0) { cls = 'partial'; label = st.done; }
-        else { cls = 'none'; label = '–'; }
-        modCells += `<td class="mod-cell ${mi===0?'grpstart':''}"><span class="mod-badge ${cls}" title="${st.done}/${st.total} sections${st.passed ? ', quiz passed' : ''}">${label}</span></td>`;
-      });
+      const open = expandedCourses.has(c.id);
+      if (open) {
+        c.modules.forEach((def, mi) => {
+          const st = getModuleStats(s, def);
+          let cls, label;
+          if (st.complete) { cls = 'complete'; label = '✓'; }
+          else if (st.done > 0) { cls = 'partial'; label = st.done; }
+          else { cls = 'none'; label = '–'; }
+          modCells += `<td class="mod-cell ${mi===0?'grpstart':''}"><span class="mod-badge ${cls}" title="${st.done}/${st.total} sections${st.passed ? ', quiz passed' : ''}">${label}</span></td>`;
+        });
+      }
       const cp = getCoursePct(s, c);
-      modCells += `<td class="mod-cell"><span class="overall-pill ${pillClass(cp)}">${cp}%</span></td>`;
+      modCells += `<td class="mod-cell ${open?'':'grpstart'}"><span class="overall-pill ${pillClass(cp)}">${cp}%</span></td>`;
     });
     const pct = getOverallPct(s);
     const role = s.role || 'staff';
@@ -362,8 +468,7 @@ function renderTable(staff) {
     const fullName = [s.firstName, s.lastName].filter(Boolean).join(' ') || '—';
     return `
       <tr>
-        <td class="td-name">${fullName}</td>
-        <td class="td-email">${s.email || s.uid}</td>
+        <td class="td-name">${fullName}<span class="name-email">${s.email || s.uid}</span></td>
         <td style="font-size:13px;white-space:nowrap">${school}</td>
         <td><span class="role-badge ${roleCls}">${role}</span></td>
         ${modCells}
