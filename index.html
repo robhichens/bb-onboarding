@@ -549,11 +549,12 @@ img { max-width: 100%; }
       <img src="assets/Brand%20and%20Elements/BB_Logo_fullColor-01.png" alt="Bright Beginnings Preschool">
     </div>
     <h2 class="auth-heading">Staff Learning Portal</h2>
-    <p class="auth-subheading">Sign in to track your progress across every course and device.</p>
+    <p class="auth-subheading">Sign in with your Bright Beginnings staff account — the same one you use on the staff platform. No account yet? Your director can set one up.</p>
 
+    <!-- Self-signup removed: accounts are created by your director on the
+         staff platform (staff.brightbeginningsva.com), one account everywhere. -->
     <div class="auth-tabs">
       <button class="auth-tab active" onclick="switchAuthTab('signin', this)">Sign In</button>
-      <button class="auth-tab" onclick="switchAuthTab('signup', this)">Create Account</button>
     </div>
 
     <div id="auth-msg" class="auth-msg error"></div>
@@ -673,28 +674,77 @@ img { max-width: 100%; }
 /* ============================================
    FIREBASE INIT
    ============================================ */
+// Shared Bright Beginnings platform project (same as staff.brightbeginningsva.com).
+// One account everywhere: staff sign in via the platform and arrive here through
+// a ?token= handoff; direct email/password sign-in still works as a fallback.
 firebase.initializeApp({
-  apiKey: "AIzaSyBRcre3oThEMJMzJZ4Pl3Rm5js1owoWhn8",
-  authDomain: "bb-onboarding-e5d3f.firebaseapp.com",
-  projectId: "bb-onboarding-e5d3f",
-  storageBucket: "bb-onboarding-e5d3f.firebasestorage.app",
-  messagingSenderId: "437558384228",
-  appId: "1:437558384228:web:bf759a662d492a3281f171"
+  apiKey: "AIzaSyA_8Lj6k92SCwYhBdhWc1H-qyVy5osuwLg",
+  authDomain: "bb-platform-5c296.firebaseapp.com",
+  projectId: "bb-platform-5c296",
+  storageBucket: "bb-platform-5c296.firebasestorage.app",
+  messagingSenderId: "487337645897",
+  appId: "1:487337645897:web:e3d26f1aea67e0f02b2c98"
 });
 const auth = firebase.auth();
 const db = firebase.firestore();
+
+/* ============================================
+   PLATFORM TOKEN HANDOFF (spoke SSO)
+   staff.brightbeginningsva.com opens this app with ?token=<custom token>.
+   Sign in with it, then scrub the token from the URL/history.
+   ============================================ */
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const spokeToken = params.get('token');
+  if (!spokeToken) return;
+  params.delete('token');
+  const clean = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+  window.history.replaceState({}, '', clean);
+  auth.signInWithCustomToken(spokeToken).catch(err => {
+    console.warn('Platform token sign-in failed:', err.code);
+    // Fall through to the normal login overlay.
+  });
+})();
 
 /* ============================================
    AUTH STATE
    ============================================ */
 let staffName = { first: '', last: '', school: '' };
 
+// Platform site key → school label used throughout this app
+const SITE_TO_SCHOOL = {
+  crozet: 'Crozet', forest_lakes: 'Forest Lakes', mill_creek: 'Mill Creek', all: 'All Schools',
+};
+
 auth.onAuthStateChanged(async (user) => {
   if (user) {
     document.getElementById('auth-overlay').style.display = 'none';
-    document.getElementById('am-email').textContent = user.email;
+    document.getElementById('am-email').textContent = user.email || '';
     try {
-      const snap = await db.collection('progress').doc(user.uid).get();
+      let snap = await db.collection('progress').doc(user.uid).get();
+      if (!snap.exists) {
+        // First visit via platform handoff — seed the progress doc from the
+        // staff profile in users/{uid} (readable by the signed-in user).
+        let seed = { email: user.email || '', firstName: '', lastName: '', school: '', role: 'staff' };
+        try {
+          const uSnap = await db.collection('users').doc(user.uid).get();
+          if (uSnap.exists) {
+            const u = uSnap.data();
+            const parts = (u.name || '').trim().split(/\s+/);
+            seed.firstName = parts[0] || '';
+            seed.lastName  = parts.slice(1).join(' ') || '';
+            seed.school    = SITE_TO_SCHOOL[u.site] || '';
+            seed.email     = u.email || seed.email;
+            if (['admin', 'owner'].includes(u.role)) seed.role = 'admin';
+          }
+        } catch (e) { /* profile lookup non-fatal */ }
+        await db.collection('progress').doc(user.uid).set({
+          ...seed,
+          startedAt:   firebase.firestore.FieldValue.serverTimestamp(),
+          lastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
+        }, { merge: true });
+        snap = await db.collection('progress').doc(user.uid).get();
+      }
       if (snap.exists) {
         const d = snap.data();
         if (d.role === 'admin') document.getElementById('admin-link').style.display = 'inline-flex';
