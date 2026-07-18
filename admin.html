@@ -158,13 +158,14 @@ td { padding:12px; vertical-align:middle; }
 </div>
 
 <script>
+// Shared Bright Beginnings platform project — same auth as staff.brightbeginningsva.com
 firebase.initializeApp({
-  apiKey: "AIzaSyBRcre3oThEMJMzJZ4Pl3Rm5js1owoWhn8",
-  authDomain: "bb-onboarding-e5d3f.firebaseapp.com",
-  projectId: "bb-onboarding-e5d3f",
-  storageBucket: "bb-onboarding-e5d3f.firebasestorage.app",
-  messagingSenderId: "437558384228",
-  appId: "1:437558384228:web:bf759a662d492a3281f171"
+  apiKey: "AIzaSyA_8Lj6k92SCwYhBdhWc1H-qyVy5osuwLg",
+  authDomain: "bb-platform-5c296.firebaseapp.com",
+  projectId: "bb-platform-5c296",
+  storageBucket: "bb-platform-5c296.firebasestorage.app",
+  messagingSenderId: "487337645897",
+  appId: "1:487337645897:web:e3d26f1aea67e0f02b2c98"
 });
 const auth = firebase.auth();
 const db = firebase.firestore();
@@ -235,8 +236,14 @@ auth.onAuthStateChanged(async (user) => {
   document.getElementById('nav-email').textContent = user.email;
   let isAdmin = false;
   try {
-    const snap = await db.collection('progress').doc(user.uid).get();
-    isAdmin = snap.exists && snap.data().role === 'admin';
+    // Platform admins/owner get access automatically; the legacy per-doc
+    // progress.role === 'admin' flag still works too.
+    const [uSnap, pSnap] = await Promise.all([
+      db.collection('users').doc(user.uid).get(),
+      db.collection('progress').doc(user.uid).get(),
+    ]);
+    isAdmin = (uSnap.exists && ['admin', 'owner'].includes(uSnap.data().role))
+           || (pSnap.exists && pSnap.data().role === 'admin');
   } catch (e) { /* fall through */ }
   if (!isAdmin) {
     document.getElementById('gate').innerHTML = `
