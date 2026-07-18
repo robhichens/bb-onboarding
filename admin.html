@@ -133,7 +133,7 @@ td { padding:12px; vertical-align:middle; }
     <div class="invite-card">
       <div class="invite-card-text">
         <div class="invite-card-title">Invite a Staff Member</div>
-        <div class="invite-card-sub">Sends them the platform link with instructions to create an account.</div>
+        <div class="invite-card-sub">Sends them the portal link. They sign in with their Bright Beginnings staff account — create one for them first on the staff platform (Admin → Directory).</div>
       </div>
       <div class="invite-fields">
         <input type="email" class="invite-input" id="invite-email" placeholder="staff@email.com">
@@ -313,8 +313,12 @@ function buildHead() {
 
 function renderSummary(staff) {
   const total = staff.length;
-  const onbDone = staff.filter(s => isCourseComplete(s, COURSE_DEFS[0])).length;
-  const licDone = staff.filter(s => isCourseComplete(s, COURSE_DEFS[1])).length;
+  // Look up courses by id — positional indexes broke when "Before You Start"
+  // was added at position 0 (cards were counting the wrong courses).
+  const onbCourse = COURSE_DEFS.find(c => c.id === 'onboarding');
+  const licCourse = COURSE_DEFS.find(c => c.id === 'licensing');
+  const onbDone = staff.filter(s => isCourseComplete(s, onbCourse)).length;
+  const licDone = staff.filter(s => isCourseComplete(s, licCourse)).length;
   const notStarted = staff.filter(s => getOverallPct(s) === 0).length;
   document.getElementById('summary-row').innerHTML = `
     <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Staff</div></div>
