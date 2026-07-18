@@ -3057,6 +3057,73 @@ async function initApp() {
   }
   nav = { course: 0, module: null };
   showHome();
+  maybeCelebrateLicensing(saved);
+}
+
+/* ============================================
+   GOLDEN BIRDIE — Virginia Licensing completion
+   Shown ONCE when someone has finished the whole licensing course
+   (flagged in their progress doc so it never repeats).
+   ============================================ */
+const FIRST_LICENSING_EMAIL = 'jwlang82@gmail.com'; // Jackie Lang — first ever
+
+async function maybeCelebrateLicensing(saved) {
+  try {
+    const licIdx = COURSES.findIndex(c => c.id === 'licensing');
+    if (licIdx === -1 || !isCourseComplete(licIdx)) return;
+    if (saved?.licensingCelebratedAt) return;
+
+    const first = (staffName.first || 'friend');
+    const firstName = first.charAt(0).toUpperCase() + first.slice(1);
+    const isFirstEver = (auth.currentUser?.email || '').toLowerCase() === FIRST_LICENSING_EMAIL;
+
+    const style = document.createElement('style');
+    style.textContent = `
+      .gold-overlay { position:fixed; inset:0; background:rgba(84,84,84,0.55); display:flex;
+        align-items:center; justify-content:center; z-index:9000; padding:20px;
+        animation: goldFade 0.4s ease; }
+      @keyframes goldFade { from { opacity:0; } to { opacity:1; } }
+      .gold-card { background:#FFEEA0; border-radius:24px; max-width:420px; width:100%;
+        padding:44px 36px 36px; text-align:center; position:relative; overflow:hidden;
+        animation: goldPop 0.55s cubic-bezier(0.34,1.56,0.64,1); }
+      @keyframes goldPop { from { transform:scale(0.7); opacity:0; } to { transform:scale(1); opacity:1; } }
+      .gold-card img.gold-bird { width:88px; margin:0 auto 14px; display:block;
+        animation: goldBob 2.4s ease-in-out infinite; }
+      @keyframes goldBob { 0%,100% { transform:translateY(0) rotate(-2deg); } 50% { transform:translateY(-8px) rotate(3deg); } }
+      .gold-card h2 { font-family:'Lora',serif; font-weight:600; font-size:26px; color:#545454; margin:0 0 10px; }
+      .gold-card p { font-size:15px; line-height:1.6; color:#6d4c00; margin:0 0 8px; }
+      .gold-card .gold-first { font-family:'Lora',serif; font-style:italic; font-size:16px; color:#545454; margin:12px 0 4px; }
+      .gold-card button { margin-top:18px; background:#F08782; color:#fff; border:none; border-radius:50px;
+        padding:12px 28px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+      .gold-spark { position:absolute; font-size:18px; opacity:0.7; animation: goldBob 3s ease-in-out infinite; }
+    `;
+    document.head.appendChild(style);
+
+    const overlay = document.createElement('div');
+    overlay.className = 'gold-overlay';
+    overlay.innerHTML = `
+      <div class="gold-card">
+        <span class="gold-spark" style="top:22px;left:26px;">✨</span>
+        <span class="gold-spark" style="top:40px;right:30px;animation-delay:0.7s;">✨</span>
+        <span class="gold-spark" style="bottom:80px;left:40px;animation-delay:1.3s;">✨</span>
+        <img class="gold-bird" src="assets/Brand%20and%20Elements/Copy%20of%20bird_gold-01.png" alt="">
+        <h2>The golden birdie is yours, ${firstName}!</h2>
+        <p>You've completed the entire <strong>Virginia Licensing Standards</strong> course —
+           every module, every quiz.</p>
+        ${isFirstEver ? `<p class="gold-first">And you're the very first at Bright Beginnings to do it. We noticed. 💛</p>` : ''}
+        <p>Thank you for taking such good care of the little ones — and of your own growth.</p>
+        <button onclick="this.closest('.gold-overlay').remove()">Back to learning →</button>
+      </div>`;
+    document.body.appendChild(overlay);
+
+    // Never show twice
+    const uid = auth.currentUser?.uid;
+    if (uid) {
+      await db.collection('progress').doc(uid).set({
+        licensingCelebratedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      }, { merge: true });
+    }
+  } catch (e) { /* celebration is never worth breaking the app over */ }
 }
 
 /* ============================================
