@@ -315,6 +315,13 @@ img { max-width: 100%; }
 .req-desc { display: block; font-size: 13.5px; color: var(--dk-gray); line-height: 1.6; }
 .req-desc strong { color: var(--charcoal); font-weight: 700; }
 
+/* numbered step list (how-to instructions) */
+.num-list { list-style: none; counter-reset: step; margin: 4px 0 18px; }
+.num-list li { position: relative; padding-left: 34px; font-size: 14px; color: var(--dk-gray); line-height: 1.6; margin-bottom: 12px; counter-increment: step; }
+.num-list li:last-child { margin-bottom: 0; }
+.num-list li::before { content: counter(step); position: absolute; left: 0; top: 1px; width: 22px; height: 22px; border-radius: 50%; background: var(--coral-soft); color: var(--coral); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.num-list li strong { color: var(--charcoal); font-weight: 600; }
+
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
 .two-col-block { background: var(--cream); border-radius: 12px; padding: 13px 14px; }
 .stat-grid { display: flex; gap: 10px; margin-bottom: 18px; }
@@ -2710,6 +2717,8 @@ const ICON = {
   heart:'<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>',
   cal:  '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
   star: '<svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/></svg>',
+  finger:'<svg viewBox="0 0 24 24"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/><path d="M14 13.12c0 2.38 0 6.38-1 8.88"/><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/><path d="M2 12a10 10 0 0 1 18-6"/><path d="M2 16h.01"/><path d="M21.8 16c.2-2 .131-5.354 0-6"/><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"/><path d="M8.65 22c.21-.66.45-1.32.57-2"/><path d="M9 6.8a6 6 0 0 1 9 5.2v2"/></svg>',
+  pulse:'<svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
 };
 function dlBtn(file, label) {
   return `<a class="doc-btn" href="docs/${file}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>${label}</a>`;
@@ -2763,7 +2772,46 @@ const BEFORE_YOU_START_MODULES = [
               <span class="req-desc">Payroll needs these before your start date — your first deposit takes about three pay cycles to begin.</span>
             </div></li>
           </ul>
-          <div class="callout warn"><strong>Tip:</strong> Fingerprints are the most common holdup. Book your Fieldprint appointment the day you get your codes — you can always go early.</div>`
+          <div class="callout warn"><strong>Tip:</strong> Fingerprints are the most common holdup — see the next section to book yours. You can always go to your appointment early.</div>`
+      },
+      { id: 'fingerprints', title: 'Getting your fingerprints done', sub: 'The #1 holdup — book early', accent: 'orange', icon: ICON.finger,
+        body: `
+          <span class="deadline-badge before">Before employment begins</span>
+          <p>Before you can work independently with children, you'll need a fingerprint-based background check through <strong>Fieldprint Virginia</strong>. It's the most common holdup in onboarding, so please book it as early as you can — and remember, you can always go to your appointment <em>early</em>.</p>
+          <h4>How to schedule</h4>
+          <ol class="num-list">
+            <li>Go to <strong>www.FieldprintVirginia.com</strong>.</li>
+            <li>Click <strong>"Schedule an Appointment."</strong></li>
+            <li>Under <strong>New Users / Sign Up</strong>, enter your email, then create a password and security question and click <strong>"Sign Up and Continue."</strong></li>
+            <li>Enter the <strong>Fieldprint code</strong> for your location (see the table below). Please schedule for <strong>all three locations</strong> — we love it when teachers can substitute at our sister schools!</li>
+            <li>Enter your contact and demographic information, then book an appointment at the location closest to you.</li>
+          </ol>
+          <h4>Fieldprint codes by location</h4>
+          <div class="data-table-wrap"><table class="data-table">
+            <thead><tr><th>Location</th><th>Fieldprint code</th><th>Facility ID</th></tr></thead>
+            <tbody>
+              <tr><td>Forest Lakes</td><td class="hl">FPVADSSChDayCntrEmp</td><td>106523</td></tr>
+              <tr><td>Mill Creek</td><td class="hl">FPVADSSChDayCntrEmp</td><td>123618</td></tr>
+              <tr><td>Crozet</td><td class="hl">FPVADSSChDayCntrEmp</td><td>107777</td></tr>
+            </tbody>
+          </table></div>
+          <div class="callout warn"><strong>Important:</strong> Your fingerprints must be completed <em>and cleared</em> before you can work independently with children — so please make this one of the first things you do.</div>
+          <p style="font-size:13px;color:var(--mid-gray)">These same instructions are also inside <strong>The Signature Packet</strong> (in your Documents), if you'd like a printable copy.</p>`
+      },
+      { id: 'tb-screening', title: 'Your TB screening', sub: 'A quick health form before you start', accent: 'orange', icon: ICON.pulse,
+        body: `
+          <span class="deadline-badge before">Before employment begins</span>
+          <p>You'll need a <strong>TB (tuberculosis) screening</strong> on file before you can work independently with children. It's a short form a healthcare provider fills out and signs — most people can take care of it in a single visit.</p>
+          <h4>Where to get it</h4>
+          <ul class="check-list">
+            <li>Your <strong>primary care doctor</strong>, or a walk-in / urgent care clinic, or</li>
+            <li>Your <strong>local health department</strong>.</li>
+          </ul>
+          <h4>How it works</h4>
+          <p>Ask them to complete and sign the <strong>BB TB Screening Form</strong> (it's inside your Signature Packet — bring it with you). Most often this is a quick <strong>TB skin test (PPD)</strong>: a small test placed on your forearm that a provider reads 2–3 days later. If a test isn't needed, a physician or health-department official can sign off based on a simple risk assessment instead — either way, they fill in and sign the form.</p>
+          <div class="callout warn"><strong>Timing:</strong> The form must be dated within the <strong>30 days before your start date</strong> and on file before you're with children — so please book it early. (It renews every 2 years after that.)</div>
+          <div class="callout"><strong>Don't need one?</strong> If you have a medical or geographical reason you don't need a TB test, email a <strong>doctor's note describing your situation</strong> to <strong>accounts@brightbeginningsva.com</strong> and we'll take care of it from there.</div>
+          ${dlBtn('BB-Signature-Packet.pdf','Open the packet (TB form inside)')}`
       },
       { id: 'provisional', title: 'Can I start before everything clears?', sub: 'The provisional rule', accent: 'teal', icon: ICON.shield,
         body: `
