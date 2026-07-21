@@ -296,14 +296,20 @@ auth.onAuthStateChanged(async (user) => {
   document.getElementById('nav-email').textContent = user.email;
   let isAdmin = false;
   try {
-    // Platform admins/owner get access automatically; the legacy per-doc
-    // progress.role === 'admin' flag still works too.
-    const [uSnap, pSnap] = await Promise.all([
-      db.collection('users').doc(user.uid).get(),
-      db.collection('progress').doc(user.uid).get(),
-    ]);
-    isAdmin = (uSnap.exists && ['admin', 'owner'].includes(uSnap.data().role))
-           || (pSnap.exists && pSnap.data().role === 'admin');
+    // Primary source of truth: the platform stores role in the Auth token's
+    // custom claims (createSpokeToken mints the spoke token with { role }).
+    const tokenResult = await user.getIdTokenResult();
+    if (['admin', 'owner'].includes(tokenResult.claims.role)) {
+      isAdmin = true;
+    } else {
+      // Fallbacks: a users/{uid}.role field, or the legacy progress.role flag.
+      const [uSnap, pSnap] = await Promise.all([
+        db.collection('users').doc(user.uid).get(),
+        db.collection('progress').doc(user.uid).get(),
+      ]);
+      isAdmin = (uSnap.exists && ['admin', 'owner'].includes(uSnap.data().role))
+             || (pSnap.exists && pSnap.data().role === 'admin');
+    }
   } catch (e) { /* fall through */ }
   if (!isAdmin) {
     document.getElementById('gate').innerHTML = `
