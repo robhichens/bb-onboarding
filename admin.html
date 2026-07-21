@@ -214,6 +214,22 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+/* Platform token handoff (spoke SSO): staff.brightbeginningsva.com opens this
+   page with ?token=<custom token>. Sign in with it, scrub the token from the
+   URL, and hold the admin redirect below until the sign-in resolves. */
+const _ssoParams = new URLSearchParams(window.location.search);
+const _spokeToken = _ssoParams.get('token');
+let _tokenPending = !!_spokeToken;
+if (_spokeToken) {
+  _ssoParams.delete('token');
+  window.history.replaceState({}, '',
+    window.location.pathname + (_ssoParams.toString() ? '?' + _ssoParams.toString() : ''));
+  auth.signInWithCustomToken(_spokeToken).catch(err => {
+    console.warn('Platform token sign-in failed:', err.code);
+    window.location.href = 'index.html';
+  }).finally(() => { _tokenPending = false; });
+}
+
 // ── EmailJS config ─────────────────────────────────────────
 const EMAILJS_PUBLIC_KEY  = 'sxTxSw0jkVLUIWPpr';
 const EMAILJS_SERVICE_ID  = 'service_vzv701i';
@@ -276,7 +292,7 @@ function showInviteFeedback(msg, type) {
 }
 
 auth.onAuthStateChanged(async (user) => {
-  if (!user) { window.location.href = 'index.html'; return; }
+  if (!user) { if (_tokenPending) return; window.location.href = 'index.html'; return; }
   document.getElementById('nav-email').textContent = user.email;
   let isAdmin = false;
   try {
